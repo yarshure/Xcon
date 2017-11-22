@@ -1,0 +1,9 @@
+github "networkextension/SwiftyJSON" "3.1.4"
+github "zhuhaow/Sodium-framework" "v1.0.10.1"
+github "networkextension/libkcp" "c0cfb12e3d576788ecae2c2be14e2517169e5628"
+github "soffes/CommonCrypto" "v1.1.0"
+github "soffes/Crypto"
+github "iosdevzone/IDZSwiftCommonCrypto"
+github "Hearst-DD/ObjectMapper" "0c116f44b5d052892146bcb94ad6c690b3dec40d"
+github "yarshure/Xsocket.git"
+

@@ -8,12 +8,52 @@
 
 /* Begin PBXBuildFile section */
 		691EBDCB1FC575D8005FDCAF /* Xcon.h in Headers */ = {isa = PBXBuildFile; fileRef = 691EBDC91FC575D8005FDCAF /* Xcon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		691EBDD21FC5771C005FDCAF /* Xcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD11FC5771C005FDCAF /* Xcon.swift */; };
+		691EBDD41FC57745005FDCAF /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD31FC57745005FDCAF /* Adapter.swift */; };
+		691EBDD61FC57810005FDCAF /* SFProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD51FC57810005FDCAF /* SFProxy.swift */; };
+		691EBDD81FC57A93005FDCAF /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDD71FC57A93005FDCAF /* ObjectMapper.framework */; };
+		691EBDDA1FC57AA4005FDCAF /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDD91FC57AA4005FDCAF /* SwiftyJSON.framework */; };
+		691EBDDC1FC57AC8005FDCAF /* SFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDDB1FC57AC8005FDCAF /* SFModel.swift */; };
+		691EBDDE1FC57B20005FDCAF /* ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDDD1FC57B20005FDCAF /* ext.swift */; };
+		691EBDE01FC57B47005FDCAF /* HTTPAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDDF1FC57B47005FDCAF /* HTTPAdapter.swift */; };
+		691EBDE21FC57B53005FDCAF /* Socks5Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE11FC57B53005FDCAF /* Socks5Adapter.swift */; };
+		691EBDE41FC57B61005FDCAF /* SSAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE31FC57B61005FDCAF /* SSAdapter.swift */; };
+		691EBDE61FC57B6C005FDCAF /* SS3Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE51FC57B6C005FDCAF /* SS3Adapter.swift */; };
+		691EBDE81FC57F0C005FDCAF /* XSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDE71FC57F0C005FDCAF /* XSocket.framework */; };
+		691EBDEA1FC57F17005FDCAF /* kcp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDE91FC57F17005FDCAF /* kcp.framework */; };
+		691EBDEC1FC57F27005FDCAF /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDEB1FC57F27005FDCAF /* CommonCrypto.framework */; };
+		691EBDEE1FC57F30005FDCAF /* AxLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDED1FC57F30005FDCAF /* AxLogger.framework */; };
+		691EBDF01FC57F4B005FDCAF /* SFEncrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDEF1FC57F4B005FDCAF /* SFEncrypt.swift */; };
+		691EBDF21FC57FFE005FDCAF /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDF11FC57FFE005FDCAF /* Sodium.framework */; };
+		691EBDF41FC5801C005FDCAF /* SFData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF31FC5801C005FDCAF /* SFData.swift */; };
+		691EBDF81FC580B6005FDCAF /* SFHTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */; };
+		691EBDFA1FC582C1005FDCAF /* EncryptExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		691EBDC61FC575D8005FDCAF /* Xcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Xcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		691EBDC91FC575D8005FDCAF /* Xcon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Xcon.h; sourceTree = "<group>"; };
 		691EBDCA1FC575D8005FDCAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		691EBDD11FC5771C005FDCAF /* Xcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xcon.swift; sourceTree = "<group>"; };
+		691EBDD31FC57745005FDCAF /* Adapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Adapter.swift; sourceTree = "<group>"; };
+		691EBDD51FC57810005FDCAF /* SFProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFProxy.swift; sourceTree = "<group>"; };
+		691EBDD71FC57A93005FDCAF /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = Carthage/Build/iOS/ObjectMapper.framework; sourceTree = "<group>"; };
+		691EBDD91FC57AA4005FDCAF /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		691EBDDB1FC57AC8005FDCAF /* SFModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFModel.swift; sourceTree = "<group>"; };
+		691EBDDD1FC57B20005FDCAF /* ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ext.swift; sourceTree = "<group>"; };
+		691EBDDF1FC57B47005FDCAF /* HTTPAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPAdapter.swift; sourceTree = "<group>"; };
+		691EBDE11FC57B53005FDCAF /* Socks5Adapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socks5Adapter.swift; sourceTree = "<group>"; };
+		691EBDE31FC57B61005FDCAF /* SSAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAdapter.swift; sourceTree = "<group>"; };
+		691EBDE51FC57B6C005FDCAF /* SS3Adapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SS3Adapter.swift; sourceTree = "<group>"; };
+		691EBDE71FC57F0C005FDCAF /* XSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XSocket.framework; path = Carthage/Build/iOS/XSocket.framework; sourceTree = "<group>"; };
+		691EBDE91FC57F17005FDCAF /* kcp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = kcp.framework; path = Carthage/Build/iOS/kcp.framework; sourceTree = "<group>"; };
+		691EBDEB1FC57F27005FDCAF /* CommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommonCrypto.framework; path = Carthage/Build/iOS/CommonCrypto.framework; sourceTree = "<group>"; };
+		691EBDED1FC57F30005FDCAF /* AxLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AxLogger.framework; path = Carthage/Build/iOS/AxLogger.framework; sourceTree = "<group>"; };
+		691EBDEF1FC57F4B005FDCAF /* SFEncrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFEncrypt.swift; sourceTree = "<group>"; };
+		691EBDF11FC57FFE005FDCAF /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
+		691EBDF31FC5801C005FDCAF /* SFData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFData.swift; sourceTree = "<group>"; };
+		691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFHTTPHeader.swift; sourceTree = "<group>"; };
+		691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,6 +61,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				691EBDDA1FC57AA4005FDCAF /* SwiftyJSON.framework in Frameworks */,
+				691EBDD81FC57A93005FDCAF /* ObjectMapper.framework in Frameworks */,
+				691EBDE81FC57F0C005FDCAF /* XSocket.framework in Frameworks */,
+				691EBDF21FC57FFE005FDCAF /* Sodium.framework in Frameworks */,
+				691EBDEE1FC57F30005FDCAF /* AxLogger.framework in Frameworks */,
+				691EBDEC1FC57F27005FDCAF /* CommonCrypto.framework in Frameworks */,
+				691EBDEA1FC57F17005FDCAF /* kcp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -30,6 +77,13 @@
 		691EBDBC1FC575D8005FDCAF = {
 			isa = PBXGroup;
 			children = (
+				691EBDF11FC57FFE005FDCAF /* Sodium.framework */,
+				691EBDED1FC57F30005FDCAF /* AxLogger.framework */,
+				691EBDEB1FC57F27005FDCAF /* CommonCrypto.framework */,
+				691EBDE91FC57F17005FDCAF /* kcp.framework */,
+				691EBDE71FC57F0C005FDCAF /* XSocket.framework */,
+				691EBDD91FC57AA4005FDCAF /* SwiftyJSON.framework */,
+				691EBDD71FC57A93005FDCAF /* ObjectMapper.framework */,
 				691EBDC81FC575D8005FDCAF /* Xcon */,
 				691EBDC71FC575D8005FDCAF /* Products */,
 			);
@@ -47,7 +101,20 @@
 			isa = PBXGroup;
 			children = (
 				691EBDC91FC575D8005FDCAF /* Xcon.h */,
+				691EBDEF1FC57F4B005FDCAF /* SFEncrypt.swift */,
 				691EBDCA1FC575D8005FDCAF /* Info.plist */,
+				691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */,
+				691EBDD11FC5771C005FDCAF /* Xcon.swift */,
+				691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */,
+				691EBDF31FC5801C005FDCAF /* SFData.swift */,
+				691EBDDB1FC57AC8005FDCAF /* SFModel.swift */,
+				691EBDD51FC57810005FDCAF /* SFProxy.swift */,
+				691EBDD31FC57745005FDCAF /* Adapter.swift */,
+				691EBDDD1FC57B20005FDCAF /* ext.swift */,
+				691EBDE11FC57B53005FDCAF /* Socks5Adapter.swift */,
+				691EBDE31FC57B61005FDCAF /* SSAdapter.swift */,
+				691EBDDF1FC57B47005FDCAF /* HTTPAdapter.swift */,
+				691EBDE51FC57B6C005FDCAF /* SS3Adapter.swift */,
 			);
 			path = Xcon;
 			sourceTree = "<group>";
@@ -95,6 +162,7 @@
 				TargetAttributes = {
 					691EBDC51FC575D8005FDCAF = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -131,6 +199,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				691EBDD61FC57810005FDCAF /* SFProxy.swift in Sources */,
+				691EBDE41FC57B61005FDCAF /* SSAdapter.swift in Sources */,
+				691EBDD21FC5771C005FDCAF /* Xcon.swift in Sources */,
+				691EBDDE1FC57B20005FDCAF /* ext.swift in Sources */,
+				691EBDDC1FC57AC8005FDCAF /* SFModel.swift in Sources */,
+				691EBDE21FC57B53005FDCAF /* Socks5Adapter.swift in Sources */,
+				691EBDD41FC57745005FDCAF /* Adapter.swift in Sources */,
+				691EBDE01FC57B47005FDCAF /* HTTPAdapter.swift in Sources */,
+				691EBDF01FC57F4B005FDCAF /* SFEncrypt.swift in Sources */,
+				691EBDF41FC5801C005FDCAF /* SFData.swift in Sources */,
+				691EBDFA1FC582C1005FDCAF /* EncryptExtension.swift in Sources */,
+				691EBDF81FC580B6005FDCAF /* SFHTTPHeader.swift in Sources */,
+				691EBDE61FC57B6C005FDCAF /* SS3Adapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +334,7 @@
 		691EBDCF1FC575D8005FDCAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -260,12 +342,18 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Xcon/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.Xcon;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -274,6 +362,7 @@
 		691EBDD01FC575D8005FDCAF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -281,8 +370,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Xcon/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.Xcon;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
