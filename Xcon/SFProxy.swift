@@ -33,8 +33,8 @@ public enum SFProxyType :Int, CustomStringConvertible{
     }
 }
 public class Proxys:CommonModel {
-    var chainProxys:[SFProxy] = []
-    var proxys:[SFProxy] = []
+    public var chainProxys:[SFProxy] = []
+    public var proxys:[SFProxy] = []
     var deleteproxys:[SFProxy] = []
     public override func mapping(map: Map) {
         chainProxys  <- map["chainProxys"]
@@ -45,7 +45,7 @@ public class Proxys:CommonModel {
         super.init(map: map)
         //self.mapping(map: map)
     }
-    func  selectedProxy(_ selectIndex:Int ) ->SFProxy? {
+    public func  selectedProxy(_ selectIndex:Int ) ->SFProxy? {
         if proxys.count > 0 {
             if selectIndex >= proxys.count {
                 return proxys.first!
@@ -118,7 +118,7 @@ public class Proxys:CommonModel {
         deleteproxys.append(p)
         
     }
-    func changeIndex(_ srcPath:IndexPath,destPath:IndexPath){
+    public func changeIndex(_ srcPath:IndexPath,destPath:IndexPath){
         #if os(iOS)
         if srcPath.section == destPath.section {
             if srcPath.section == 0 {
@@ -145,7 +145,7 @@ public class Proxys:CommonModel {
     func save()  {
         
     }
-    static func load(_ path:String)->Proxys?{
+    static public func load(_ path:String)->Proxys?{
         do {
             let string  = try String.init(contentsOfFile: path)
             guard let proxy = Mapper<Proxys>().map(JSONString: string) else {

@@ -22,7 +22,7 @@ open class CommonModel:NSObject,Mappable{
     static var defaultDateTransform:DateFormatterTransform = CustomDateFormatTransform(formatString: AppConsts.apiDataFormatStr)
     static var defaultUrlTransform:URLTransform = URLTransform()
     
-    var dateTransform:DateFormatterTransform{
+    public var dateTransform:DateFormatterTransform{
         return CommonModel.defaultDateTransform
     }
     override open func copy() -> Any {
