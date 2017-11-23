@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import XSocket
 public protocol XconDelegate: class {
     /**
      The socket did disconnect.
@@ -42,7 +43,68 @@ public protocol XconDelegate: class {
      */
     func didConnect(_ socket: Xcon)
 }
-public class Xcon{
+public class Xcon:RawSocketProtocol{
+    public var delegate: RawSocketDelegate?
+    
+    init(q:DispatchQueue) {
+    
+    }
+    public func forceDisconnect(_ sessionID: UInt32) {
+        
+    }
+    
+    public var queue: DispatchQueue!
+    
+    public var isConnected: Bool = false
+    
+    public var writePending: Bool = false
+    
+    public var readPending: Bool = false
+    
+    public var sourceIPAddress: IPv4Address?
+    
+    public var sourcePort: Port?
+    
+    public var destinationIPAddress: IPv4Address?
+    
+    public var destinationPort: Port?
+    
+    public var useCell: Bool = false
+    
+    public var tcp: Bool = false
+    
+    public func connectTo(_ host: String, port: UInt16, enableTLS: Bool, tlsSettings: [NSObject : AnyObject]?) throws {
+        
+    }
+    
+    public func disconnect(becauseOf error: Error?) {
+        
+    }
+    
+    public func forceDisconnect(becauseOf error: Error?) {
+        
+    }
+    
+    public func writeData(_ data: Data, withTag: Int) {
+        
+    }
+    
+    public func readDataWithTag(_ tag: Int) {
+        
+    }
+    
+    public func readDataToLength(_ length: Int, withTag tag: Int) {
+        
+    }
+    
+    public func readDataToData(_ data: Data, withTag tag: Int) {
+        
+    }
+    
+    public func readDataToData(_ data: Data, withTag tag: Int, maxLength: Int) {
+        
+    }
+    
     
 }
 import AxLogger

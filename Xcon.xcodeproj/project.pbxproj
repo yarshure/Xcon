@@ -58,25 +58,8 @@
 		693A35531FC6726F007FDE26 /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A35491FC6726E007FDE26 /* Sodium.framework */; };
 		693A35541FC6726F007FDE26 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A354A1FC6726E007FDE26 /* SwiftyJSON.framework */; };
 		693A35561FC6726F007FDE26 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A354C1FC6726F007FDE26 /* ObjectMapper.framework */; };
-		693A35641FC6736C007FDE26 /* XSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A35631FC67359007FDE26 /* XSocket.framework */; };
+		693A35791FC69381007FDE26 /* XSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A35781FC69381007FDE26 /* XSocket.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		693A35601FC67359007FDE26 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 693A355B1FC67358007FDE26 /* XSocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 691EBD9D1FC5705B005FDCAF;
-			remoteInfo = XSocket;
-		};
-		693A35621FC67359007FDE26 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 693A355B1FC67358007FDE26 /* XSocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 691EBE471FC66E61005FDCAF;
-			remoteInfo = XSocketMac;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		691EBDC61FC575D8005FDCAF /* Xcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Xcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,7 +88,7 @@
 		691EBDFD1FC650C1005FDCAF /* ProxyConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProxyConnector.swift; sourceTree = "<group>"; };
 		691EBDFF1FC650C8005FDCAF /* TCPSSConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPSSConnector.swift; sourceTree = "<group>"; };
 		691EBE011FC650CE005FDCAF /* DirectConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectConnector.swift; sourceTree = "<group>"; };
-		691EBE281FC66DD3005FDCAF /* XconMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = XconMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		691EBE281FC66DD3005FDCAF /* Xcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Xcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		691EBE2A1FC66DD3005FDCAF /* XconMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XconMac.h; sourceTree = "<group>"; };
 		691EBE2B1FC66DD3005FDCAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		693A35431FC6726E007FDE26 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/Mac/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
@@ -116,9 +99,8 @@
 		693A35481FC6726E007FDE26 /* IDZSwiftCommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDZSwiftCommonCrypto.framework; path = Carthage/Build/Mac/IDZSwiftCommonCrypto.framework; sourceTree = "<group>"; };
 		693A35491FC6726E007FDE26 /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/Mac/Sodium.framework; sourceTree = "<group>"; };
 		693A354A1FC6726E007FDE26 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
-		693A354B1FC6726F007FDE26 /* Xsocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Xsocket.framework; path = Carthage/Build/Mac/Xsocket.framework; sourceTree = "<group>"; };
 		693A354C1FC6726F007FDE26 /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = Carthage/Build/Mac/ObjectMapper.framework; sourceTree = "<group>"; };
-		693A355B1FC67358007FDE26 /* XSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XSocket.xcodeproj; path = ../../XSocket/XSocket.xcodeproj; sourceTree = "<group>"; };
+		693A35781FC69381007FDE26 /* XSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XSocket.framework; path = Carthage/Build/Mac/XSocket.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,7 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				693A35641FC6736C007FDE26 /* XSocket.framework in Frameworks */,
+				693A35791FC69381007FDE26 /* XSocket.framework in Frameworks */,
 				693A35501FC6726F007FDE26 /* AxLogger.framework in Frameworks */,
 				693A35561FC6726F007FDE26 /* ObjectMapper.framework in Frameworks */,
 				693A35521FC6726F007FDE26 /* IDZSwiftCommonCrypto.framework in Frameworks */,
@@ -175,7 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				691EBDC61FC575D8005FDCAF /* Xcon.framework */,
-				691EBE281FC66DD3005FDCAF /* XconMac.framework */,
+				691EBE281FC66DD3005FDCAF /* Xcon.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -183,7 +165,6 @@
 		691EBDC81FC575D8005FDCAF /* Xcon */ = {
 			isa = PBXGroup;
 			children = (
-				693A355B1FC67358007FDE26 /* XSocket.xcodeproj */,
 				691EBDC91FC575D8005FDCAF /* Xcon.h */,
 				691EBDEF1FC57F4B005FDCAF /* SFEncrypt.swift */,
 				691EBDCA1FC575D8005FDCAF /* Info.plist */,
@@ -210,6 +191,7 @@
 		691EBE0B1FC65614005FDCAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				693A35781FC69381007FDE26 /* XSocket.framework */,
 				693A35461FC6726E007FDE26 /* AxLogger.framework */,
 				693A35431FC6726E007FDE26 /* CocoaAsyncSocket.framework */,
 				693A35441FC6726E007FDE26 /* CommonCrypto.framework */,
@@ -219,7 +201,6 @@
 				693A354C1FC6726F007FDE26 /* ObjectMapper.framework */,
 				693A35491FC6726E007FDE26 /* Sodium.framework */,
 				693A354A1FC6726E007FDE26 /* SwiftyJSON.framework */,
-				693A354B1FC6726F007FDE26 /* Xsocket.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -231,15 +212,6 @@
 				691EBE2B1FC66DD3005FDCAF /* Info.plist */,
 			);
 			path = XconMac;
-			sourceTree = "<group>";
-		};
-		693A355C1FC67358007FDE26 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				693A35611FC67359007FDE26 /* XSocket.framework */,
-				693A35631FC67359007FDE26 /* XSocket.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,7 +269,7 @@
 			);
 			name = XconMac;
 			productName = XconMac;
-			productReference = 691EBE281FC66DD3005FDCAF /* XconMac.framework */;
+			productReference = 691EBE281FC66DD3005FDCAF /* Xcon.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -330,12 +302,6 @@
 			mainGroup = 691EBDBC1FC575D8005FDCAF;
 			productRefGroup = 691EBDC71FC575D8005FDCAF /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 693A355C1FC67358007FDE26 /* Products */;
-					ProjectRef = 693A355B1FC67358007FDE26 /* XSocket.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				691EBDC51FC575D8005FDCAF /* Xcon */,
@@ -343,23 +309,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		693A35611FC67359007FDE26 /* XSocket.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XSocket.framework;
-			remoteRef = 693A35601FC67359007FDE26 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		693A35631FC67359007FDE26 /* XSocket.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XSocket.framework;
-			remoteRef = 693A35621FC67359007FDE26 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		691EBDC41FC575D8005FDCAF /* Resources */ = {
@@ -620,7 +569,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.XconMac;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = Xcon;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -649,7 +598,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.XconMac;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = Xcon;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
