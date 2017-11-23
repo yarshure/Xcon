@@ -299,7 +299,7 @@ class Socks5Adapter: Adapter {
             if stage == .Auth {
                 return sendAuth()
             }else {
-                fatalError()
+                print("############### error")
                 return Data()
             }
         }else {

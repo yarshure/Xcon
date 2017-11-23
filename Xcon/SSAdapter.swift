@@ -32,7 +32,7 @@ class SSAdapter:Adapter {
         //        let  buf:bufferRef = bufferRef.alloc(1)
         //        balloc(buf,BUF_SIZE)
         let  request_atyp:SOCKS5HostType = realHost.validateIpAddr()
-        var atype:UInt8 = SOCKS_IPV4
+        
         if  request_atyp  == .IPV4{
             
             header.append(SOCKS_IPV4)
@@ -44,7 +44,7 @@ class SSAdapter:Adapter {
             addr_len  +=  MemoryLayout<UInt32>.size + 2
             
         }else if request_atyp == .DOMAIN{
-            atype = SOCKS_DOMAIN
+            
             header.append(SOCKS_DOMAIN)
             addr_len += 1
             let name_len = realHost.count
@@ -58,7 +58,7 @@ class SSAdapter:Adapter {
             addr_len += 2
         }else {
             //ipv6
-            atype = SOCKS_IPV6
+            
             header.append(SOCKS_IPV6)
             addr_len += 1
             if let data =  toIPv6Addr(ipString: targetHost) {
