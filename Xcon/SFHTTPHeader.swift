@@ -192,7 +192,7 @@ open  class  SFHTTPResponseHeader :SFHTTPHeader{
             self.version = c[0]
             self.sCode = Int(c[1])!
         }else {
-            //SKit.log("\(row) packet error",level: .Error)
+            //Xcon.log("\(row) packet error",level: .Error)
             //print("http \(row) response no params")
         }
         
@@ -548,20 +548,20 @@ open class  SFHTTPRequestHeader :SFHTTPHeader{
                             self.Host = uhost
                         }
                         //let c = HTTPRequestHeader.listGroups(uhost)
-                        //SKit.log("Host:\(uhost)",level: .Trace)
+                        //Xcon.log("Host:\(uhost)",level: .Trace)
                         
                         //                        if let ip = c.first {
                         //                            let type = validateIpAddr(ip)
                         //                            if  type  == .IPV4 {
                         //                                self.ipAddressV4 = ip
-                        //                                SKit.log("IP:\(self.ipAddressV4)",level:.Trace)
+                        //                                Xcon.log("IP:\(self.ipAddressV4)",level:.Trace)
                         //                                //self.Url = "http://" + self.ipAddressV4 + self.Url
                         //                            }else {
                         //                                //self.Url = "http://" + uhost + self.Url
                         //                            }
-                        //                            SKit.log("\(type.description)",level:.Trace)
+                        //                            Xcon.log("\(type.description)",level:.Trace)
                         //                        }else {
-                        //                            SKit.log("\(uhost) ::ffff: failure",level: .Warning)
+                        //                            Xcon.log("\(uhost) ::ffff: failure",level: .Warning)
                         //                            //self.Url = "http://" + uhost + self.Url
                         //                        }
                         //if uhost.range(of:"[")
@@ -587,7 +587,7 @@ open class  SFHTTPRequestHeader :SFHTTPHeader{
             
             self.version = c[2]
         }else {
-            //SKit.log("header error: \(c)",level: .Error)
+            //Xcon.log("header error: \(c)",level: .Error)
             Xcon.log("http \(row) response error",level:.Error)
         }
         
@@ -648,7 +648,7 @@ open class  SFHTTPRequestHeader :SFHTTPHeader{
         return p
     }
     func debugPareas (){
-        //SKit.log("\(params)")
+        //Xcon.log("\(params)")
     }
     
     open override func headerString(_ proxy:SFProxy?)->String {
@@ -742,7 +742,7 @@ open class  SFHTTPRequestHeader :SFHTTPHeader{
                         f = method.rawValue + " " + path + " " + version + s
                     }
                     
-                    //SKit.log("new request send line \(f)",level:.Trace)
+                    //Xcon.log("new request send line \(f)",level:.Trace)
                 }else {
                     // fatalError()
                     f = method.rawValue + " / " + version + s

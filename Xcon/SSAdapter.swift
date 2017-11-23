@@ -37,7 +37,7 @@ class SSAdapter:Adapter {
             
             header.append(SOCKS_IPV4)
             addr_len += 1
-            //SKit.log("\(cIDString) target host use ip \(targetHost) ",level: .Debug)
+            //Xcon.log("\(cIDString) target host use ip \(targetHost) ",level: .Debug)
             let i :UInt32 = inet_addr(realHost.cString(using: .utf8)!)
             header.append(i)
             header.append(realPort.byteSwapped)
@@ -64,7 +64,7 @@ class SSAdapter:Adapter {
             if let data =  toIPv6Addr(ipString: targetHost) {
                 
                 //not work
-                //SKit.log("\(cIDString) convert \(targetHost) to Data:\(data)",level: .Info)
+                //Xcon.log("\(cIDString) convert \(targetHost) to Data:\(data)",level: .Info)
                 header.append(data)
                 let x = targetPort.byteSwapped
                 //let v = UnsafeBufferPointer(start: &x, count: 2)
@@ -72,7 +72,7 @@ class SSAdapter:Adapter {
                 header.append(x)
                 addr_len += 2
             }else {
-                //SKit.log("\(cIDString) convert \(targetHost) to in6_addr error )",level: .Warning)
+                //Xcon.log("\(cIDString) convert \(targetHost) to in6_addr error )",level: .Warning)
                 //return
             }
             //2001:0b28:f23f:f005:0000:0000:0000:000a
@@ -124,7 +124,7 @@ class SSAdapter:Adapter {
             
             
             datatemp = temp
-            //SKit.log("\(cIDString) will send \(head.length) \(head) ",level: .Trace)
+            //Xcon.log("\(cIDString) will send \(head.length) \(head) ",level: .Trace)
         }else {
             if ota {
                 

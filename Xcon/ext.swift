@@ -149,3 +149,18 @@ extension Range{
         return 0 //
     }
 }
+public enum SFConnectionMode:String {
+    case HTTP = "HTTP"
+    case HTTPS = "HTTPS"
+    case TCP = "TCP"
+    //case CONNECT = "CONNECT"
+    public var description: String {
+        switch self {
+        case .HTTP: return "HTTP"
+        case .HTTPS: return "HTTPS"
+        case .TCP: return "TCP"
+            //case CONNECT: return "CONNECT"
+        }
+    }
+    
+}

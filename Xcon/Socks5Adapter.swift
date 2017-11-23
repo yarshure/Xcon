@@ -47,7 +47,7 @@ class Socks5Adapter: Adapter {
                         recvBuffer = Data()
                     }
                     stage = .Bind
-                    //SKit.log("\(cIDString) recv .Auth respon and send Bind req",level: .Debug)
+                    //Xcon.log("\(cIDString) recv .Auth respon and send Bind req",level: .Debug)
                     let sdata = sendBind()
                     return (false,sdata)
                 }else if auth.pointee == 0x02 {
@@ -158,7 +158,7 @@ class Socks5Adapter: Adapter {
                         port.deallocate(capacity: 2)
                     }
                     buffer.copyBytes(to: port, from: Range(8 ..< 10))
-                    //SKit.log("\(cIDString) Bind respond \(ip.pointee):\(port.pointee)",level: .Debug)
+                    //Xcon.log("\(cIDString) Bind respond \(ip.pointee):\(port.pointee)",level: .Debug)
                     if buffer.count > 10  {
                         recvBuffer = buffer.subdata(in: Range(10 ..<  buffer.count))
                     }else {
@@ -175,7 +175,7 @@ class Socks5Adapter: Adapter {
                         port.deallocate(capacity: 1)
                     }
                     buffer.copyBytes(to: port, from: Range(5+Int(length.pointee) ..< 7+Int(length.pointee)))
-                    //SKit.log("\(cIDString) Bind respond domain name length:\(length.pointee) \(domainname):\(port.pointee)",level: .Debug)
+                    //Xcon.log("\(cIDString) Bind respond domain name length:\(length.pointee) \(domainname):\(port.pointee)",level: .Debug)
                     let len = 5+Int(length.pointee) + 2
                     if buffer.count >  len {
                         recvBuffer = buffer.subdata(in: Range(len ..< buffer.count ))

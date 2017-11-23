@@ -19,7 +19,6 @@
 		691EBDE21FC57B53005FDCAF /* Socks5Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE11FC57B53005FDCAF /* Socks5Adapter.swift */; };
 		691EBDE41FC57B61005FDCAF /* SSAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE31FC57B61005FDCAF /* SSAdapter.swift */; };
 		691EBDE61FC57B6C005FDCAF /* SS3Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE51FC57B6C005FDCAF /* SS3Adapter.swift */; };
-		691EBDE81FC57F0C005FDCAF /* XSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDE71FC57F0C005FDCAF /* XSocket.framework */; };
 		691EBDEA1FC57F17005FDCAF /* kcp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDE91FC57F17005FDCAF /* kcp.framework */; };
 		691EBDEC1FC57F27005FDCAF /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDEB1FC57F27005FDCAF /* CommonCrypto.framework */; };
 		691EBDEE1FC57F30005FDCAF /* AxLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDED1FC57F30005FDCAF /* AxLogger.framework */; };
@@ -28,7 +27,22 @@
 		691EBDF41FC5801C005FDCAF /* SFData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF31FC5801C005FDCAF /* SFData.swift */; };
 		691EBDF81FC580B6005FDCAF /* SFHTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */; };
 		691EBDFA1FC582C1005FDCAF /* EncryptExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */; };
+		691EBDFC1FC650A7005FDCAF /* HTTPProxyConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFB1FC650A7005FDCAF /* HTTPProxyConnector.swift */; };
+		691EBDFE1FC650C1005FDCAF /* ProxyConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFD1FC650C1005FDCAF /* ProxyConnector.swift */; };
+		691EBE001FC650C8005FDCAF /* TCPSSConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFF1FC650C8005FDCAF /* TCPSSConnector.swift */; };
+		691EBE021FC650CE005FDCAF /* DirectConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBE011FC650CE005FDCAF /* DirectConnector.swift */; };
+		691EBE0C1FC65614005FDCAF /* XSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBE0A1FC65600005FDCAF /* XSocket.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		691EBE091FC65600005FDCAF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 691EBE051FC65600005FDCAF /* XSocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 691EBD9D1FC5705B005FDCAF;
+			remoteInfo = XSocket;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		691EBDC61FC575D8005FDCAF /* Xcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Xcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,7 +59,6 @@
 		691EBDE11FC57B53005FDCAF /* Socks5Adapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socks5Adapter.swift; sourceTree = "<group>"; };
 		691EBDE31FC57B61005FDCAF /* SSAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAdapter.swift; sourceTree = "<group>"; };
 		691EBDE51FC57B6C005FDCAF /* SS3Adapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SS3Adapter.swift; sourceTree = "<group>"; };
-		691EBDE71FC57F0C005FDCAF /* XSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XSocket.framework; path = Carthage/Build/iOS/XSocket.framework; sourceTree = "<group>"; };
 		691EBDE91FC57F17005FDCAF /* kcp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = kcp.framework; path = Carthage/Build/iOS/kcp.framework; sourceTree = "<group>"; };
 		691EBDEB1FC57F27005FDCAF /* CommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommonCrypto.framework; path = Carthage/Build/iOS/CommonCrypto.framework; sourceTree = "<group>"; };
 		691EBDED1FC57F30005FDCAF /* AxLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AxLogger.framework; path = Carthage/Build/iOS/AxLogger.framework; sourceTree = "<group>"; };
@@ -54,6 +67,11 @@
 		691EBDF31FC5801C005FDCAF /* SFData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFData.swift; sourceTree = "<group>"; };
 		691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFHTTPHeader.swift; sourceTree = "<group>"; };
 		691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptExtension.swift; sourceTree = "<group>"; };
+		691EBDFB1FC650A7005FDCAF /* HTTPProxyConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPProxyConnector.swift; sourceTree = "<group>"; };
+		691EBDFD1FC650C1005FDCAF /* ProxyConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProxyConnector.swift; sourceTree = "<group>"; };
+		691EBDFF1FC650C8005FDCAF /* TCPSSConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPSSConnector.swift; sourceTree = "<group>"; };
+		691EBE011FC650CE005FDCAF /* DirectConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectConnector.swift; sourceTree = "<group>"; };
+		691EBE051FC65600005FDCAF /* XSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XSocket.xcodeproj; path = ../../XSocket/XSocket.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,9 +79,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				691EBE0C1FC65614005FDCAF /* XSocket.framework in Frameworks */,
 				691EBDDA1FC57AA4005FDCAF /* SwiftyJSON.framework in Frameworks */,
 				691EBDD81FC57A93005FDCAF /* ObjectMapper.framework in Frameworks */,
-				691EBDE81FC57F0C005FDCAF /* XSocket.framework in Frameworks */,
 				691EBDF21FC57FFE005FDCAF /* Sodium.framework in Frameworks */,
 				691EBDEE1FC57F30005FDCAF /* AxLogger.framework in Frameworks */,
 				691EBDEC1FC57F27005FDCAF /* CommonCrypto.framework in Frameworks */,
@@ -81,11 +99,11 @@
 				691EBDED1FC57F30005FDCAF /* AxLogger.framework */,
 				691EBDEB1FC57F27005FDCAF /* CommonCrypto.framework */,
 				691EBDE91FC57F17005FDCAF /* kcp.framework */,
-				691EBDE71FC57F0C005FDCAF /* XSocket.framework */,
 				691EBDD91FC57AA4005FDCAF /* SwiftyJSON.framework */,
 				691EBDD71FC57A93005FDCAF /* ObjectMapper.framework */,
 				691EBDC81FC575D8005FDCAF /* Xcon */,
 				691EBDC71FC575D8005FDCAF /* Products */,
+				691EBE0B1FC65614005FDCAF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,6 +118,7 @@
 		691EBDC81FC575D8005FDCAF /* Xcon */ = {
 			isa = PBXGroup;
 			children = (
+				691EBE051FC65600005FDCAF /* XSocket.xcodeproj */,
 				691EBDC91FC575D8005FDCAF /* Xcon.h */,
 				691EBDEF1FC57F4B005FDCAF /* SFEncrypt.swift */,
 				691EBDCA1FC575D8005FDCAF /* Info.plist */,
@@ -112,11 +131,30 @@
 				691EBDD31FC57745005FDCAF /* Adapter.swift */,
 				691EBDDD1FC57B20005FDCAF /* ext.swift */,
 				691EBDE11FC57B53005FDCAF /* Socks5Adapter.swift */,
+				691EBE011FC650CE005FDCAF /* DirectConnector.swift */,
+				691EBDFF1FC650C8005FDCAF /* TCPSSConnector.swift */,
+				691EBDFD1FC650C1005FDCAF /* ProxyConnector.swift */,
+				691EBDFB1FC650A7005FDCAF /* HTTPProxyConnector.swift */,
 				691EBDE31FC57B61005FDCAF /* SSAdapter.swift */,
 				691EBDDF1FC57B47005FDCAF /* HTTPAdapter.swift */,
 				691EBDE51FC57B6C005FDCAF /* SS3Adapter.swift */,
 			);
 			path = Xcon;
+			sourceTree = "<group>";
+		};
+		691EBE061FC65600005FDCAF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				691EBE0A1FC65600005FDCAF /* XSocket.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		691EBE0B1FC65614005FDCAF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,12 +215,28 @@
 			mainGroup = 691EBDBC1FC575D8005FDCAF;
 			productRefGroup = 691EBDC71FC575D8005FDCAF /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 691EBE061FC65600005FDCAF /* Products */;
+					ProjectRef = 691EBE051FC65600005FDCAF /* XSocket.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				691EBDC51FC575D8005FDCAF /* Xcon */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		691EBE0A1FC65600005FDCAF /* XSocket.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = XSocket.framework;
+			remoteRef = 691EBE091FC65600005FDCAF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		691EBDC41FC575D8005FDCAF /* Resources */ = {
@@ -199,11 +253,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				691EBDFC1FC650A7005FDCAF /* HTTPProxyConnector.swift in Sources */,
 				691EBDD61FC57810005FDCAF /* SFProxy.swift in Sources */,
+				691EBDFE1FC650C1005FDCAF /* ProxyConnector.swift in Sources */,
+				691EBE021FC650CE005FDCAF /* DirectConnector.swift in Sources */,
 				691EBDE41FC57B61005FDCAF /* SSAdapter.swift in Sources */,
 				691EBDD21FC5771C005FDCAF /* Xcon.swift in Sources */,
 				691EBDDE1FC57B20005FDCAF /* ext.swift in Sources */,
 				691EBDDC1FC57AC8005FDCAF /* SFModel.swift in Sources */,
+				691EBE001FC650C8005FDCAF /* TCPSSConnector.swift in Sources */,
 				691EBDE21FC57B53005FDCAF /* Socks5Adapter.swift in Sources */,
 				691EBDD41FC57745005FDCAF /* Adapter.swift in Sources */,
 				691EBDE01FC57B47005FDCAF /* HTTPAdapter.swift in Sources */,
