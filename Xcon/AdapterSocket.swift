@@ -78,11 +78,12 @@ public class AdapterSocket:SocketProtocol,RawSocketProtocol,RawSocketDelegate {
     public var tcp: Bool = true
     
     public func connectTo(_ host: String, port: UInt16, enableTLS: Bool, tlsSettings: [NSObject : AnyObject]?) throws {
-        var s = RawSocketFactory.getRawSocket()
-        s.delegate = self
-        s.queue = DispatchQueue.init(label: "socket")
+        socket = RawSocketFactory.getRawSocket()
+        socket.queue = DispatchQueue.init(label: "socket")
+        socket.delegate = self
+       
         Xcon.log("connect to \(host):\(port)", level: .Info)
-        try s.connectTo(host, port: port, enableTLS: enableTLS, tlsSettings: [:])
+        try socket.connectTo(host, port: port, enableTLS: enableTLS, tlsSettings: [:])
         
     }
     
