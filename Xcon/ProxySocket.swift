@@ -11,7 +11,17 @@ import AxLogger
 import NetworkExtension
 import Security
 import XSocket
-public class ProxyConnector: NWTCPSocket,NWTCPConnectionAuthenticationDelegate {
+public class ProxyConnector: AdapterSocket {
+
+    
+    public var description: String {
+        return ""
+    }
+    var cIDString:String {
+        get {
+            return "cIDString"
+        }
+    }
     var proxy:SFProxy
     var tlsSupport:Bool = false
     var targetHost:String = ""
@@ -64,7 +74,7 @@ public class ProxyConnector: NWTCPSocket,NWTCPConnectionAuthenticationDelegate {
         
         //cIDFunc()
     }
-    override public func start() {
+     public func start() {
         guard let port = UInt16(proxy.serverPort) else {
             return
         }

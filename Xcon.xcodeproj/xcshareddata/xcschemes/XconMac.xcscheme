@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "691EBE271FC66DD3005FDCAF"
-               BuildableName = "XconMac.framework"
+               BuildableName = "Xcon.framework"
                BlueprintName = "XconMac"
                ReferencedContainer = "container:Xcon.xcodeproj">
             </BuildableReference>
@@ -48,7 +48,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "691EBE271FC66DD3005FDCAF"
-            BuildableName = "XconMac.framework"
+            BuildableName = "Xcon.framework"
             BlueprintName = "XconMac"
             ReferencedContainer = "container:Xcon.xcodeproj">
          </BuildableReference>
@@ -66,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "691EBE271FC66DD3005FDCAF"
-            BuildableName = "XconMac.framework"
+            BuildableName = "Xcon.framework"
             BlueprintName = "XconMac"
             ReferencedContainer = "container:Xcon.xcodeproj">
          </BuildableReference>

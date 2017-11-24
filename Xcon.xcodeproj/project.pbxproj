@@ -27,10 +27,10 @@
 		691EBDF41FC5801C005FDCAF /* SFData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF31FC5801C005FDCAF /* SFData.swift */; };
 		691EBDF81FC580B6005FDCAF /* SFHTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */; };
 		691EBDFA1FC582C1005FDCAF /* EncryptExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */; };
-		691EBDFC1FC650A7005FDCAF /* HTTPProxyConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFB1FC650A7005FDCAF /* HTTPProxyConnector.swift */; };
-		691EBDFE1FC650C1005FDCAF /* ProxyConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFD1FC650C1005FDCAF /* ProxyConnector.swift */; };
-		691EBE001FC650C8005FDCAF /* TCPSSConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFF1FC650C8005FDCAF /* TCPSSConnector.swift */; };
-		691EBE021FC650CE005FDCAF /* DirectConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBE011FC650CE005FDCAF /* DirectConnector.swift */; };
+		691EBDFC1FC650A7005FDCAF /* HTTPSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFB1FC650A7005FDCAF /* HTTPSocket.swift */; };
+		691EBDFE1FC650C1005FDCAF /* ProxySocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFD1FC650C1005FDCAF /* ProxySocket.swift */; };
+		691EBE001FC650C8005FDCAF /* SSSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFF1FC650C8005FDCAF /* SSSocket.swift */; };
+		691EBE021FC650CE005FDCAF /* DirectSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBE011FC650CE005FDCAF /* DirectSocket.swift */; };
 		691EBE2C1FC66DD3005FDCAF /* XconMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 691EBE2A1FC66DD3005FDCAF /* XconMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		691EBE311FC66DDE005FDCAF /* SFEncrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDEF1FC57F4B005FDCAF /* SFEncrypt.swift */; };
 		691EBE321FC66DE2005FDCAF /* EncryptExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */; };
@@ -42,10 +42,10 @@
 		691EBE381FC66DF9005FDCAF /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD31FC57745005FDCAF /* Adapter.swift */; };
 		691EBE391FC66DFD005FDCAF /* ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDDD1FC57B20005FDCAF /* ext.swift */; };
 		691EBE3A1FC66E01005FDCAF /* Socks5Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE11FC57B53005FDCAF /* Socks5Adapter.swift */; };
-		691EBE3B1FC66E05005FDCAF /* DirectConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBE011FC650CE005FDCAF /* DirectConnector.swift */; };
-		691EBE3C1FC66E08005FDCAF /* TCPSSConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFF1FC650C8005FDCAF /* TCPSSConnector.swift */; };
-		691EBE3D1FC66E0C005FDCAF /* ProxyConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFD1FC650C1005FDCAF /* ProxyConnector.swift */; };
-		691EBE3E1FC66E10005FDCAF /* HTTPProxyConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFB1FC650A7005FDCAF /* HTTPProxyConnector.swift */; };
+		691EBE3B1FC66E05005FDCAF /* DirectSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBE011FC650CE005FDCAF /* DirectSocket.swift */; };
+		691EBE3C1FC66E08005FDCAF /* SSSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFF1FC650C8005FDCAF /* SSSocket.swift */; };
+		691EBE3D1FC66E0C005FDCAF /* ProxySocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFD1FC650C1005FDCAF /* ProxySocket.swift */; };
+		691EBE3E1FC66E10005FDCAF /* HTTPSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFB1FC650A7005FDCAF /* HTTPSocket.swift */; };
 		691EBE3F1FC66E15005FDCAF /* SSAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE31FC57B61005FDCAF /* SSAdapter.swift */; };
 		691EBE401FC66E1A005FDCAF /* HTTPAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDDF1FC57B47005FDCAF /* HTTPAdapter.swift */; };
 		691EBE411FC66E1E005FDCAF /* SS3Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE51FC57B6C005FDCAF /* SS3Adapter.swift */; };
@@ -59,6 +59,14 @@
 		693A35541FC6726F007FDE26 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A354A1FC6726E007FDE26 /* SwiftyJSON.framework */; };
 		693A35561FC6726F007FDE26 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A354C1FC6726F007FDE26 /* ObjectMapper.framework */; };
 		693A35791FC69381007FDE26 /* XSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A35781FC69381007FDE26 /* XSocket.framework */; };
+		693A364A1FC7CC4A007FDE26 /* Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A36491FC7CC4A007FDE26 /* Connector.swift */; };
+		693A364B1FC7CC4A007FDE26 /* Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A36491FC7CC4A007FDE26 /* Connector.swift */; };
+		693A364D1FC7CD71007FDE26 /* AdapterSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A364C1FC7CD71007FDE26 /* AdapterSocket.swift */; };
+		693A364E1FC7CD71007FDE26 /* AdapterSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A364C1FC7CD71007FDE26 /* AdapterSocket.swift */; };
+		693A36501FC7CD9D007FDE26 /* SocketProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A364F1FC7CD9D007FDE26 /* SocketProtocol.swift */; };
+		693A36511FC7CD9D007FDE26 /* SocketProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A364F1FC7CD9D007FDE26 /* SocketProtocol.swift */; };
+		693A36531FC7D3EA007FDE26 /* Socks5Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A36521FC7D3E9007FDE26 /* Socks5Socket.swift */; };
+		693A36541FC7D3EA007FDE26 /* Socks5Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A36521FC7D3E9007FDE26 /* Socks5Socket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,10 +92,10 @@
 		691EBDF31FC5801C005FDCAF /* SFData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFData.swift; sourceTree = "<group>"; };
 		691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFHTTPHeader.swift; sourceTree = "<group>"; };
 		691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptExtension.swift; sourceTree = "<group>"; };
-		691EBDFB1FC650A7005FDCAF /* HTTPProxyConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPProxyConnector.swift; sourceTree = "<group>"; };
-		691EBDFD1FC650C1005FDCAF /* ProxyConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProxyConnector.swift; sourceTree = "<group>"; };
-		691EBDFF1FC650C8005FDCAF /* TCPSSConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPSSConnector.swift; sourceTree = "<group>"; };
-		691EBE011FC650CE005FDCAF /* DirectConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectConnector.swift; sourceTree = "<group>"; };
+		691EBDFB1FC650A7005FDCAF /* HTTPSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPSocket.swift; sourceTree = "<group>"; };
+		691EBDFD1FC650C1005FDCAF /* ProxySocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProxySocket.swift; sourceTree = "<group>"; };
+		691EBDFF1FC650C8005FDCAF /* SSSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSSocket.swift; sourceTree = "<group>"; };
+		691EBE011FC650CE005FDCAF /* DirectSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectSocket.swift; sourceTree = "<group>"; };
 		691EBE281FC66DD3005FDCAF /* Xcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Xcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		691EBE2A1FC66DD3005FDCAF /* XconMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XconMac.h; sourceTree = "<group>"; };
 		691EBE2B1FC66DD3005FDCAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,6 +109,10 @@
 		693A354A1FC6726E007FDE26 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
 		693A354C1FC6726F007FDE26 /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = Carthage/Build/Mac/ObjectMapper.framework; sourceTree = "<group>"; };
 		693A35781FC69381007FDE26 /* XSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XSocket.framework; path = Carthage/Build/Mac/XSocket.framework; sourceTree = "<group>"; };
+		693A36491FC7CC4A007FDE26 /* Connector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connector.swift; sourceTree = "<group>"; };
+		693A364C1FC7CD71007FDE26 /* AdapterSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdapterSocket.swift; sourceTree = "<group>"; };
+		693A364F1FC7CD9D007FDE26 /* SocketProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketProtocol.swift; sourceTree = "<group>"; };
+		693A36521FC7D3E9007FDE26 /* Socks5Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socks5Socket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,25 +177,19 @@
 		691EBDC81FC575D8005FDCAF /* Xcon */ = {
 			isa = PBXGroup;
 			children = (
+				693A36481FC7CBD4007FDE26 /* socket */,
+				693A36471FC7CBC6007FDE26 /* Connector */,
+				693A36461FC7CBA8007FDE26 /* Adapter */,
 				691EBDC91FC575D8005FDCAF /* Xcon.h */,
 				691EBDEF1FC57F4B005FDCAF /* SFEncrypt.swift */,
 				691EBDCA1FC575D8005FDCAF /* Info.plist */,
 				691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */,
-				691EBDD11FC5771C005FDCAF /* Xcon.swift */,
 				691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */,
 				691EBDF31FC5801C005FDCAF /* SFData.swift */,
 				691EBDDB1FC57AC8005FDCAF /* SFModel.swift */,
 				691EBDD51FC57810005FDCAF /* SFProxy.swift */,
 				691EBDD31FC57745005FDCAF /* Adapter.swift */,
 				691EBDDD1FC57B20005FDCAF /* ext.swift */,
-				691EBDE11FC57B53005FDCAF /* Socks5Adapter.swift */,
-				691EBE011FC650CE005FDCAF /* DirectConnector.swift */,
-				691EBDFF1FC650C8005FDCAF /* TCPSSConnector.swift */,
-				691EBDFD1FC650C1005FDCAF /* ProxyConnector.swift */,
-				691EBDFB1FC650A7005FDCAF /* HTTPProxyConnector.swift */,
-				691EBDE31FC57B61005FDCAF /* SSAdapter.swift */,
-				691EBDDF1FC57B47005FDCAF /* HTTPAdapter.swift */,
-				691EBDE51FC57B6C005FDCAF /* SS3Adapter.swift */,
 			);
 			path = Xcon;
 			sourceTree = "<group>";
@@ -212,6 +218,40 @@
 				691EBE2B1FC66DD3005FDCAF /* Info.plist */,
 			);
 			path = XconMac;
+			sourceTree = "<group>";
+		};
+		693A36461FC7CBA8007FDE26 /* Adapter */ = {
+			isa = PBXGroup;
+			children = (
+				691EBDE31FC57B61005FDCAF /* SSAdapter.swift */,
+				691EBDE51FC57B6C005FDCAF /* SS3Adapter.swift */,
+				691EBDE11FC57B53005FDCAF /* Socks5Adapter.swift */,
+				691EBDDF1FC57B47005FDCAF /* HTTPAdapter.swift */,
+			);
+			name = Adapter;
+			sourceTree = "<group>";
+		};
+		693A36471FC7CBC6007FDE26 /* Connector */ = {
+			isa = PBXGroup;
+			children = (
+				691EBDD11FC5771C005FDCAF /* Xcon.swift */,
+				693A36491FC7CC4A007FDE26 /* Connector.swift */,
+			);
+			path = Connector;
+			sourceTree = "<group>";
+		};
+		693A36481FC7CBD4007FDE26 /* socket */ = {
+			isa = PBXGroup;
+			children = (
+				691EBDFB1FC650A7005FDCAF /* HTTPSocket.swift */,
+				691EBDFD1FC650C1005FDCAF /* ProxySocket.swift */,
+				691EBDFF1FC650C8005FDCAF /* SSSocket.swift */,
+				693A36521FC7D3E9007FDE26 /* Socks5Socket.swift */,
+				691EBE011FC650CE005FDCAF /* DirectSocket.swift */,
+				693A364C1FC7CD71007FDE26 /* AdapterSocket.swift */,
+				693A364F1FC7CD9D007FDE26 /* SocketProtocol.swift */,
+			);
+			name = socket;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,18 +372,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				691EBDFC1FC650A7005FDCAF /* HTTPProxyConnector.swift in Sources */,
+				691EBDFC1FC650A7005FDCAF /* HTTPSocket.swift in Sources */,
 				691EBDD61FC57810005FDCAF /* SFProxy.swift in Sources */,
-				691EBDFE1FC650C1005FDCAF /* ProxyConnector.swift in Sources */,
-				691EBE021FC650CE005FDCAF /* DirectConnector.swift in Sources */,
+				693A36501FC7CD9D007FDE26 /* SocketProtocol.swift in Sources */,
+				691EBDFE1FC650C1005FDCAF /* ProxySocket.swift in Sources */,
+				693A36531FC7D3EA007FDE26 /* Socks5Socket.swift in Sources */,
+				691EBE021FC650CE005FDCAF /* DirectSocket.swift in Sources */,
 				691EBDE41FC57B61005FDCAF /* SSAdapter.swift in Sources */,
 				691EBDD21FC5771C005FDCAF /* Xcon.swift in Sources */,
 				691EBDDE1FC57B20005FDCAF /* ext.swift in Sources */,
 				691EBDDC1FC57AC8005FDCAF /* SFModel.swift in Sources */,
-				691EBE001FC650C8005FDCAF /* TCPSSConnector.swift in Sources */,
+				691EBE001FC650C8005FDCAF /* SSSocket.swift in Sources */,
+				693A364A1FC7CC4A007FDE26 /* Connector.swift in Sources */,
 				691EBDE21FC57B53005FDCAF /* Socks5Adapter.swift in Sources */,
 				691EBDD41FC57745005FDCAF /* Adapter.swift in Sources */,
 				691EBDE01FC57B47005FDCAF /* HTTPAdapter.swift in Sources */,
+				693A364D1FC7CD71007FDE26 /* AdapterSocket.swift in Sources */,
 				691EBDF01FC57F4B005FDCAF /* SFEncrypt.swift in Sources */,
 				691EBDF41FC5801C005FDCAF /* SFData.swift in Sources */,
 				691EBDFA1FC582C1005FDCAF /* EncryptExtension.swift in Sources */,
@@ -356,18 +400,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				691EBE3E1FC66E10005FDCAF /* HTTPProxyConnector.swift in Sources */,
-				691EBE3D1FC66E0C005FDCAF /* ProxyConnector.swift in Sources */,
+				691EBE3E1FC66E10005FDCAF /* HTTPSocket.swift in Sources */,
+				691EBE3D1FC66E0C005FDCAF /* ProxySocket.swift in Sources */,
+				693A36511FC7CD9D007FDE26 /* SocketProtocol.swift in Sources */,
 				691EBE3F1FC66E15005FDCAF /* SSAdapter.swift in Sources */,
+				693A36541FC7D3EA007FDE26 /* Socks5Socket.swift in Sources */,
 				691EBE311FC66DDE005FDCAF /* SFEncrypt.swift in Sources */,
 				691EBE3A1FC66E01005FDCAF /* Socks5Adapter.swift in Sources */,
-				691EBE3B1FC66E05005FDCAF /* DirectConnector.swift in Sources */,
-				691EBE3C1FC66E08005FDCAF /* TCPSSConnector.swift in Sources */,
+				691EBE3B1FC66E05005FDCAF /* DirectSocket.swift in Sources */,
+				691EBE3C1FC66E08005FDCAF /* SSSocket.swift in Sources */,
 				691EBE381FC66DF9005FDCAF /* Adapter.swift in Sources */,
 				691EBE411FC66E1E005FDCAF /* SS3Adapter.swift in Sources */,
+				693A364B1FC7CC4A007FDE26 /* Connector.swift in Sources */,
 				691EBE321FC66DE2005FDCAF /* EncryptExtension.swift in Sources */,
 				691EBE361FC66DF1005FDCAF /* SFModel.swift in Sources */,
 				691EBE331FC66DE6005FDCAF /* Xcon.swift in Sources */,
+				693A364E1FC7CD71007FDE26 /* AdapterSocket.swift in Sources */,
 				691EBE341FC66DE9005FDCAF /* SFHTTPHeader.swift in Sources */,
 				691EBE371FC66DF5005FDCAF /* SFProxy.swift in Sources */,
 				691EBE401FC66E1A005FDCAF /* HTTPAdapter.swift in Sources */,

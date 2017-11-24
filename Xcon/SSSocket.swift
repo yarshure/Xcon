@@ -99,7 +99,7 @@ public class  TCPSSConnector:ProxyConnector{
     
 
   
-    override public func readCallback(data: Data?, tag: Int) {
+     public func readCallback(data: Data?, tag: Int) {
         guard let data = data else {
             Xcon.log("\(cIDString) read nil", level: .Debug)
             return
@@ -110,11 +110,11 @@ public class  TCPSSConnector:ProxyConnector{
             if let d = self.delegate {
                 //debugLog("recv:\(cipher)")
                 //d.connector(self, didReadData: cipher, withTag: Int64(tag))
-                queueCall {
-                    autoreleasepool {
-                        d.didReadData(cipher, withTag: tag, from: self)
-                    }
-                }
+//                queueCall {
+//                    autoreleasepool {
+//                        d.didReadData(cipher, withTag: tag, from: self)
+//                    }
+//                }
             }else {
                 Xcon.log(" didReadData Connection deal drop data ",level: .Error)
             }

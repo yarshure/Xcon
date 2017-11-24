@@ -43,8 +43,36 @@ public protocol XconDelegate: class {
      */
     func didConnect(_ socket: Xcon)
 }
-public class Xcon:RawSocketProtocol{
-    public var delegate: RawSocketDelegate?
+public class Xcon:SocketDelegate{
+    public func didConnectWith(adapterSocket: AdapterSocket) {
+        
+    }
+    
+    public func didDisconnectWith(socket: SocketProtocol) {
+    
+    }
+    
+    public func didRead(data: Data, from: SocketProtocol) {
+        
+    }
+    
+    public func didWrite(data: Data?, by: SocketProtocol) {
+        
+    }
+    
+    public func didBecomeReadyToForwardWith(socket: SocketProtocol) {
+        
+    }
+    
+    public func updateAdapterWith(newAdapter: AdapterSocket) {
+        
+    }
+    
+
+    public var delegate: XconDelegate?
+   // public var delegate: RawSocketDelegate?
+    var adapter:Adapter?
+    var connector:AdapterSocket?
     
     init(q:DispatchQueue) {
     
@@ -104,8 +132,39 @@ public class Xcon:RawSocketProtocol{
     public func readDataToData(_ data: Data, withTag tag: Int, maxLength: Int) {
         
     }
-    static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,sID:UInt,delegate:XconDelegate,queue:DispatchQueue){
-        
+    static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,sID:UInt,delegate:XconDelegate,queue:DispatchQueue) ->Xcon?{
+        let con = Xcon.init(q: queue)
+        con.delegate = delegate
+        if let p = p {
+            //proxy mode
+            switch p.type{
+            case .HTTP:
+                let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
+                con.connector = c
+            case .HTTPS:
+                let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
+                con.connector = c
+            case .SS:
+                let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
+                con.connector = c
+            case .SS3:
+                let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
+                con.connector = c
+            case .SOCKS5:
+                let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
+                con.connector = c
+            case .HTTPAES:
+                let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
+                con.connector = c
+            case .LANTERN:
+                let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
+                con.connector = c
+            }
+        }else {
+            let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
+            con.connector = c
+        }
+        return con
     }
     
 }
@@ -117,5 +176,12 @@ extension Xcon{
             AxLogger.log(msg,level:level)
         }
         
+    }
+    static func log(_ msg:String,level:AxLoggerLevel , category:String="default",file:String=#file,line:Int=#line,ud:[String:String]=[:],tags:[String]=[],time:Date=Date()){
+        
+        if level != AxLoggerLevel.Debug {
+            AxLogger.log(msg,level:level)
+        }
+        print(msg)
     }
 }

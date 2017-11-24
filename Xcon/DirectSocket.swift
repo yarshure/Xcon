@@ -11,12 +11,12 @@ import AxLogger
 import XSocket
 //import CocoaAsyncSocket
 
-public class DirectConnector:NWTCPSocket{
+public class DirectConnector:AdapterSocket{
     var interfaceName:String?
     var targetHost:String = ""
     var targetPort:UInt16 = 0
     //var ipAddress:String?
-    override public func start() {
+    public func start() {
          autoreleasepool { do {
             
             try  super.connectTo(self.targetHost, port: self.targetPort, enableTLS: false, tlsSettings: nil)
@@ -35,12 +35,12 @@ public class DirectConnector:NWTCPSocket{
         
         
     }
-    static func connectTo(_ host: String, port: UInt16, delegate: RawSocketDelegate, queue: DispatchQueue)  -> DirectConnector {
+    static func connectTo(_ host: String, port: UInt16, delegate: SocketDelegate, queue: DispatchQueue)  -> DirectConnector {
         let c = DirectConnector()
         c.targetPort = port
         c.targetHost = host
         c.queue = queue
-        c.delegate = delegate
+        c.socketdelegate = delegate
         
         c.start()
         return c
