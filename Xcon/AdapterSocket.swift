@@ -96,7 +96,7 @@ public class AdapterSocket:SocketProtocol,RawSocketProtocol,RawSocketDelegate {
 //    }
     
     public func writeData(_ data: Data, withTag: Int) {
-        
+        socket.writeData(data, withTag: withTag)
     }
     
     public func readDataWithTag(_ tag: Int) {

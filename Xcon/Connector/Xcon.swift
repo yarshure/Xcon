@@ -45,7 +45,7 @@ public protocol XconDelegate: class {
 }
 public class Xcon:SocketDelegate{
     public func didConnectWith(adapterSocket: AdapterSocket) {
-        
+        self.delegate?.didConnect(self)
     }
     
     public func didDisconnectWith(socket: SocketProtocol) {
@@ -114,7 +114,7 @@ public class Xcon:SocketDelegate{
     }
     
     public func writeData(_ data: Data, withTag: Int) {
-        
+        connector?.writeData(data, withTag: withTag)
     }
     
     public func readDataWithTag(_ tag: Int) {
@@ -162,6 +162,7 @@ public class Xcon:SocketDelegate{
             }
         }else {
             let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
+           
             con.connector = c
         }
         return con

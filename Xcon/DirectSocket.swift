@@ -46,6 +46,22 @@ public class DirectConnector:AdapterSocket{
         return c
     }
     
+    public override func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
+        print("-----")
+    }
+    
+    public override func didReadData(_ data: Data, withTag: Int, from: RawSocketProtocol) {
+        
+    }
+    
+    public override func didWriteData(_ data: Data?, withTag: Int, from: RawSocketProtocol) {
+        
+    }
+    
+    public override func didConnect(_ socket: RawSocketProtocol) {
+        self.socketdelegate?.didConnectWith(adapterSocket: self)
+    }
+    
 }
 
 
