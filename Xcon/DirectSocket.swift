@@ -47,15 +47,18 @@ public class DirectConnector:AdapterSocket{
     }
     
     public override func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
-        print("-----")
+        print("didDisconnect")
     }
     
     public override func didReadData(_ data: Data, withTag: Int, from: RawSocketProtocol) {
-        
+       
+        Xcon.log("read \(data as NSData):\(withTag)", level: .Info)
+        self.socketdelegate?.didRead(data: data, from: self)
     }
     
     public override func didWriteData(_ data: Data?, withTag: Int, from: RawSocketProtocol) {
         
+        self.socketdelegate?.didWrite(data: data, by: self)
     }
     
     public override func didConnect(_ socket: RawSocketProtocol) {

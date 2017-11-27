@@ -53,11 +53,13 @@ public class Xcon:SocketDelegate{
     }
     
     public func didRead(data: Data, from: SocketProtocol) {
-        
+         Xcon.log("read \(data as NSData)", level: .Info)
+        self.delegate?.didReadData(data, withTag: 0, from: self)
     }
     
     public func didWrite(data: Data?, by: SocketProtocol) {
-        
+        Xcon.log("didwrite", level: .Info)
+        self.delegate?.didWriteData(data, withTag: 0, from: self)
     }
     
     public func didBecomeReadyToForwardWith(socket: SocketProtocol) {
@@ -118,7 +120,7 @@ public class Xcon:SocketDelegate{
     }
     
     public func readDataWithTag(_ tag: Int) {
-        
+        connector?.readDataWithTag(tag)
     }
     
     public func readDataToLength(_ length: Int, withTag tag: Int) {

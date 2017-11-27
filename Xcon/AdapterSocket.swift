@@ -10,19 +10,19 @@ import Foundation
 import XSocket
 public class AdapterSocket:SocketProtocol,RawSocketProtocol,RawSocketDelegate {
     public func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
-        print("")
+        print("didDisconnect")
     }
     
     public func didReadData(_ data: Data, withTag: Int, from: RawSocketProtocol) {
-        
+        print("didReadData")
     }
     
     public func didWriteData(_ data: Data?, withTag: Int, from: RawSocketProtocol) {
-        
+        print("didWriteData")
     }
     
     public func didConnect(_ socket: RawSocketProtocol) {
-         print("didConnect")
+        print("didConnect######")
     }
     
     public var delegate: RawSocketDelegate?
@@ -100,19 +100,20 @@ public class AdapterSocket:SocketProtocol,RawSocketProtocol,RawSocketDelegate {
     }
     
     public func readDataWithTag(_ tag: Int) {
-        
+        Xcon.log("readDataWithTag", level: .Info)
+        socket.readDataWithTag(tag)
     }
     
     public func readDataToLength(_ length: Int, withTag tag: Int) {
-        
+        Xcon.log("shoud not go here", level: .Info)
     }
     
     public func readDataToData(_ data: Data, withTag tag: Int) {
-        
+        Xcon.log("shoud not go here", level: .Info)
     }
     
     public func readDataToData(_ data: Data, withTag tag: Int, maxLength: Int) {
-        
+        Xcon.log("shoud not go here", level: .Info)
     }
     
     
