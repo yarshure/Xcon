@@ -54,7 +54,7 @@ public class AdapterSocket:SocketProtocol,RawSocketProtocol,RawSocketDelegate {
    // public var delegate: RawSocketDelegate?
     
     public func forceDisconnect(_ sessionID: UInt32) {
-        
+        socket.forceDisconnect(sessionID)
     }
     
     public var queue: DispatchQueue!

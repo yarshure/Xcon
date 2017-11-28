@@ -80,7 +80,7 @@ public class Xcon:SocketDelegate{
     
     }
     public func forceDisconnect(_ sessionID: UInt32) {
-        
+        connector?.forceDisconnect(sessionID)
     }
     
     public var queue: DispatchQueue!
