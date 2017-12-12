@@ -6,4 +6,5 @@ github "soffes/Crypto"
 github "iosdevzone/IDZSwiftCommonCrypto"
 github "Hearst-DD/ObjectMapper" "0c116f44b5d052892146bcb94ad6c690b3dec40d"
 github "yarshure/Xsocket.git"
-
+github "networkextension/DarwinCore" "9dab612f6d896a4969ffebbdda83313089711e62"
+github "yarshure/XRuler.git"
