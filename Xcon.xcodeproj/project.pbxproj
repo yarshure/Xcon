@@ -49,16 +49,12 @@
 		691EBE3F1FC66E15005FDCAF /* SSAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE31FC57B61005FDCAF /* SSAdapter.swift */; };
 		691EBE401FC66E1A005FDCAF /* HTTPAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDDF1FC57B47005FDCAF /* HTTPAdapter.swift */; };
 		691EBE411FC66E1E005FDCAF /* SS3Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE51FC57B6C005FDCAF /* SS3Adapter.swift */; };
-		693A354D1FC6726F007FDE26 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A35431FC6726E007FDE26 /* CocoaAsyncSocket.framework */; };
 		693A354E1FC6726F007FDE26 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A35441FC6726E007FDE26 /* CommonCrypto.framework */; };
 		693A354F1FC6726F007FDE26 /* Crypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A35451FC6726E007FDE26 /* Crypto.framework */; };
-		693A35501FC6726F007FDE26 /* AxLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A35461FC6726E007FDE26 /* AxLogger.framework */; };
-		693A35511FC6726F007FDE26 /* kcp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A35471FC6726E007FDE26 /* kcp.framework */; };
 		693A35521FC6726F007FDE26 /* IDZSwiftCommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A35481FC6726E007FDE26 /* IDZSwiftCommonCrypto.framework */; };
 		693A35531FC6726F007FDE26 /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A35491FC6726E007FDE26 /* Sodium.framework */; };
 		693A35541FC6726F007FDE26 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A354A1FC6726E007FDE26 /* SwiftyJSON.framework */; };
 		693A35561FC6726F007FDE26 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A354C1FC6726F007FDE26 /* ObjectMapper.framework */; };
-		693A35791FC69381007FDE26 /* XSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A35781FC69381007FDE26 /* XSocket.framework */; };
 		693A364A1FC7CC4A007FDE26 /* Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A36491FC7CC4A007FDE26 /* Connector.swift */; };
 		693A364B1FC7CC4A007FDE26 /* Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A36491FC7CC4A007FDE26 /* Connector.swift */; };
 		693A364D1FC7CD71007FDE26 /* AdapterSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A364C1FC7CD71007FDE26 /* AdapterSocket.swift */; };
@@ -133,14 +129,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				693A35791FC69381007FDE26 /* XSocket.framework in Frameworks */,
-				693A35501FC6726F007FDE26 /* AxLogger.framework in Frameworks */,
 				693A35561FC6726F007FDE26 /* ObjectMapper.framework in Frameworks */,
 				693A35521FC6726F007FDE26 /* IDZSwiftCommonCrypto.framework in Frameworks */,
 				693A35541FC6726F007FDE26 /* SwiftyJSON.framework in Frameworks */,
-				693A354D1FC6726F007FDE26 /* CocoaAsyncSocket.framework in Frameworks */,
 				693A354F1FC6726F007FDE26 /* Crypto.framework in Frameworks */,
-				693A35511FC6726F007FDE26 /* kcp.framework in Frameworks */,
 				693A35531FC6726F007FDE26 /* Sodium.framework in Frameworks */,
 				693A354E1FC6726F007FDE26 /* CommonCrypto.framework in Frameworks */,
 			);
@@ -318,7 +310,7 @@
 		691EBDBD1FC575D8005FDCAF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = yarshure;
 				TargetAttributes = {
 					691EBDC51FC575D8005FDCAF = {
@@ -477,6 +469,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -531,6 +524,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -599,7 +593,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -628,7 +622,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;

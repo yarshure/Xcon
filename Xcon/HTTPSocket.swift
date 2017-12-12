@@ -74,7 +74,7 @@ public  class HTTPProxyConnector:ProxyConnector {
  
     public func readCallback(data: Data?, tag: Int) {
         
-        guard let data = data else {
+        guard let _ = data else {
             Xcon.log("\(cIDString) read nil", level: .Debug)
             return
         }
