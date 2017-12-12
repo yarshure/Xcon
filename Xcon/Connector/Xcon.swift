@@ -134,6 +134,9 @@ public class Xcon:SocketDelegate{
     public func readDataToData(_ data: Data, withTag tag: Int, maxLength: Int) {
         
     }
+    public func forceDisconnect(){
+        
+    }
     static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,sID:UInt,delegate:XconDelegate,queue:DispatchQueue) ->Xcon?{
         let con = Xcon.init(q: queue)
         con.delegate = delegate
