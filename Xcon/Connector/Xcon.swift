@@ -49,11 +49,12 @@ public class Xcon:SocketDelegate{
     }
     
     public func didDisconnectWith(socket: SocketProtocol) {
-    
+         Xcon.log("read didDisconnectWith", level: .Info)
+        self.delegate?.didDisconnect(self, error: nil)
     }
     
     public func didRead(data: Data, from: SocketProtocol) {
-         Xcon.log("read \(data as NSData)", level: .Info)
+        
         self.delegate?.didReadData(data, withTag: 0, from: self)
     }
     
@@ -137,6 +138,7 @@ public class Xcon:SocketDelegate{
     public func forceDisconnect(){
         
     }
+    public static var debugEnable = false
     static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,sID:UInt,delegate:XconDelegate,queue:DispatchQueue) ->Xcon?{
         let con = Xcon.init(q: queue)
         con.delegate = delegate
@@ -188,6 +190,9 @@ extension Xcon{
         if level != AxLoggerLevel.Debug {
             AxLogger.log(msg,level:level)
         }
-        print(msg)
+        if debugEnable {
+            print("Xcon:" + msg)
+        }
+        
     }
 }

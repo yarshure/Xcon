@@ -10,19 +10,23 @@ import Foundation
 import XSocket
 public class AdapterSocket:SocketProtocol,RawSocketProtocol,RawSocketDelegate {
     public func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
-        print("didDisconnect")
+        
+        Xcon.log("didDisconnect", level: .Info)
     }
     
     public func didReadData(_ data: Data, withTag: Int, from: RawSocketProtocol) {
-        print("didReadData")
+        
+        Xcon.log("didReadData", level: .Info)
     }
     
     public func didWriteData(_ data: Data?, withTag: Int, from: RawSocketProtocol) {
-        print("didWriteData")
+        
+        Xcon.log("didWriteData", level: .Info)
     }
     
     public func didConnect(_ socket: RawSocketProtocol) {
-        print("didConnect######")
+        
+        Xcon.log("didConnect", level: .Info)
     }
     
     public var delegate: RawSocketDelegate?
