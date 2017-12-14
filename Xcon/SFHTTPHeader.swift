@@ -444,7 +444,7 @@ open class  SFHTTPRequestHeader :SFHTTPHeader{
                 
             }
             let i = u.index(u.startIndex, offsetBy: index)
-            let x = u.to(index: i)
+            let x = u.from(index:i)
             return x
         }else {
             return u
