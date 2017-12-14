@@ -9,6 +9,18 @@
 import Foundation
 import XSocket
 public class AdapterSocket:SocketProtocol,RawSocketProtocol,RawSocketDelegate {
+    public var sourcePort: XPort?{
+        get {
+            return nil
+        }
+    }
+    
+    public var destinationPort: XPort?{
+        get {
+            return nil
+        }
+    }
+    
     public func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
         
         Xcon.log("didDisconnect", level: .Info)
@@ -71,11 +83,10 @@ public class AdapterSocket:SocketProtocol,RawSocketProtocol,RawSocketDelegate {
     
     public var sourceIPAddress: IPv4Address?
     
-    public var sourcePort: Port?
+    
     
     public var destinationIPAddress: IPv4Address?
     
-    public var destinationPort: Port?
     
     public var useCell: Bool = false
     
