@@ -8,7 +8,10 @@
 
 import Foundation
 import XSocket
+import NetworkExtension
 public class AdapterSocket:SocketProtocol,RawSocketProtocol,RawSocketDelegate {
+    
+    
     public var sourcePort: XPort?{
         get {
             return nil
@@ -20,7 +23,16 @@ public class AdapterSocket:SocketProtocol,RawSocketProtocol,RawSocketDelegate {
             return nil
         }
     }
-    
+    public var local:NWHostEndpoint?{
+        get {
+            return socket.local
+        }
+    }
+    public var remote: NWHostEndpoint? {
+        get {
+            return socket.remote
+        }
+    }
     public func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
         
         Xcon.log("didDisconnect", level: .Info)

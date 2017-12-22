@@ -8,6 +8,7 @@
 
 import Foundation
 import XSocket
+import NetworkExtension
 public protocol XconDelegate: class {
     /**
      The socket did disconnect.
@@ -83,7 +84,16 @@ public class Xcon:SocketDelegate{
     public func forceDisconnect(_ sessionID: UInt32) {
         connector?.forceDisconnect(sessionID)
     }
-    
+    public var remote:NWHostEndpoint? {
+        get {
+            return connector?.remote
+        }
+    }
+    public var local:NWHostEndpoint? {
+        get {
+            return connector?.local
+        }
+    }
     public var queue: DispatchQueue!
     
     public var isConnected: Bool = false
