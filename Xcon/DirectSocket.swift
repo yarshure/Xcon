@@ -48,8 +48,8 @@ public class DirectConnector:AdapterSocket{
     
     public override func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
        
-        Xcon.log("didDisconnect", level: .Info)
-        self.delegate?.didDisconnect(self, error: error)
+        Xcon.log("DirectConnector didDisconnect", level: .Info)
+        self.socketdelegate?.didDisconnectWith(socket: self)
     }
     
     public override func didReadData(_ data: Data, withTag: Int, from: RawSocketProtocol) {

@@ -49,6 +49,7 @@ public class Xcon:SocketDelegate{
         self.delegate?.didConnect(self)
     }
     
+    
     public func didDisconnectWith(socket: SocketProtocol) {
          Xcon.log("read didDisconnectWith", level: .Info)
         self.delegate?.didDisconnect(self, error: nil)

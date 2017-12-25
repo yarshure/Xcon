@@ -35,7 +35,7 @@ public class AdapterSocket:SocketProtocol,RawSocketProtocol,RawSocketDelegate {
     }
     public func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
         
-        Xcon.log("didDisconnect", level: .Info)
+        Xcon.log("AdapterSocket didDisconnect", level: .Info)
     }
     
     public func didReadData(_ data: Data, withTag: Int, from: RawSocketProtocol) {
