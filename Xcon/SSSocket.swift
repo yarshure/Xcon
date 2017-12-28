@@ -98,35 +98,7 @@ public class  TCPSSConnector:ProxyConnector{
     }
     
 
-  
-     public func readCallback(data: Data?, tag: Int) {
-        guard let data = data else {
-            Xcon.log("\(cIDString) read nil", level: .Debug)
-            return
-        }
-        
-        
-        if let cipher = self.aes.decrypt(encrypt_bytes: data){
-            if let d = self.socketdelegate {
-                //debugLog("recv:\(cipher)")
-                //d.connector(self, didReadData: cipher, withTag: Int64(tag))
-//                queueCall {
-//                    autoreleasepool {
-//                        d.didReadData(cipher, withTag: tag, from: self)
-//                    }
-//                }
-            }else {
-                Xcon.log(" didReadData Connection deal drop data ",level: .Error)
-            }
-        }else {
-            Xcon.log("SS Engine Decrypt Error ",level: .Error)
-        }
-        
-        
-
-       
-    }
-    
+ 
     override public func writeData(_ data: Data, withTag tag: Int) {
         
         var datatemp:Data?
@@ -171,45 +143,10 @@ public class  TCPSSConnector:ProxyConnector{
         }
 
     }
-    static func connectTo(_ host: String, port: Int,proxy:SFProxy, delegate: SocketDelegate, queue: DispatchQueue)  -> TCPSSConnector {
-        let c:TCPSSConnector = TCPSSConnector( p: proxy)
-        //c.manager = man
-        //c.policy = selectorPolicy
-        //TCPSSConnector.swift.[363]:12484608:12124160:360448:Bytes
-        //c.cIDFunc()
-        c.targetHost = host
-        c.targetPort = UInt16(port)
-        
-        c.ota = proxy.tlsEnable
-        c.socketdelegate = delegate
-        c.queue = queue
-        if proxy.editEnable == false {
-            let iv = "This is an IV456" // should be of 16 characters.
-            //here we are convert nsdata to String
-           
-            let ss = SSEncrypt.init(password:"This is a key123This is an IV456" , method: "aes-256-cfb",ivsys: iv)
-            
-            var data = iv.data(using: .utf8)!
-            data.append(Data(base64Encoded: proxy.password)!)
-            
-            if let passwd = ss.decrypt(encrypt_bytes: data){
-                
-                let pw = String.init(data: passwd, encoding: .utf8)!
-                c.aes = SSEncrypt.init(password: pw, method: proxy.method)
-            }
-            
-            
-        }else {
-           c.aes = SSEncrypt.init(password: proxy.password, method: proxy.method)
-        }
-        
-        c.start()
-        return c
-    }
+   
     static func connect(_ target: String, port: UInt16,p:SFProxy, delegate: SocketDelegate, queue: DispatchQueue)  ->TCPSSConnector {
         let c:TCPSSConnector = TCPSSConnector( p: p)
-        //c.manager = man
-        //c.policy = selectorPolicy
+        
         //TCPSSConnector.swift.[363]:12484608:12124160:360448:Bytes
         //c.cIDFunc()
         c.targetHost = target
@@ -217,10 +154,59 @@ public class  TCPSSConnector:ProxyConnector{
         c.socketdelegate = delegate
         c.ota = p.tlsEnable
         c.aes = SSEncrypt.init(password: p.password, method: p.method)
-        //c.start()
+        if p.editEnable == false {
+            let iv = "This is an IV456" // should be of 16 characters.
+            //here we are convert nsdata to String
+            
+            let ss = SSEncrypt.init(password:"This is a key123This is an IV456" , method: "aes-256-cfb",ivsys: iv)
+            
+            var data = iv.data(using: .utf8)!
+            data.append(Data(base64Encoded: p.password)!)
+            
+            if let passwd = ss.decrypt(encrypt_bytes: data){
+                
+                let pw = String.init(data: passwd, encoding: .utf8)!
+                c.aes = SSEncrypt.init(password: pw, method: p.method)
+            }
+            
+            
+        }else {
+            c.aes = SSEncrypt.init(password: p.password, method: p.method)
+        }
+        
+        c.start()
         return c
     }
 
+    public override func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
+        
+        self.socketdelegate?.didDisconnectWith(socket: self)
+    }
+    
+    public override func didReadData(_ data: Data, withTag: Int, from: RawSocketProtocol) {
+        
+        if let cipher = self.aes.decrypt(encrypt_bytes: data){
+            if let d = self.socketdelegate {
+                d.didRead(data: cipher, from: self)
+                // d.connector(self, didReadData: cipher, withTag: Int64(tag))
+                
+            }else {
+                Xcon.log(" didReadData Connection deal drop data ",level: .Error)
+            }
+        }else {
+            Xcon.log("SS Engine Decrypt Error ",level: .Error)
+        }
+    }
+    
+    public override func didWriteData(_ data: Data?, withTag: Int, from: RawSocketProtocol) {
+        
+        self.socketdelegate?.didWrite(data: data, by: self)
+    }
+    
+    public override func didConnect(_ socket: RawSocketProtocol) {
+        
+        self.socketdelegate?.didDisconnectWith(socket: self)
+    }
     
 
 }

@@ -120,7 +120,7 @@ public class Xcon:SocketDelegate{
     }
     
     public func disconnect(becauseOf error: Error?) {
-        
+        connector?.disconnect(becauseOf: error)
     }
     
     public func forceDisconnect(becauseOf error: Error?) {

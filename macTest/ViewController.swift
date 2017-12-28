@@ -11,11 +11,13 @@ import  Xcon
 import XSocket
 class ViewController: NSViewController ,XconDelegate{
     func didDisconnect(_ socket: Xcon, error: Error?) {
-        print("111")
+        print("didDisconnect")
     }
     
     func didReadData(_ data: Data, withTag: Int, from: Xcon) {
         print("222 \(data as NSData)")
+        con!.disconnect(becauseOf: nil)
+        con = nil
     }
     
     func didWriteData(_ data: Data?, withTag: Int, from: Xcon) {

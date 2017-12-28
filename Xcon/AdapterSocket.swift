@@ -73,7 +73,7 @@ public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     }
     
     public func disconnect(becauseOf error: Error?) {
-        
+        socket.disconnect(becauseOf: error)
     }
     
     public func forceDisconnect(becauseOf error: Error?) {
