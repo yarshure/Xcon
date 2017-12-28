@@ -115,6 +115,9 @@ public class Xcon:SocketDelegate{
     
     public var tcp: Bool = false
     
+    deinit {
+        Xcon.log("Xcon deinit", level: .Debug)
+    }
     public func connectTo(_ host: String, port: UInt16, enableTLS: Bool, tlsSettings: [NSObject : AnyObject]?) throws {
         
     }

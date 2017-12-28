@@ -11,6 +11,7 @@ import  Xcon
 import XSocket
 class ViewController: NSViewController ,XconDelegate{
     func didDisconnect(_ socket: Xcon, error: Error?) {
+        
         print("didDisconnect")
     }
     

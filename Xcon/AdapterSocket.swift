@@ -55,10 +55,12 @@ public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     }
     
    
-    
+    deinit {
+        Xcon.log("Adapter Deinit", level: .Debug)
+    }
     public var socket: RawSocketProtocol!
     
-    public var socketdelegate: SocketDelegate?
+    public weak var socketdelegate: SocketDelegate?
     
     public var status: SocketStatus =   .invalid
     
