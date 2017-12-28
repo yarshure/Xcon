@@ -74,7 +74,7 @@ public class Xcon:SocketDelegate{
     }
     
 
-    public var delegate: XconDelegate?
+    public weak var delegate: XconDelegate?
    // public var delegate: RawSocketDelegate?
     var adapter:Adapter?
     var connector:AdapterSocket?
