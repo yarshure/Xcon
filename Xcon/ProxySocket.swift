@@ -131,7 +131,9 @@ public class ProxyConnector: AdapterSocket {
             let v = SSLProtocol.tlsProtocol12
             tlsParameters.minimumSSLProtocolVersion = Int(v.rawValue)
             
-            let socket = RawSocketFactory.getRawSocket()
+            var socket = RawSocketFactory.getRawSocket()
+            socket.queue = DispatchQueue.init(label: "socket")
+            socket.delegate = self
             do {
                 try socket.connectTo(host, port: port, enableTLS: false, tlsSettings: [:])
                 
