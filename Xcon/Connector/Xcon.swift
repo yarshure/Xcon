@@ -45,7 +45,7 @@ public protocol XconDelegate: class {
     func didConnect(_ socket: Xcon)
 }
 public class Xcon:SocketDelegate{
-    public func didConnectWith(adapterSocket: AdapterSocket) {
+    public func didConnectWith(adapterSocket: SocketProtocol) {
         self.delegate?.didConnect(self)
     }
     
@@ -155,29 +155,8 @@ public class Xcon:SocketDelegate{
         con.delegate = delegate
         if let p = p {
             //proxy mode
-            switch p.type{
-            case .HTTP:
-                let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
-                con.connector = c
-            case .HTTPS:
-                let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
-                con.connector = c
-            case .SS:
-                let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
-                con.connector = c
-            case .SS3:
-                let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
-                con.connector = c
-            case .SOCKS5:
-                let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
-                con.connector = c
-            case .HTTPAES:
-                let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
-                con.connector = c
-            case .LANTERN:
-                let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
-                con.connector = c
-            }
+            let c = ProxyConnector.connectTo(targetHost, port: Port, p: p, delegate: con, queue: queue)
+            con.connector = c
         }else {
             let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
            

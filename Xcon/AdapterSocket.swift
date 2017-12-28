@@ -9,7 +9,7 @@
 import Foundation
 import XSocket
 import NetworkExtension
-public class AdapterSocket:SocketProtocol,RawSocketProtocol,RawSocketDelegate {
+public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     
     
     public var sourcePort: XPort?{
@@ -35,25 +35,26 @@ public class AdapterSocket:SocketProtocol,RawSocketProtocol,RawSocketDelegate {
     }
     public func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
         
-        Xcon.log("AdapterSocket didDisconnect", level: .Info)
+        fatalError("AdapterSocket didDisconnect")
+       
     }
     
     public func didReadData(_ data: Data, withTag: Int, from: RawSocketProtocol) {
         
-        Xcon.log("didReadData", level: .Info)
+        fatalError("AdapterSocket didReadData")
     }
     
     public func didWriteData(_ data: Data?, withTag: Int, from: RawSocketProtocol) {
+        fatalError("AdapterSocket didWriteData")
         
-        Xcon.log("didWriteData", level: .Info)
     }
     
     public func didConnect(_ socket: RawSocketProtocol) {
-        
-        Xcon.log("didConnect", level: .Info)
+        fatalError("AdapterSocket didConnect")
+      
     }
     
-    public var delegate: RawSocketDelegate?
+   
     
     public var socket: RawSocketProtocol!
     
@@ -113,14 +114,6 @@ public class AdapterSocket:SocketProtocol,RawSocketProtocol,RawSocketDelegate {
         try socket.connectTo(host, port: port, enableTLS: enableTLS, tlsSettings: [:])
         
     }
-    
-//    public func disconnect(becauseOf error: Error?) {
-//
-//    }
-//
-//    public func forceDisconnect(becauseOf error: Error?) {
-//
-//    }
     
     public func writeData(_ data: Data, withTag: Int) {
         socket.writeData(data, withTag: withTag)

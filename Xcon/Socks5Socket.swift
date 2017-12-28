@@ -34,17 +34,18 @@ public class Socks5Connector:ProxyConnector{
     var stage:SFSocks5Stage = .Auth
     var recvBuffer:Data?
     static var  ReadTag:Int = -3000
-    public static func connectorWithSelectorPolicy( _ targetHostname :String, targetPort port:UInt16,p:SFProxy,delegate: RawSocketDelegate, queue: DispatchQueue) ->Socks5Connector{
+    static func connect(_ target: String, port: UInt16,p:SFProxy, delegate: SocketDelegate, queue: DispatchQueue)  -> Socks5Connector {
         let c:Socks5Connector = Socks5Connector(p: p)
-       
-        c.delegate = delegate
-        c.targetHost = targetHostname
+        
+        c.socketdelegate = delegate
+        c.targetHost = target
         c.targetPort = port
         c.queue = queue
         //c.cIDFunc()
         c.start()
         return c
     }
+    
     func sendAuth(){
         var buffer = Data() //req 050100
         buffer.append(SOCKS_VERSION)
@@ -129,7 +130,7 @@ public class Socks5Connector:ProxyConnector{
          if stage == .Auth {
             sendAuth()
          }else {
-           self.delegate?.didConnect(self)
+           self.socketdelegate?.didConnectWith(adapterSocket: self)
         }
         
     }
@@ -329,9 +330,9 @@ public class Socks5Connector:ProxyConnector{
         }
     }
     func sock5connected(){
-        if let d = delegate {
+        if let d = socketdelegate {
             //d.connectorDidBecomeAvailable(self)
-            d.didConnect( self)
+           d.didConnectWith(adapterSocket: self)
         }
         
     }

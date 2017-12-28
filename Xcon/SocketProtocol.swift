@@ -113,7 +113,7 @@ public protocol SocketDelegate : class {
      
      - parameter adapterSocket: The connected socket.
      */
-    func didConnectWith(adapterSocket: AdapterSocket)
+    func didConnectWith(adapterSocket: SocketProtocol)
     
     /**
      The socket did disconnect.

@@ -820,6 +820,7 @@ open class  SFHTTPRequestHeader :SFHTTPHeader{
         return result.data(using: .utf8)!
         
     }
+    
     func buildCONNECTHead(_ proxy:SFProxy?) -> Data? {
         if method == .CONNECT {
             return headerData(proxy)
@@ -853,6 +854,29 @@ open class  SFHTTPRequestHeader :SFHTTPHeader{
                 return nil
             }
             
+        }
+    }
+    static func buildHead(_ proxy:SFProxy,host:String,port:UInt16) ->Data?{
+        //normal http requst through http proxy
+        //let processinfo = NSProcessInfo.processInfo()
+        //let version = kernelVersion()Darwin/\(version)
+        if !host.isEmpty {
+            var f = "CONNECT \(host):\(port) HTTP/1.1\r\n"
+            if !proxy.method.isEmpty && !proxy.password.isEmpty  {
+                //http basic auth
+                let temp = proxy.method + ":" + proxy.password
+                
+                let utf8str = temp.data(using: .utf8)
+                
+                if let base64Encoded = utf8str?.base64EncodedString(options: .endLineWithLineFeed) {
+                    f = f + "Proxy-Authorization: Basic " + base64Encoded + "\r\n"
+                }
+            }
+            f += "\r\n"
+            //print(f)
+            return f.data(using: .utf8)!
+        }else {
+            return nil
         }
     }
 }

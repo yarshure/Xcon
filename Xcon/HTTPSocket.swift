@@ -17,26 +17,33 @@ public  class HTTPProxyConnector:ProxyConnector {
     var httpConnected:Bool = false
     var headerData:Data = Data()
     static let ReadTag:Int = -2000
+    static let WriteTag:Int = -2001
     // https support current don't support
+    static func connect(_ target: String, port: UInt16,p:SFProxy, delegate: SocketDelegate, queue: DispatchQueue)  -> HTTPProxyConnector {
+        let c = HTTPProxyConnector(p: p)
+        c.targetPort = port
+        c.targetHost = target
+        c.queue = queue
+        c.socketdelegate = delegate
+        Xcon.log("HTTP connector start", level: .Info)
+        c.start()
+        return c
+    }
     deinit {
         //reqHeader = nil
         //respHeader = nil
         Xcon.log(cIDString + "deinit", level: .Debug)
     }
     func sendReq() {
+        var data:Data
+        
         if let req = reqHeader  {
-            if let data = req.buildCONNECTHead(self.proxy) {
-                Xcon.log(cIDString + " sending CONNECTHead",items: data,req.method,level: .Debug)
-                self.writeData(data, withTag: HTTPProxyConnector.ReadTag)
-            }else {
-               Xcon.log(cIDString + " buildCONNECTHead error",level: .Error)
-            }
-        }else {
-            //sleep(1)
-            //sendReq()
-           Xcon.log("\(cIDString)  not reqHeader  error",level: .Error)
+            data = req.buildCONNECTHead(self.proxy)! 
+             
+        } else {
+            data = SFHTTPRequestHeader.buildHead(self.proxy, host: targetHost, port: targetPort)!
         }
-
+        self.writeData(data, withTag: HTTPProxyConnector.WriteTag)
     }
     func recvHeaderData(data:Data) ->Int{
         // only use display response status,recent request feature need
@@ -72,157 +79,76 @@ public  class HTTPProxyConnector:ProxyConnector {
         return 0
     }
  
-    public func readCallback(data: Data?, tag: Int) {
-        
-        guard let _ = data else {
-            Xcon.log("\(cIDString) read nil", level: .Debug)
-            return
-        }
-//        queueCall {
-//
-//            //Xcon.log("read data \(data)", level: .Debug)
-//            if self.httpConnected == false {
-//                if self.respHeader == nil {
-//                    let len = self.recvHeaderData(data: data)
-//
-//                    if len == 0{
-//                        Xcon.log("http  don't found resp header",level: .Warning)
-//                    }else {
-//                        //找到resp header
-//                        self.httpConnected = true
-//                        if let d = self.delegate {
-//                            d.didConnect(self)
-//                        }
-//                        if len < data.count {
-//                            let dataX = data.subdata(in: Range(len ..< data.count ))
-//                            //delegate?.connector(self, didReadData: dataX, withTag: 0)
-//                            autoreleasepool(invoking: {
-//                                self.delegate?.didReadData( dataX, withTag: tag, from: self)
-//                            })
-//
-//                            //Xcon.log("\(cIDString) CONNECT response data\(data)",level: .Error)
-//                        }
-//                    }
-//                }
-//
-//                //self.readDataWithTag(-1)
-//            }else {
-//                autoreleasepool(invoking: {
-//                    self.delegate?.didReadData( data, withTag: tag, from: self)
-//                })
-//
-//            }
-//
-//        }
-    }
-    
+ 
 
-    public func socketConnectd() {
-       
-        if httpConnected == false {
-            self.sendReq()
-        }else {
-            self.delegate?.didConnect( self)
-        }
-    }
-
-     func sendData(data: Data, withTag tag: Int) {
-//        if writePending {
-//            Xcon.log("Socket-\(cID)  writePending error", level: .Debug)
-//            return
-//        }
-//        writePending = true
-//        if isConnected == false {
-//            Xcon.log("isConnected error", level: .Error)
-//            return
-//        }
-//        self.connection!.write(data) {[weak self] error in
-//            guard let strong = self else  {return}
-//            strong.writePending = false
-//
-//            guard error == nil else {
-//                Xcon.log("NWTCPSocket got an error when writing data: ",items: error!.localizedDescription,level: .Debug)
-//                strong.forceDisconnect()
-//                return
-//            }
-//
-//            strong.queueCall {
-//                if strong.httpConnected == false {
-//                    strong.readDataWithTag(HTTPProxyConnector.ReadTag)
-//                }else {
-//                    strong.queueCall { autoreleasepool {
-//                        strong.delegate?.didWriteData(data, withTag: tag, from: strong)
-//                    }}
-//                }
-//
-//            }
-//            strong.checkStatus()
-//        }
-    }
-     public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-      
-//        guard keyPath == "state" else {
-//            return
-//        }
-//        //crash
-//
-//
-//        if object == nil {
-//            Xcon.log("\(cIDString) connection lost", level: .Error)
-//            disconnect()
-//            return
-//        }
-//        if let error = connection?.error {
-//            Xcon.log("Socket-\(cIDString) state:",items:error.localizedDescription, level: .Debug)
-//        }
-//
-//        switch connection!.state {
-//        case .connected:
-//            queueCall {[weak self] in
-//                if let strong = self {
-//                    strong.socketConnectd()
-//                }
-//
-//            }
-//        case .disconnected:
-//            cancel()
-//        case .cancelled:
-//            queueCall {
-//                if let delegate = self.delegate{
-//                    delegate.didDisconnect(self, error: nil)
-//                }
-//
-//                //self.delegate = nil
-//            }
-//        default:
-//            break
-//            //        case .Connecting:
-//            //            stateString = "Connecting"
-//            //        case .Waiting:
-//            //            stateString =  "Waiting"
-//            //        case .Invalid:
-//            //            stateString = "Invalid"
-//
-//        }
-        //        if let  x = connection.endpoint as! NWHostEndpoint {
-        //
-        //        }
-//        if let error = connection!.error {
-//            Xcon.log("\(cIDString) ",items: error.localizedDescription, level: .Error)
-//        }
-       // Xcon.log("\(cIDString) stat:",items: connection!.state.description, level: .Debug)
-    }
-
-    public static func connectorWithSelectorPolicy(targetHostname hostname:String, targetPort port:UInt16,p:SFProxy,delegate: RawSocketDelegate, queue: DispatchQueue) ->HTTPProxyConnector{
+    public static func connectorWithSelectorPolicy(targetHostname hostname:String, targetPort port:UInt16,p:SFProxy,delegate: SocketDelegate, queue: DispatchQueue) ->HTTPProxyConnector{
         let c:HTTPProxyConnector = HTTPProxyConnector(p: p)
         //c.manager = man
         //c.cIDFunc()
-        c.delegate = delegate
+        c.socketdelegate = delegate
         c.queue = queue
         c.targetHost = hostname
         c.targetPort = port
         
         c.start()
         return c
+    }
+    public override func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
+        
+        self.socketdelegate?.didDisconnectWith(socket: self)
+        
+    }
+    
+    public override func didReadData(_ data: Data, withTag: Int, from: RawSocketProtocol) {
+        if httpConnected == true {
+            self.socketdelegate?.didRead(data: data, from: self)
+        }else {
+            if withTag == HTTPProxyConnector.ReadTag {
+              
+                    if self.respHeader == nil {
+                        let len = self.recvHeaderData(data: data)
+                        
+                        if len == 0{
+                            Xcon.log("http  don't found resp header",level: .Warning)
+                        }else {
+                            //找到resp header
+                            self.httpConnected = true
+                            if let d = self.socketdelegate {
+                                d.didConnectWith(adapterSocket: self)
+                            }
+                            if len < data.count {
+                                let dataX = data.subdata(in: Range(len ..< data.count ))
+                               
+                               self.socketdelegate?.didRead(data: dataX, from: self)
+                                
+                            }
+                        }
+                    }
+                
+                }
+            
+        }
+
+    }
+    
+    public override func didWriteData(_ data: Data?, withTag: Int, from: RawSocketProtocol) {
+        if httpConnected == true {
+            self.socketdelegate?.didWrite(data: data, by: self)
+        }else {
+            if withTag == HTTPProxyConnector.WriteTag{
+                self.socket.readDataWithTag(HTTPProxyConnector.ReadTag)
+            }
+        }
+        
+        
+    }
+    
+    public override func didConnect(_ socket: RawSocketProtocol) {
+        if httpConnected == false {
+            self.sendReq()
+        }else {
+            self.socketdelegate?.didConnectWith(adapterSocket: self)
+        }
+        
     }
 }

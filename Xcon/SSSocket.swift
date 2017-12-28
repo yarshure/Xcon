@@ -107,7 +107,7 @@ public class  TCPSSConnector:ProxyConnector{
         
         
         if let cipher = self.aes.decrypt(encrypt_bytes: data){
-            if let d = self.delegate {
+            if let d = self.socketdelegate {
                 //debugLog("recv:\(cipher)")
                 //d.connector(self, didReadData: cipher, withTag: Int64(tag))
 //                queueCall {
@@ -171,7 +171,7 @@ public class  TCPSSConnector:ProxyConnector{
         }
 
     }
-    static func connectTo(_ host: String, port: Int,proxy:SFProxy, delegate: RawSocketDelegate, queue: DispatchQueue)  -> TCPSSConnector {
+    static func connectTo(_ host: String, port: Int,proxy:SFProxy, delegate: SocketDelegate, queue: DispatchQueue)  -> TCPSSConnector {
         let c:TCPSSConnector = TCPSSConnector( p: proxy)
         //c.manager = man
         //c.policy = selectorPolicy
@@ -181,7 +181,7 @@ public class  TCPSSConnector:ProxyConnector{
         c.targetPort = UInt16(port)
         
         c.ota = proxy.tlsEnable
-        c.delegate = delegate
+        c.socketdelegate = delegate
         c.queue = queue
         if proxy.editEnable == false {
             let iv = "This is an IV456" // should be of 16 characters.
@@ -206,21 +206,22 @@ public class  TCPSSConnector:ProxyConnector{
         c.start()
         return c
     }
+    static func connect(_ target: String, port: UInt16,p:SFProxy, delegate: SocketDelegate, queue: DispatchQueue)  ->TCPSSConnector {
+        let c:TCPSSConnector = TCPSSConnector( p: p)
+        //c.manager = man
+        //c.policy = selectorPolicy
+        //TCPSSConnector.swift.[363]:12484608:12124160:360448:Bytes
+        //c.cIDFunc()
+        c.targetHost = target
+        c.targetPort = port
+        c.socketdelegate = delegate
+        c.ota = p.tlsEnable
+        c.aes = SSEncrypt.init(password: p.password, method: p.method)
+        //c.start()
+        return c
+    }
+
     
-//    public static func connectorWithSelectorPolicy(_ selectorPolicy:SFPolicy ,targetHostname hostname:String, targetPort port:UInt16,p:SFProxy) ->TCPSSConnector{
-//        let c:TCPSSConnector = TCPSSConnector( p: p)
-//        //c.manager = man
-//        //c.policy = selectorPolicy
-//        //TCPSSConnector.swift.[363]:12484608:12124160:360448:Bytes
-//        //c.cIDFunc()
-//        c.targetHost = hostname
-//        c.targetPort = port
-//        
-//        c.ota = p.tlsEnable
-//        c.aes = SSEncrypt.init(password: p.password, method: p.method)
-//        //c.start()
-//        return c
-//    }
 
 }
 

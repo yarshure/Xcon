@@ -1,0 +1,10 @@
+//
+//  Config.xcconfig
+//  Xcon
+//
+//  Created by yarshure on 2017/12/28.
+//  Copyright © 2017年 yarshure. All rights reserved.
+//
+//OTHER_LDFLAGS = $(inherited)  -weak_framework Sodium -weak_framework CommonCrypto -framework SwiftyJSON -framework ObjectMapper   //-mbedcrypto//lcrypto // - //mbedcrypto
+LIBRARY_SEARCH_PATHS = $(inherited) "$(PROJECT_DIR)/Carthage/Build/Mac/"
+FRAMEWORK_SEARCH_PATHS =  $(inherited) "$(PROJECT_DIR)/Carthage/Build/Mac/"
