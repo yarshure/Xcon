@@ -55,7 +55,7 @@ public class Proxys:CommonModel {
         return nil
     }
     // for tunnel
-    func findProxy(_ proxyName:String,dynamicSelected:Bool,selectIndex:Int) ->SFProxy? {
+    public func findProxy(_ proxyName:String,dynamicSelected:Bool,selectIndex:Int) ->SFProxy? {
         
         
         
