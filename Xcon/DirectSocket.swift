@@ -16,6 +16,9 @@ public class DirectConnector:AdapterSocket{
     var targetHost:String = ""
     var targetPort:UInt16 = 0
     //var ipAddress:String?
+    deinit {
+        Xcon.log("DirectConnector \(targetHost):\(targetPort) deint",level:.Debug)
+    }
     public func start() {
         do {
             

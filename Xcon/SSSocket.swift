@@ -205,7 +205,7 @@ public class  TCPSSConnector:ProxyConnector{
     
     public override func didConnect(_ socket: RawSocketProtocol) {
         
-        self.socketdelegate?.didDisconnectWith(socket: self)
+        self.socketdelegate?.didConnectWith(adapterSocket:  self)
     }
     
 
