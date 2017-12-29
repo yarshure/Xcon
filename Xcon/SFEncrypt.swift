@@ -433,7 +433,7 @@ public class enc_ctx {
         }
 
        
-        print("enc deinit")
+        
         
     }
 }
@@ -461,7 +461,8 @@ public class SSEncrypt {
         
     }
     deinit {
-        print("SFEncrypt deinit")
+        Xcon.log("SFEncrypt deinit", level: .Debug)
+        
     }
     func dataWithHexString(hex: String) -> Data {
         var hex = hex

@@ -20,7 +20,7 @@ public class  TCPSSConnector:ProxyConnector{
     //var auth:Bool = false
     
     deinit {
-        
+        Xcon.log("TCPSSConnector deinit", level: .Debug)
         //maybe crash
         
     }
