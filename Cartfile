@@ -1,4 +1,5 @@
 github "SwiftyJSON/SwiftyJSON" "4.0.0"
+github "networkextension/snappy-ios" "72c2b14842943a1f21eb2a76c06d76689fd7aa57"
 github "zhuhaow/Sodium-framework" "v1.0.10.1"
 github "networkextension/libkcp" "c0cfb12e3d576788ecae2c2be14e2517169e5628"
 github "soffes/CommonCrypto" "v1.1.0"
