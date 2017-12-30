@@ -9,6 +9,7 @@
 import Foundation
 import XSocket
 import NetworkExtension
+import os.log
 public protocol XconDelegate: class {
     /**
      The socket did disconnect.
@@ -61,7 +62,7 @@ public class Xcon:SocketDelegate{
     }
     
     public func didWrite(data: Data?, by: SocketProtocol) {
-        Xcon.log("didwrite", level: .Info)
+        Xcon.log("didwrite ", level: .Info)
         self.delegate?.didWriteData(data, withTag: 0, from: self)
     }
     
@@ -184,7 +185,12 @@ extension Xcon{
             AxLogger.log(msg,level:level)
         }
         if debugEnable {
-            print("Xcon:" + msg)
+            if #available(OSXApplicationExtension 10.12, *) {
+                os_log("Xcon: %@", log: .default, type: .debug, msg)
+            } else {
+                // Fallback on earlier versions
+            }
+            
         }
         
     }
