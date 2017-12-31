@@ -24,7 +24,7 @@ class SnappyHelper {
         }
         data.withUnsafeBytes { (input: UnsafePointer<Int8>) -> Void in
             if snappy_compress(input, data.count, out, count) == SNAPPY_OK {
-                SKit.log("ok \(count.pointee)",level:.Info)
+                Xcon.log("ok \(count.pointee)",level:.Info)
                 
             }
         }
@@ -55,14 +55,14 @@ class SnappyHelper {
         dataBuffer.withUnsafeBytes { (input: UnsafePointer<Int8>) -> Void in
             if snappy_uncompressed_length(input, dataBuffer.count,output_length) != SNAPPY_OK{
                 fatalError()
-                SKit.log("snappy snappy_uncompressed_length error", level: .Error)
+                Xcon.log("snappy snappy_uncompressed_length error", level: .Error)
             }else {
                 if snappy_uncompress(input, dataBuffer.count, out, output_length) == SNAPPY_OK {
                     print("ok \(count.pointee)")
                     sec = true
                 }else {
                     fatalError()
-                    SKit.log("snappy snappy_uncompress error", level: .Error)
+                    Xcon.log("snappy snappy_uncompress error", level: .Error)
                 }
             }
             
