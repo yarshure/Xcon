@@ -9,6 +9,7 @@
 import Foundation
 import CocoaAsyncSocket
 import AxLogger
+import XFoundation
 //public enum SFSocks5Stage:Int8,CustomStringConvertible{
 //    case Auth = 0
 //    case AuthSend = 2

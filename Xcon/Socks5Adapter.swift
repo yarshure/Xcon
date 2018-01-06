@@ -8,6 +8,7 @@
 
 import Foundation
 import AxLogger
+import XFoundation
 class Socks5Adapter: Adapter {
     var stage:SFSocks5Stage = .Auth
     var recvBuffer:Data?

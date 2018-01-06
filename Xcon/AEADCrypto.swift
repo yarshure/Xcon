@@ -10,6 +10,7 @@ import Foundation
 import CommonCrypto
 import AxLogger
 import Sodium
+import XFoundation
 //需要对源代码的stream 部分兼容
 typealias fCCCryptorGCMAddIV = @convention(c) (CCCryptorRef, UnsafeRawPointer,CInt) -> CInt
 typealias fCCCryptorGCMaddAAD = @convention(c) (CCCryptorRef, UnsafeRawPointer,CInt) -> CInt

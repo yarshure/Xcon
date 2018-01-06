@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import XFoundation
 struct kcp {
     static let version:UInt8 = 1
 }

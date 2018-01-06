@@ -8,6 +8,7 @@
 
 import Foundation
 import AxLogger
+import XFoundation
 class SSAdapter:Adapter {
     var engine:SSEncrypt
     var ota:Bool = false
