@@ -18,7 +18,6 @@
 		691EBDE41FC57B61005FDCAF /* SSAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE31FC57B61005FDCAF /* SSAdapter.swift */; };
 		691EBDE61FC57B6C005FDCAF /* SS3Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE51FC57B6C005FDCAF /* SS3Adapter.swift */; };
 		691EBDF01FC57F4B005FDCAF /* SFEncrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDEF1FC57F4B005FDCAF /* SFEncrypt.swift */; };
-		691EBDF41FC5801C005FDCAF /* SFData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF31FC5801C005FDCAF /* SFData.swift */; };
 		691EBDF81FC580B6005FDCAF /* SFHTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */; };
 		691EBDFA1FC582C1005FDCAF /* EncryptExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */; };
 		691EBDFC1FC650A7005FDCAF /* HTTPSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDFB1FC650A7005FDCAF /* HTTPSocket.swift */; };
@@ -30,7 +29,6 @@
 		691EBE321FC66DE2005FDCAF /* EncryptExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */; };
 		691EBE331FC66DE6005FDCAF /* Xcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD11FC5771C005FDCAF /* Xcon.swift */; };
 		691EBE341FC66DE9005FDCAF /* SFHTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */; };
-		691EBE351FC66DED005FDCAF /* SFData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF31FC5801C005FDCAF /* SFData.swift */; };
 		691EBE361FC66DF1005FDCAF /* SFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDDB1FC57AC8005FDCAF /* SFModel.swift */; };
 		691EBE371FC66DF5005FDCAF /* SFProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD51FC57810005FDCAF /* SFProxy.swift */; };
 		691EBE381FC66DF9005FDCAF /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD31FC57745005FDCAF /* Adapter.swift */; };
@@ -102,7 +100,6 @@
 		691EBDE31FC57B61005FDCAF /* SSAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAdapter.swift; sourceTree = "<group>"; };
 		691EBDE51FC57B6C005FDCAF /* SS3Adapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SS3Adapter.swift; sourceTree = "<group>"; };
 		691EBDEF1FC57F4B005FDCAF /* SFEncrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFEncrypt.swift; sourceTree = "<group>"; };
-		691EBDF31FC5801C005FDCAF /* SFData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFData.swift; sourceTree = "<group>"; };
 		691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFHTTPHeader.swift; sourceTree = "<group>"; };
 		691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptExtension.swift; sourceTree = "<group>"; };
 		691EBDFB1FC650A7005FDCAF /* HTTPSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPSocket.swift; sourceTree = "<group>"; };
@@ -207,7 +204,6 @@
 				691EBDCA1FC575D8005FDCAF /* Info.plist */,
 				691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */,
 				691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */,
-				691EBDF31FC5801C005FDCAF /* SFData.swift */,
 				691EBDDB1FC57AC8005FDCAF /* SFModel.swift */,
 				691EBDD51FC57810005FDCAF /* SFProxy.swift */,
 				691EBDD31FC57745005FDCAF /* Adapter.swift */,
@@ -505,7 +501,6 @@
 				691EBDE01FC57B47005FDCAF /* HTTPAdapter.swift in Sources */,
 				693A364D1FC7CD71007FDE26 /* AdapterSocket.swift in Sources */,
 				691EBDF01FC57F4B005FDCAF /* SFEncrypt.swift in Sources */,
-				691EBDF41FC5801C005FDCAF /* SFData.swift in Sources */,
 				691EBDFA1FC582C1005FDCAF /* EncryptExtension.swift in Sources */,
 				691EBDF81FC580B6005FDCAF /* SFHTTPHeader.swift in Sources */,
 				6946506B1FF622BE000AFBE3 /* SnappyHelper.swift in Sources */,
@@ -545,7 +540,6 @@
 				694650781FF6252D000AFBE3 /* BlockCrypt.swift in Sources */,
 				691EBE401FC66E1A005FDCAF /* HTTPAdapter.swift in Sources */,
 				691EBE391FC66DFD005FDCAF /* ext.swift in Sources */,
-				691EBE351FC66DED005FDCAF /* SFData.swift in Sources */,
 				694650831FF62546000AFBE3 /* Stream.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
