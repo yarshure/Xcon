@@ -47,23 +47,31 @@ public protocol XconDelegate: class {
 }
 public class Xcon:SocketDelegate{
     public func didConnectWith(adapterSocket: SocketProtocol) {
-        self.delegate?.didConnect(self)
+        queue.async {
+            self.delegate?.didConnect(self)
+        }
     }
     
     
     public func didDisconnectWith(socket: SocketProtocol) {
          Xcon.log("read didDisconnectWith", level: .Info)
-        self.delegate?.didDisconnect(self, error: nil)
+        queue.async {
+            self.delegate?.didDisconnect(self, error: nil)
+        }
+        
     }
     
     public func didRead(data: Data, from: SocketProtocol) {
-        
-        self.delegate?.didReadData(data, withTag: 0, from: self)
+        queue.async {
+            self.delegate?.didReadData(data, withTag: 0, from: self)
+        }
     }
     
     public func didWrite(data: Data?, by: SocketProtocol) {
         Xcon.log("didwrite ", level: .Info)
-        self.delegate?.didWriteData(data, withTag: 0, from: self)
+        queue.async {
+            self.delegate?.didWriteData(data, withTag: 0, from: self)
+        }
     }
     
     public func didBecomeReadyToForwardWith(socket: SocketProtocol) {
