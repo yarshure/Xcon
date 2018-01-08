@@ -109,7 +109,7 @@ public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     
     public func connectTo(_ host: String, port: UInt16, enableTLS: Bool, tlsSettings: [NSObject : AnyObject]?) throws {
         socket = RawSocketFactory.getRawSocket()
-        socket.queue = DispatchQueue.init(label: "socket")
+        socket.queue = DispatchQueue.init(label: "com.yarshure.Xcon.socket")
         socket.delegate = self
        
         Xcon.log("connect to \(host):\(port)", level: .Info)

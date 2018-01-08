@@ -47,6 +47,7 @@ public protocol XconDelegate: class {
 }
 public class Xcon:SocketDelegate{
     public func didConnectWith(adapterSocket: SocketProtocol) {
+        Xcon.log("didConnectWith", level: .Info)
         queue.async {
             self.delegate?.didConnect(self)
         }
@@ -54,7 +55,7 @@ public class Xcon:SocketDelegate{
     
     
     public func didDisconnectWith(socket: SocketProtocol) {
-         Xcon.log("read didDisconnectWith", level: .Info)
+        Xcon.log("didDisconnectWith", level: .Info)
         queue.async {
             self.delegate?.didDisconnect(self, error: nil)
         }
@@ -62,6 +63,7 @@ public class Xcon:SocketDelegate{
     }
     
     public func didRead(data: Data, from: SocketProtocol) {
+        Xcon.log("read didRead", level: .Info)
         queue.async {
             self.delegate?.didReadData(data, withTag: 0, from: self)
         }
@@ -89,7 +91,7 @@ public class Xcon:SocketDelegate{
     var connector:AdapterSocket?
     
     init(q:DispatchQueue) {
-    
+        self.queue = q
     }
     public func forceDisconnect(_ sessionID: UInt32) {
         connector?.forceDisconnect(sessionID)
@@ -136,7 +138,7 @@ public class Xcon:SocketDelegate{
     }
     
     public func forceDisconnect(becauseOf error: Error?) {
-        
+        connector?.disconnect(becauseOf: error)
     }
     
     public func writeData(_ data: Data, withTag: Int) {
@@ -193,11 +195,23 @@ extension Xcon{
             AxLogger.log(msg,level:level)
         }
         if debugEnable {
-            if #available(OSXApplicationExtension 10.12, *) {
-                os_log("Xcon: %@", log: .default, type: .debug, msg)
-            } else {
-                // Fallback on earlier versions
-            }
+            #if os(iOS)
+                if #available(iOSApplicationExtension 10.0, *) {
+                    os_log("Xcon: %@", log: .default, type: .debug, msg)
+                } else {
+                    print(msg)
+                    // Fallback on earlier versions
+                }
+            #elseif os(OSX)
+                if #available(OSXApplicationExtension 10.12, *) {
+                    os_log("Xcon: %@", log: .default, type: .debug, msg)
+                } else {
+                    print(msg)
+                    // Fallback on earlier versions
+                }
+            
+            #endif
+            
             
         }
         

@@ -137,11 +137,6 @@ extension Data{
         //start+length > Data.last is security?
         return self.subdata(in: start..<start+length).withUnsafeBytes { $0.pointee }
     }
-    public var length:Int{
-        get {
-            return self.count
-        }
-    }
 }
 extension Range{
     //<Data.Index>

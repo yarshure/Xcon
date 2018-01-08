@@ -44,7 +44,7 @@ public class DirectConnector:AdapterSocket{
         c.targetHost = host
         c.queue = queue
         c.socketdelegate = delegate
-        Xcon.log("DirectConnector  start", level: .Info)
+        Xcon.log("DirectConnector  start \(host):\(port)", level: .Info)
         c.start()
         return c
     }
@@ -62,11 +62,12 @@ public class DirectConnector:AdapterSocket{
     }
     
     public override func didWriteData(_ data: Data?, withTag: Int, from: RawSocketProtocol) {
-        
+        Xcon.log("didWriteData", level: .Info)
         self.socketdelegate?.didWrite(data: data, by: self)
     }
     
     public override func didConnect(_ socket: RawSocketProtocol) {
+        Xcon.log("didConnect", level: .Info)
         self.socketdelegate?.didConnectWith(adapterSocket: self)
     }
     
