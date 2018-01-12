@@ -72,6 +72,7 @@
 		694650851FF62546000AFBE3 /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6946507E1FF62546000AFBE3 /* Frame.swift */; };
 		694650861FF62546000AFBE3 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6946507F1FF62546000AFBE3 /* Session.swift */; };
 		694650871FF62546000AFBE3 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6946507F1FF62546000AFBE3 /* Session.swift */; };
+		69E96BAD200848600060659A /* UDPVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E96BAC200848600060659A /* UDPVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +144,8 @@
 		6946507F1FF62546000AFBE3 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		69C7DBEE1FE24E3600FB7FA2 /* ios.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ios.xcconfig; sourceTree = "<group>"; };
 		69C7DBEF1FE24E4200FB7FA2 /* mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = mac.xcconfig; sourceTree = "<group>"; };
+		69E96BA9200847860060659A /* test.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = test.py; sourceTree = "<group>"; };
+		69E96BAC200848600060659A /* UDPVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDPVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +176,7 @@
 		691EBDBC1FC575D8005FDCAF = {
 			isa = PBXGroup;
 			children = (
+				69E96BA82008476A0060659A /* uitl */,
 				691EBDC81FC575D8005FDCAF /* Xcon */,
 				691EBE291FC66DD3005FDCAF /* XconMac */,
 				6946502F1FF4C6C2000AFBE3 /* macTest */,
@@ -281,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				694650301FF4C6C2000AFBE3 /* AppDelegate.swift */,
+				69E96BAC200848600060659A /* UDPVC.swift */,
 				694650421FF4C951000AFBE3 /* Config.xcconfig */,
 				694650321FF4C6C2000AFBE3 /* ViewController.swift */,
 				694650341FF4C6C2000AFBE3 /* Assets.xcassets */,
@@ -304,6 +309,14 @@
 				694650701FF624F9000AFBE3 /* Fec.swift */,
 			);
 			path = kcp;
+			sourceTree = "<group>";
+		};
+		69E96BA82008476A0060659A /* uitl */ = {
+			isa = PBXGroup;
+			children = (
+				69E96BA9200847860060659A /* test.py */,
+			);
+			path = uitl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -550,6 +563,7 @@
 			files = (
 				694650331FF4C6C2000AFBE3 /* ViewController.swift in Sources */,
 				694650311FF4C6C2000AFBE3 /* AppDelegate.swift in Sources */,
+				69E96BAD200848600060659A /* UDPVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,7 +723,7 @@
 				);
 				INFOPLIST_FILE = Xcon/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.Xcon;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -740,7 +754,7 @@
 				);
 				INFOPLIST_FILE = Xcon/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.Xcon;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";

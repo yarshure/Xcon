@@ -19,7 +19,7 @@ public class DirectConnector:AdapterSocket{
     deinit {
         Xcon.log("DirectConnector \(targetHost):\(targetPort) deint",level:.Debug)
     }
-    public func start() {
+    public override func start() {
         do {
             
             try  super.connectTo(self.targetHost, port: self.targetPort, enableTLS: false, tlsSettings: nil)
@@ -45,7 +45,7 @@ public class DirectConnector:AdapterSocket{
         c.queue = queue
         c.socketdelegate = delegate
         Xcon.log("DirectConnector  start \(host):\(port)", level: .Info)
-        c.start()
+        
         return c
     }
     

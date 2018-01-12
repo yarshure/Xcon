@@ -36,14 +36,9 @@ public class Socks5Connector:ProxyConnector{
     var recvBuffer:Data?
     static var  ReadTag:Int = -3000
     static func connect(_ target: String, port: UInt16,p:SFProxy, delegate: SocketDelegate, queue: DispatchQueue)  -> Socks5Connector {
-        let c:Socks5Connector = Socks5Connector(p: p)
+        let c:Socks5Connector = Socks5Connector.init(target, port: port, p: p, delegate: delegate, queue: queue)
         
-        c.socketdelegate = delegate
-        c.targetHost = target
-        c.targetPort = port
-        c.queue = queue
-        //c.cIDFunc()
-        c.start()
+
         return c
     }
     

@@ -74,6 +74,14 @@ public class ProxyConnector: AdapterSocket {
         
         //cIDFunc()
     }
+     init(_ target: String, port: UInt16,p:SFProxy, delegate: SocketDelegate, queue: DispatchQueue)  {
+        self.proxy = p
+        super.init()
+        self.targetPort = port
+        self.targetHost = target
+        self.queue = queue
+        self.socketdelegate = delegate
+    }
     static func connectTo(_ host: String, port: UInt16,p:SFProxy,delegate:SocketDelegate, queue: DispatchQueue) ->ProxyConnector{
         switch p.type{
         case .HTTP:
@@ -99,7 +107,7 @@ public class ProxyConnector: AdapterSocket {
            
         }
     }
-     public func start() {
+    public override func start() {
         guard let port = UInt16(proxy.serverPort) else {
             return
         }

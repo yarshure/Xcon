@@ -20,13 +20,9 @@ public  class HTTPProxyConnector:ProxyConnector {
     static let WriteTag:Int = -2001
     // https support current don't support
     static func connect(_ target: String, port: UInt16,p:SFProxy, delegate: SocketDelegate, queue: DispatchQueue)  -> HTTPProxyConnector {
-        let c = HTTPProxyConnector(p: p)
-        c.targetPort = port
-        c.targetHost = target
-        c.queue = queue
-        c.socketdelegate = delegate
+        let c = HTTPProxyConnector.init(target, port: port, p: p, delegate: delegate, queue: queue)
         Xcon.log("HTTP connector start", level: .Info)
-        c.start()
+        
         return c
     }
     deinit {

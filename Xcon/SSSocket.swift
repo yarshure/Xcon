@@ -146,13 +146,11 @@ public class  TCPSSConnector:ProxyConnector{
     }
    
     static func connect(_ target: String, port: UInt16,p:SFProxy, delegate: SocketDelegate, queue: DispatchQueue)  ->TCPSSConnector {
-        let c:TCPSSConnector = TCPSSConnector( p: p)
+        let c:TCPSSConnector = TCPSSConnector.init(target, port: port, p: p, delegate: delegate, queue: queue)
         
         //TCPSSConnector.swift.[363]:12484608:12124160:360448:Bytes
         //c.cIDFunc()
-        c.targetHost = target
-        c.targetPort = port
-        c.socketdelegate = delegate
+      
         c.ota = p.tlsEnable
         c.aes = SSEncrypt.init(password: p.password, method: p.method)
         if p.editEnable == false {
@@ -175,7 +173,7 @@ public class  TCPSSConnector:ProxyConnector{
             c.aes = SSEncrypt.init(password: p.password, method: p.method)
         }
         
-        c.start()
+       
         return c
     }
 

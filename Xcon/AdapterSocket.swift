@@ -70,6 +70,9 @@ public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     init() {
         
     }
+    func start(){
+        
+    }
     public func write(data: Data) {
         
     }
