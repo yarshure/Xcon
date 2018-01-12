@@ -129,9 +129,7 @@ public class Xcon:SocketDelegate{
     deinit {
         Xcon.log("Xcon deinit", level: .Debug)
     }
-    public func connectTo(_ host: String, port: UInt16, enableTLS: Bool, tlsSettings: [NSObject : AnyObject]?) throws {
-        
-    }
+   
     
     public func disconnect(becauseOf error: Error?) {
         connector?.disconnect(becauseOf: error)
@@ -164,13 +162,18 @@ public class Xcon:SocketDelegate{
         
     }
     public static var debugEnable = false
-    static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,sID:UInt,delegate:XconDelegate,queue:DispatchQueue) ->Xcon?{
+    static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,sID:UInt,delegate:XconDelegate,queue:DispatchQueue,sessionID:Int = 0) ->Xcon?{
         let con = Xcon.init(q: queue)
         con.delegate = delegate
         if let p = p {
             //proxy mode
-            let c = ProxyConnector.connectTo(targetHost, port: Port, p: p, delegate: con, queue: queue)
-            con.connector = c
+            if !p.kcptun  {
+                let c = ProxyConnector.connectTo(targetHost, port: Port, p: p, delegate: con, queue: queue)
+                con.connector = c
+            }else {
+                
+            }
+            
         }else {
             let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
            
