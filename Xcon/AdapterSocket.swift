@@ -82,13 +82,17 @@ public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     }
     
     public func forceDisconnect(becauseOf error: Error?) {
-         socket.disconnect(becauseOf: error)
+        if socket != nil  {
+            socket.disconnect(becauseOf: error)
+        }
+        
     }
     
-
-    
     public func forceDisconnect(_ sessionID: UInt32) {
-        socket.forceDisconnect(sessionID)
+        if socket != nil  {
+            socket.forceDisconnect(sessionID)
+        }
+        
     }
     
     public var queue: DispatchQueue!
