@@ -79,8 +79,6 @@ class KcpTunConnector: AdapterSocket{
     }
     public func didDisconnect(_ stream:Xcon, error: Error?) {
         stream.didDisconnectWith(socket: self)
-        
-        
     }
     
     

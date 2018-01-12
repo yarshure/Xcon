@@ -85,7 +85,7 @@ public class AdapterSocket:SocketProtocol,RawSocketDelegate {
          socket.disconnect(becauseOf: error)
     }
     
-   // public var delegate: RawSocketDelegate?
+
     
     public func forceDisconnect(_ sessionID: UInt32) {
         socket.forceDisconnect(sessionID)

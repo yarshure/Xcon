@@ -45,7 +45,7 @@ public class DirectConnector:AdapterSocket{
         c.queue = queue
         c.socketdelegate = delegate
         Xcon.log("DirectConnector  start \(host):\(port)", level: .Info)
-        
+        c.start()
         return c
     }
     

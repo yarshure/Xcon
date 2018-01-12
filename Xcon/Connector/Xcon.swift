@@ -171,7 +171,7 @@ public class Xcon:SocketDelegate{
                 let c = ProxyConnector.connectTo(targetHost, port: Port, p: p, delegate: con, queue: queue)
                 con.connector = c
             }else {
-                
+                fatalError()
             }
             
         }else {

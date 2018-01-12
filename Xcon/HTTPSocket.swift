@@ -22,7 +22,7 @@ public  class HTTPProxyConnector:ProxyConnector {
     static func connect(_ target: String, port: UInt16,p:SFProxy, delegate: SocketDelegate, queue: DispatchQueue)  -> HTTPProxyConnector {
         let c = HTTPProxyConnector.init(target, port: port, p: p, delegate: delegate, queue: queue)
         Xcon.log("HTTP connector start", level: .Info)
-        
+        c.start()
         return c
     }
     deinit {
@@ -63,6 +63,7 @@ public  class HTTPProxyConnector:ProxyConnector {
                 //self.forceDisconnect()
                 //sendReq()
                 //NSLog("CONNECT status\(r.sCode) ")
+                self.forceDisconnect(becauseOf: nil)
             }
         
            
@@ -76,19 +77,6 @@ public  class HTTPProxyConnector:ProxyConnector {
     }
  
  
-
-    public static func connectorWithSelectorPolicy(targetHostname hostname:String, targetPort port:UInt16,p:SFProxy,delegate: SocketDelegate, queue: DispatchQueue) ->HTTPProxyConnector{
-        let c:HTTPProxyConnector = HTTPProxyConnector(p: p)
-        //c.manager = man
-        //c.cIDFunc()
-        c.socketdelegate = delegate
-        c.queue = queue
-        c.targetHost = hostname
-        c.targetPort = port
-        
-        c.start()
-        return c
-    }
     public override func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
         
         self.socketdelegate?.didDisconnectWith(socket: self)

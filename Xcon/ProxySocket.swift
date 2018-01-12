@@ -81,14 +81,12 @@ public class ProxyConnector: AdapterSocket {
         self.targetHost = target
         self.queue = queue
         self.socketdelegate = delegate
+       
     }
     static func connectTo(_ host: String, port: UInt16,p:SFProxy,delegate:SocketDelegate, queue: DispatchQueue) ->ProxyConnector{
         switch p.type{
-        case .HTTP:
+        case .HTTP,.HTTPS:
             return  HTTPProxyConnector.connect(host, port: port, p: p, delegate: delegate, queue: queue)
-            
-        case .HTTPS:
-            return HTTPProxyConnector.connect(host, port: port, p: p, delegate: delegate, queue: queue)
             
         case .SS:
             return TCPSSConnector.connect(host, port: port, p: p, delegate: delegate, queue: queue)

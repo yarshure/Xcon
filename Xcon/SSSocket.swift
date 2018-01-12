@@ -172,7 +172,7 @@ public class  TCPSSConnector:ProxyConnector{
         }else {
             c.aes = SSEncrypt.init(password: p.password, method: p.method)
         }
-        
+        c.start()
        
         return c
     }
