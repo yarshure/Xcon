@@ -156,6 +156,7 @@
 		69E96BB4200874770060659A /* KcpTunConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KcpTunConnector.swift; sourceTree = "<group>"; };
 		69E96BB72008767B0060659A /* KcpStocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KcpStocket.swift; sourceTree = "<group>"; };
 		69E96BBA2008DC340060659A /* TCP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCP.swift; sourceTree = "<group>"; };
+		69E96BE8200A58E30060659A /* issue.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = issue.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				691EBDD11FC5771C005FDCAF /* Xcon.swift */,
+				69E96BE8200A58E30060659A /* issue.txt */,
 				693A36491FC7CC4A007FDE26 /* Connector.swift */,
 			);
 			path = Connector;

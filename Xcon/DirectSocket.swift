@@ -29,15 +29,7 @@ public class DirectConnector:AdapterSocket{
         }
         
     }
-    public override  func connectTo(_ host: String, port: UInt16, enableTLS: Bool, tlsSettings: [NSObject : AnyObject]?) throws {
-        do {
-           try  super.connectTo(host, port: port, enableTLS: false, tlsSettings: nil)
-        }catch let e  {
-            throw e
-        }
-        
-        
-    }
+   
     static func connectTo(_ host: String, port: UInt16, delegate: SocketDelegate, queue: DispatchQueue)  -> DirectConnector {
         let c = DirectConnector()
         c.targetPort = port

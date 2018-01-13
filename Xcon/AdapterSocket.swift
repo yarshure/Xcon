@@ -116,11 +116,12 @@ public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     
     public func connectTo(_ host: String, port: UInt16, enableTLS: Bool, tlsSettings: [NSObject : AnyObject]?) throws {
         socket = RawSocketFactory.getRawSocket()
-        socket.queue = DispatchQueue.init(label: "com.yarshure.Xcon.socket")
+        socket.queue = self.queue //dispatch queue
         socket.delegate = self
        
         Xcon.log("connect to \(host):\(port)", level: .Info)
-        try socket.connectTo(host, port: port, enableTLS: enableTLS, tlsSettings: [:])
+     
+        try socket.connectTo(host, port: port, enableTLS: enableTLS, tlsSettings: tlsSettings)
         
     }
     

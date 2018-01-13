@@ -1,0 +1,29 @@
+Thread 5 name:  Dispatch queue: com.yarshure.Xcon.socket
+Thread 5 Crashed:
+0   libsystem_kernel.dylib            0x0000000183d3d348 __pthread_kill + 8
+1   libsystem_pthread.dylib           0x0000000183e55794 pthread_kill$VARIANT$armv81 + 360
+2   libsystem_c.dylib                 0x0000000183cad05c __abort + 152
+3   libsystem_c.dylib                 0x0000000183cacfc4 __abort + 0
+4   libsystem_malloc.dylib            0x0000000183d74d18 szone_size + 0
+5   libswiftCore.dylib                0x00000001017f6b4c 0x101504000 + 3091276
+6   libswiftCore.dylib                0x00000001017aa470 0x101504000 + 2778224
+7   libswiftCore.dylib                0x00000001016f3934 0x101504000 + 2029876
+8   libswiftCore.dylib                0x0000000101545824 0x101504000 + 268324
+9   libswiftCore.dylib                0x0000000101545aa8 0x101504000 + 268968
+10  Xcon                              0x0000000101212204 static SSEncrypt.have_iv+ 500228 (i:m:) + 620
+11  Xcon                              0x0000000101213f74 SSEncrypt.recvCTX+ 507764 (iv:) + 120
+12  Xcon                              0x00000001012150b4 SSEncrypt.genData+ 512180 (encrypt_bytes:) + 1256
+13  Xcon                              0x00000001012155ac SSEncrypt.decrypt+ 513452 (encrypt_bytes:) + 824
+14  Xcon                              0x00000001011d513c TCPSSConnector.didReadData+ 250172 (_:withTag:from:) + 228
+15  Xcon                              0x0000000101208330 protocol witness for RawSocketDelegate.didReadData+ 459568 (_:withTag:from:) in conformance AdapterSocket + 104
+16  XSocket                           0x0000000102ce5130 GCDTCPSocket.socket+ 102704 (_:didRead:withTag:) + 300
+17  XSocket                           0x0000000102ce51ec @objc GCDTCPSocket.socket+ 102892 (_:didRead:withTag:) + 144
+18  CocoaAsyncSocket                  0x00000001021a59f0 __37-[GCDAsyncSocket completeCurrentRead]_block_invoke + 96
+19  libdispatch.dylib                 0x0000000183ba9088 _dispatch_call_block_and_release + 24
+20  libdispatch.dylib                 0x0000000183ba9048 _dispatch_client_callout + 16
+21  libdispatch.dylib                 0x0000000183be71c0 _dispatch_queue_serial_drain$VARIANT$armv81 + 520
+22  libdispatch.dylib                 0x0000000183be7b30 _dispatch_queue_invoke$VARIANT$armv81 + 340
+23  libdispatch.dylib                 0x0000000183be8528 _dispatch_root_queue_drain_deferred_wlh$VARIANT$armv81 + 380
+24  libdispatch.dylib                 0x0000000183bf05c4 _dispatch_workloop_worker_thread$VARIANT$armv81 + 640
+25  libsystem_pthread.dylib           0x0000000183e4efd0 _pthread_wqthread + 932
+26  libsystem_pthread.dylib           0x0000000183e4ec20 start_wqthread + 4

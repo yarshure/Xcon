@@ -48,32 +48,32 @@ public protocol XconDelegate: class {
 public class Xcon:SocketDelegate{
     public func didConnectWith(adapterSocket: SocketProtocol) {
         Xcon.log("didConnectWith", level: .Info)
-        queue.async {
-            self.delegate?.didConnect(self)
-        }
+        
+        self.delegate?.didConnect(self)
+        
     }
     
     
     public func didDisconnectWith(socket: SocketProtocol) {
         Xcon.log("didDisconnectWith", level: .Info)
-        queue.async {
-            self.delegate?.didDisconnect(self, error: nil)
-        }
+        
+        self.delegate?.didDisconnect(self, error: nil)
+        
         
     }
     
     public func didRead(data: Data, from: SocketProtocol) {
         Xcon.log("read didRead", level: .Info)
-        queue.async {
-            self.delegate?.didReadData(data, withTag: 0, from: self)
-        }
+        
+        self.delegate?.didReadData(data, withTag: 0, from: self)
+        
     }
     
     public func didWrite(data: Data?, by: SocketProtocol) {
         Xcon.log("didwrite ", level: .Info)
-        queue.async {
-            self.delegate?.didWriteData(data, withTag: 0, from: self)
-        }
+        
+        self.delegate?.didWriteData(data, withTag: 0, from: self)
+        
     }
     
     public func didBecomeReadyToForwardWith(socket: SocketProtocol) {
@@ -194,6 +194,8 @@ extension Xcon{
         
     }
     static func log(_ msg:String,level:AxLoggerLevel , category:String="default",file:String=#file,line:Int=#line,ud:[String:String]=[:],tags:[String]=[],time:Date=Date()){
+        //MARK: todo fix //AxLogger Crash
+        
         
         if level != AxLoggerLevel.Debug {
             AxLogger.log(msg,level:level)

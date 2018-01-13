@@ -448,7 +448,9 @@ public class SSEncrypt {
     public var ramdonKey:Data?
     var ivBuffer:Data = Data()
     static var iv_cache:[Data] = []
+    //MARK: todo fix
     static func have_iv(i:Data,m:CryptoMethod) ->Bool {
+        //mutil thread crash issue
         let x = CryptoMethod.RC4_MD5
         if m.rawValue >= x.rawValue {
             for x in SSEncrypt.iv_cache {
