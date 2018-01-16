@@ -100,7 +100,7 @@ class KcpStocket: NSObject {
         
         
         
-        //SKit.log("mux recv data: \(data.count) \(data as NSData)",level: .Debug)
+        Xcon.log("mux recv data: \(data.count) \(data as NSData)",level: .Debug)
         let _ = streams.flatMap{ k,v in
             return k
         }
@@ -109,86 +109,54 @@ class KcpStocket: NSObject {
         while self.readBuffer.count >= headerSize {
             let r = readFrame()
             if let f = r.frame {
-                Xcon.log("Nop Event recv sessionid:\(f.sid)", level: .Debug)
+               
+                Xcon.log("Event recv sessionid:\(f.sid)", level: .Debug)
                 if f.sid == 0 {
                     Xcon.log("main connection keep alive ok", level: .Debug)
                 }else {
-                    if let stream =  streams[f.sid] {
+                    guard let stream = streams[f.sid] else {
+                        processFrame(f: f,error: r.error)
+                        Xcon.log("mux not found stream \(f.sid)", level: .Error)
+                        continue
                         
-                        
-                        
-                        
-                        
-                        if let d = f.data {
-                            if r.error == nil {
-                                //full packet
-                               
-                                KcpTunConnector.shared.didReadData(data, withTag: 0, stream: stream)
-                                
-                                self.lastFrame = nil
-                            }else {
-                                //no full
-                                if !d.isEmpty {
-                                   
-                                    KcpTunConnector.shared.didReadData(d, withTag: 0, stream: stream)
-                                }
-                                
-                                
-                                
-                                self.lastFrame = f
-                                //reset data
-                                self.lastFrame?.data = nil
-                            }
+                    }
+                    if let d = f.data {
+                         Xcon.log("frame data:\(d as NSData)", level: .Debug)
+                        if r.error == nil {
+                            //full packet
                             
+                            KcpTunConnector.shared.didReadData(d, withTag: 0, stream: stream)
+                            
+                            self.lastFrame = nil
                         }else {
-                            if f.cmd == cmdFIN {
+                            //no full
+                            if !d.isEmpty {
                                 
-                                 KcpTunConnector.shared.didDisconnect(stream, error: nil)
-                            }else  {
-                                if r.1 == SmuxError.bodyNotFull {
-                                    Xcon.log("frame \(f.desc) packet not full",level: .Error)
-                                    
-                                    break
-                                }
+                                KcpTunConnector.shared.didReadData(d, withTag: 0, stream: stream)
                             }
                             
+                            
+                            
+                            self.lastFrame = f
+                            //reset data
+                            self.lastFrame?.data = nil
                         }
                         
                     }else {
-                        Xcon.log("frame \(f.desc) not found stream drop packet",level: .Error)
-                        
-                        if let d = f.data {
-                            if r.1 == nil {
-                                //full packet
-                                //stream.didReadData(d, withTag: 0, from: self)
-                                self.lastFrame = nil
-                            }else {
-                                //no full
-                                //stream.didReadData(d, withTag: 0, from: self)
-                                
-                                
-                                self.lastFrame = f
-                                //reset data
-                                self.lastFrame?.data = nil
-                            }
+                        if f.cmd == cmdFIN {
                             
-                        }else {
-                            if f.cmd == cmdFIN {
-                                //stream.didDisconnect(self, error: SmuxError.recvFin)
-                            }else  {
-                                //                                if r.1 == SmuxError.bodyNotFull {
-                                //                                    SKit.log("frame \(f.desc) packet not full",level: .Error)
-                                //
-                                //                                    break
-                                //                                }
+                            KcpTunConnector.shared.didDisconnect(stream, error: nil)
+                        }else  {
+                            if r.1 == SmuxError.bodyNotFull {
+                                Xcon.log("frame \(f.desc) packet not full",level: .Error)
+                                
+                                break
                             }
-                            
                         }
-                        //关闭链接
-                        sendFin(f.sid)
                         
                     }
                     
+   
                 }
                 
             }else {
@@ -197,8 +165,35 @@ class KcpStocket: NSObject {
         }
         
     }
-    
+    func processFrame(f:Frame,error:SmuxError?) {
+        
+        if let d = f.data {
+            if error == nil {
+                //full packet
+                //stream.didReadData(d, withTag: 0, from: self)
+                Xcon.log("\(f.sid) full drop", level: .Notify)
+                self.lastFrame = nil
+            }else {
+                //no full
+                //stream.didReadData(d, withTag: 0, from: self)
+                
+                Xcon.log("\(f.sid) not full \(f.left) ", level: .Notify)
+                self.lastFrame = f
+                //reset data
+                self.lastFrame?.data = nil
+            }
+            
+        }else {
+            Xcon.log("\(f.sid) not full \(f.cmd) frame left \(f.left)", level: .Notify)
+            
+            
+        }
+        sendFin(f.sid)
+        //关闭链接
+        
+    }
     func readFrame() -> (frame:Frame?,error:SmuxError?) {
+        Xcon.log("readbuffer \(readBuffer as NSData)", level: .Debug)
         if let _ = lastFrame {
             let l = lastFrame!.left
             var tocopy:Int = 0

@@ -65,7 +65,7 @@ public class Xcon:SocketDelegate{
     }
     
     public func didRead(data: Data, from: SocketProtocol) {
-        Xcon.log("read didRead", level: .Info)
+        Xcon.log("Adapter read didRead", level: .Info)
         
         self.delegate?.didReadData(data, withTag: 0, from: self)
         
@@ -149,7 +149,9 @@ public class Xcon:SocketDelegate{
         }else {
              connector?.writeData(data, withTag: withTag)
         }
-       
+        //self.queue.async {
+            self.delegate?.didWriteData(data, withTag: withTag, from: self)
+        //}
     }
     
     public func readDataWithTag(_ tag: Int) {
