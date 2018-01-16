@@ -162,8 +162,13 @@ public class Xcon:SocketDelegate{
         
     }
     public static var debugEnable = false
-    static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,sID:UInt,delegate:XconDelegate,queue:DispatchQueue,sessionID:Int = 0) ->Xcon?{
-        let con = Xcon.init(q: queue)
+    static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,sID:UInt,delegate:XconDelegate,queue:DispatchQueue,sessionID:Int = 0,enableTLS:Bool = false) ->Xcon?{
+        var con:Xcon
+        if !enableTLS {
+            con =  Xcon.init(q: queue)
+        }else {
+            con = SecurtXcon.init(q: queue, host: targetHost, port: Int(Port))
+        }
         con.delegate = delegate
         if let p = p {
             //proxy mode
