@@ -13,6 +13,7 @@ class HTTPAdapter: Adapter {
     public var reqHeader:SFHTTPRequestHeader?
     public var respHeader:SFHTTPResponseHeader?
     var headerData:Data = Data()
+    var headerSend:Bool = false
     override var streaming:Bool{
         get {
             return connected
@@ -93,12 +94,18 @@ class HTTPAdapter: Adapter {
         
         if tdata.count == 0 {
             //send connect data
+            headerSend = true
            return (buildRequestHeader(),-1000)
         }else {
             if streaming {
                  return (tdata,0)
             }else {
-                fatalError()
+                if headerSend {
+                    return (Data(),-2000)
+                }else {
+                    return (Data(),-3000)
+                }
+               
             }
            
         }

@@ -34,7 +34,7 @@ class KcpTunConnector: ProxyConnector{
     //adapter key-v
     var adapters:[UInt32:Adapter] = [:]
     var tunSocket:KcpStocket!
-    
+    let frameSize = 4096
     static let SMuxTimeOut = 13.0 //没数据就timeout
 
     
@@ -61,6 +61,7 @@ class KcpTunConnector: ProxyConnector{
     //开始发送
     //MARK: for socket use
     public func didDisconnect(_ stream:Xcon, error: Error?) {
+        Xcon.log("\(stream.sessionID) socket disconnect,remove adapter", level: .Notify)
         adapters.removeValue(forKey: stream.sessionID)
         stream.didDisconnectWith(socket: self)
         
@@ -69,18 +70,60 @@ class KcpTunConnector: ProxyConnector{
         
         guard let a = adapters[stream.sessionID] else {return}
         //adapter handshake data
+        
         let result = a.send(Data())
-        tunSocket.writeData(result.data, withTag: result.tag)
+        //splite
+       
+        //socket connected
+        self.sendRawData(result.data, session: stream.sessionID)
+        if a.proxy.type == .SS {
+            //socket connected
+            stream.didConnectWith(adapterSocket: self)
+        }
+
     }
     
     func didReadData(_ data: Data,withTag:Int, stream: Xcon) {
+        
         guard let a = adapters[stream.sessionID] else {return}
-        do {
-            let result = try a.recv(data)
-            stream.didWrite(data: result.value, by: self)
-        }catch let e  {
-            Xcon.log("recv error \(e.localizedDescription)", level: .Error)
+        
+        if a.streaming || a.proxy.type == .SS {
+            do {
+                let result = try a.recv(data)
+                stream.didRead(data: result.value, from: self)
+            }catch let e {
+                Xcon.log("\(e.localizedDescription)", level: .Error)
+            }
+            
+        }else {
+            //handshake
+            
+            do {
+                let cnnctFlag = a.streaming
+                
+                let result = try a.recv(data)
+                if result.result {
+                    //http socks5
+                    // socks 5 todo ,mutil time send shake and data
+                    let newcflag = a.streaming
+                    if cnnctFlag != newcflag {
+                        Xcon.log(" shake hand finished \(stream) result.value \(result.value as NSData)", level: .Debug)
+                        //变动第一次才发这个event
+                        stream.didConnectWith(adapterSocket: self)
+                        
+                    }else {
+                        Xcon.log(" shake hand finished \(stream) not finished , todo fixed", level: .Debug)
+                        fatalError()
+                    }
+                }else {
+                    Xcon.log("recv failure ", level: .Error)
+                }
+                
+            }catch let e  {
+                Xcon.log("recv error \(e.localizedDescription)", level: .Error)
+            }
         }
+
         
     }
     
@@ -90,9 +133,33 @@ class KcpTunConnector: ProxyConnector{
     //需要协议转换和处理
     func writeData(_ data: Data, withTag: Int,session:UInt32) {
         //todo
-        guard let a = adapters[session] else {return}
-        let result = a.send(data)
-        tunSocket.writeData(result.data, withTag: result.tag)
+        guard let a = adapters[session] else {
+            fatalError()
+            return
+            
+        }
+        
+        if !a.streaming {
+            fatalError()
+        }
+        if a.proxy.type == .SS {
+            let result = a.send(data)
+            self.sendRawData(result.data, session: session)
+        }else {
+             self.sendRawData(data, session: session)
+        }
+        
+        
+       
+    }
+    func sendRawData(_ data:Data,session:UInt32){
+        var databuffer:Data = Data()
+        let frames = split(data, cmd: cmdPSH, sid: session)
+        for f in frames {
+            databuffer.append(f.frameData())
+            
+        }
+        tunSocket.writeData(databuffer, withTag: 0)
     }
     public override func readDataWithTag(_ tag: Int) {
         guard let s = tunSocket else {
@@ -174,5 +241,31 @@ extension KcpTunConnector{
         Xcon.log("KCPTUN: parityshard = \(p.config.parityshard)", level: .Info)
         Xcon.log("KCPTUN: #######################", level: .Info)
         return c
+    }
+    //对于打包需要split
+    func split(_ data:Data, cmd:UInt8,sid:UInt32) ->[Frame]{
+        //let fs = data.count/frameSize + 1
+        var result:[Frame] = []
+        var left:Int = data.count
+        var index:Int = 0
+        while left > frameSize {
+            if index >= data.count {
+                break
+            }
+            let subData = data.subdata(in: index ..< frameSize )
+            let f = Frame.init(cmd, sid: sid, data: subData)
+            index += frameSize
+            left -= frameSize
+            result.append(f)
+        }
+        
+        if left > 0 {
+            let subData = data.subdata(in: index ..< data.count )
+            let f = Frame.init(cmd, sid: sid, data: subData)
+            result.append(f)
+        }
+        
+        return result
+        
     }
 }

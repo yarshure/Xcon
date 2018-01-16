@@ -176,18 +176,20 @@ public class Xcon:SocketDelegate{
         
     }
     public static var debugEnable = false
-    static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,sID:UInt,delegate:XconDelegate,queue:DispatchQueue,sessionID:UInt32 = 0) ->Xcon?{
-        let con = Xcon.init(q: queue, remote: targetHost, port: Port, session: sessionID, delegate: delegate)
+    static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,delegate:XconDelegate,queue:DispatchQueue,sessionID:UInt32 = 0) ->Xcon?{
+        let sid = sessionID + 3
+        let con = Xcon.init(q: queue, remote: targetHost, port: Port, session: sid, delegate: delegate)
  
         if let p = p {
             //proxy mode
             
             let c = ProxyConnector.connectTo(targetHost, port: Port, p: p, delegate: con, queue: queue)
+            
+            con.connector = c
             if p.kcptun  {
                 let kcp = c as! KcpTunConnector
-                kcp.incomingStream(sessionID, session: con, host: targetHost,port: Port)
+                kcp.incomingStream(sid, session: con, host: targetHost,port: Port)
             }
-            con.connector = c
         }else {
             let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
            
