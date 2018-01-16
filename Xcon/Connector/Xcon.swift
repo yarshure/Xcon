@@ -10,6 +10,8 @@ import Foundation
 import XSocket
 import NetworkExtension
 import os.log
+//Xcon use normal send data and session manager
+
 public protocol XconDelegate: class {
     /**
      The socket did disconnect.
@@ -90,8 +92,12 @@ public class Xcon:SocketDelegate{
     var adapter:Adapter?
     var connector:AdapterSocket?
     
-    init(q:DispatchQueue) {
+    init(q:DispatchQueue,remote:String,port:UInt16,session:UInt32,delegate:XconDelegate) {
         self.queue = q
+        self.remoteAddress = remote
+        self.remotePort = port
+        self.sessionID = session
+        self.delegate = delegate
     }
     public func forceDisconnect(_ sessionID: UInt32) {
         connector?.forceDisconnect(sessionID)
@@ -126,6 +132,9 @@ public class Xcon:SocketDelegate{
     
     public var tcp: Bool = false
     
+    var remoteAddress:String = ""
+    var remotePort:UInt16 = 0
+    var sessionID:UInt32 = 0
     deinit {
         Xcon.log("Xcon deinit", level: .Debug)
     }
@@ -140,7 +149,12 @@ public class Xcon:SocketDelegate{
     }
     
     public func writeData(_ data: Data, withTag: Int) {
-        connector?.writeData(data, withTag: withTag)
+        if let kcp = connector as? KcpTunConnector {
+            kcp.writeData(data, withTag: withTag, session: self.sessionID)
+        }else {
+             connector?.writeData(data, withTag: withTag)
+        }
+       
     }
     
     public func readDataWithTag(_ tag: Int) {
@@ -162,18 +176,18 @@ public class Xcon:SocketDelegate{
         
     }
     public static var debugEnable = false
-    static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,sID:UInt,delegate:XconDelegate,queue:DispatchQueue,sessionID:Int = 0) ->Xcon?{
-        let con = Xcon.init(q: queue)
-        con.delegate = delegate
+    static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,sID:UInt,delegate:XconDelegate,queue:DispatchQueue,sessionID:UInt32 = 0) ->Xcon?{
+        let con = Xcon.init(q: queue, remote: targetHost, port: Port, session: sessionID, delegate: delegate)
+ 
         if let p = p {
             //proxy mode
-            if !p.kcptun  {
-                let c = ProxyConnector.connectTo(targetHost, port: Port, p: p, delegate: con, queue: queue)
-                con.connector = c
-            }else {
-                fatalError()
-            }
             
+            let c = ProxyConnector.connectTo(targetHost, port: Port, p: p, delegate: con, queue: queue)
+            if p.kcptun  {
+                let kcp = c as! KcpTunConnector
+                kcp.incomingStream(sessionID, session: con, host: targetHost,port: Port)
+            }
+            con.connector = c
         }else {
             let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
            

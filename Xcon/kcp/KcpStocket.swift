@@ -27,7 +27,7 @@ class KcpStocket: NSObject,SFKcpTunDelegate {
     var ready:Bool = false
     
     var dispatchTimer:DispatchSourceTimer?
-    var dispatchQueue :DispatchQueue?
+    var dispatchQueue :DispatchQueue
     var readBuffer:Data = Data()
     var lastFrame:Frame? // not full frame ,需要快速把已经收到的data 给应用
     var lastActive:Date = Date()
@@ -49,10 +49,11 @@ class KcpStocket: NSObject,SFKcpTunDelegate {
     }
 
     
-    init(proxy:SFProxy,config:TunConfig) {
+    init(proxy:SFProxy,config:TunConfig,queue:DispatchQueue) {
         self.proxy = proxy
+        self.dispatchQueue = queue
         super.init()
-        self.tun = SFKcpTun.init(config: config, ipaddr: proxy.serverIP, port: Int32(proxy.serverPort)!, queue: self.dispatchQueue!)
+        self.tun = SFKcpTun.init(config: config, ipaddr: proxy.serverIP, port: Int32(proxy.serverPort)!, queue: self.dispatchQueue)
         self.tun?.delegate = self
         self.keepAlive(timeOut: 10);
         self.ready = true
@@ -65,7 +66,7 @@ class KcpStocket: NSObject,SFKcpTunDelegate {
     }
     
     func disConnected(_ tun: SFKcpTun!) {
-        
+        self.ready = false
     }
     
     func tunError(_ tun: SFKcpTun!, error: Error!) {
@@ -94,7 +95,7 @@ class KcpStocket: NSObject,SFKcpTunDelegate {
         //SKit.log("\(ss.sorted()) all active stream", level: .Debug)
         while self.readBuffer.count >= headerSize {
             let r = readFrame()
-            if let f = r.0 {
+            if let f = r.frame {
                 if f.sid == 0 {
                     Xcon.log("Nop Event recv", level: .Debug)
                 }else {
@@ -105,10 +106,10 @@ class KcpStocket: NSObject,SFKcpTunDelegate {
                         
                         
                         if let d = f.data {
-                            if r.1 == nil {
+                            if r.error == nil {
                                 //full packet
                                
-                                 KcpTunConnector.shared.didReadData(data, withTag: 0, stream: stream)
+                                KcpTunConnector.shared.didReadData(data, withTag: 0, stream: stream)
                                 
                                 self.lastFrame = nil
                             }else {
@@ -183,7 +184,7 @@ class KcpStocket: NSObject,SFKcpTunDelegate {
         
     }
     
-    func readFrame() -> (Frame?,SmuxError?) {
+    func readFrame() -> (frame:Frame?,error:SmuxError?) {
         if let _ = lastFrame {
             let l = lastFrame!.left
             var tocopy:Int = 0
@@ -271,11 +272,7 @@ extension KcpStocket{
     }
 
     public  func writeData(_ data: Data, withTag: Int) {
-        //先经过ss
-        //fatalError()
-        //        guard let  adapter = Adapter else { return  }
-        //        let newdata = adapter.send(data)
-        //        tun.inputDataAdapter(newdata)
+        
         // api
         self.lastActive = Date()
         Xcon.log("write \(data as NSData)",level: .Debug)
@@ -288,7 +285,7 @@ extension KcpStocket{
     func keepAlive(timeOut:Int)  {
         //  q = DispatchQueue(label:"com.yarshure.keepalive")
         let timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags.init(rawValue: 0), queue:dispatchQueue )
-        dispatchQueue!.async{
+        dispatchQueue.async{
             let interval: Double = Double(timeOut)
             
             let delay = DispatchTime.now()

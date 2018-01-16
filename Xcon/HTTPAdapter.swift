@@ -89,13 +89,14 @@ class HTTPAdapter: Adapter {
         
     }
     
-    override func send(_ data: Data) -> Data {
-        if data.count == 0 {
+    override func send(_ tdata: Data) -> (data: Data, tag: Int) {
+        
+        if tdata.count == 0 {
             //send connect data
-           return buildRequestHeader()
+           return (buildRequestHeader(),-1000)
         }else {
             if streaming {
-                 return data
+                 return (tdata,0)
             }else {
                 fatalError()
             }

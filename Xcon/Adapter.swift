@@ -9,8 +9,8 @@
 import Foundation
 protocol AdapterProtocol:Hashable {
     var streaming:Bool{ get }
-    func send(_ data:Data) ->Data
-    func recv(_ data:Data) throws ->(Bool,Data)
+    func send(_ data:Data) ->(data:Data,tag:Int)//tag info
+    func recv(_ data:Data) throws ->(result:Bool,value:Data)
     var hashValue: Int { get }
 }
 enum SFAdapterError: Error {
@@ -22,12 +22,12 @@ enum SFAdapterError: Error {
     case otherError
 }
 class Adapter:AdapterProtocol {
-    func recv(_ data: Data) throws -> (Bool,Data) {
+    func recv(_ data: Data) throws -> (result:Bool,value:Data) {
         return (false, Data())
     }
     
-    func send(_ data: Data) -> Data {
-        return Data()
+    func send(_ data: Data) -> (data:Data,tag:Int) {
+        return (Data(),-1)
     }
     
     //控制是否进入streaming 模式

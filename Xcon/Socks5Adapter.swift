@@ -295,16 +295,17 @@ class Socks5Adapter: Adapter {
         Xcon.log("send  .Bind req \(buffer.data as NSData)",level: .Debug)
         return buffer.data
     }
-    override func send(_ data: Data) -> Data {
-        if data.count == 0 {
+    override func send(_ tdata: Data) -> (data: Data, tag: Int) {
+        
+        if tdata.count == 0 {
             if stage == .Auth {
-                return sendAuth()
+                return (sendAuth(),-100)
             }else {
-                print("############### error")
-                return Data()
+               
+                return (Data(),-1000)
             }
         }else {
-            return data
+            return (tdata,0)
         }
         
     }

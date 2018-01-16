@@ -18,7 +18,7 @@ class SS3Adapter :Adapter{
         return (false,Data())
     }
     
-    override func send(_ data: Data) -> Data {
-        return Data()
+    override func send(_ data: Data) -> (Data,Int) {
+        return super.send(data)
     }
 }

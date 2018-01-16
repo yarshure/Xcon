@@ -22,76 +22,98 @@
 
 import Foundation
 import kcp
-class KcpTunConnector: AdapterSocket{
-    static let shared = KcpTunConnector()
-    var proxy:SFProxy?
-    //var streams:[UInt32:Xcon] = [:]
-    var tunSocket:KcpStocket?
-    var adapter:Adapter? //代理协议处理器
+class KcpTunConnector: ProxyConnector{
+    static let shared:KcpTunConnector = {
+        
+        if let p = SFProxy.createProxyWithLine(line: "SS,0.0.0.0,6000,,", pname: "CN2"){
+            return KcpTunConnector.init(p: p)
+        }
+        fatalError()
+    }()
+   
+    //adapter key-v
+    var adapters:[UInt32:Adapter] = [:]
+    var tunSocket:KcpStocket!
+    
     static let SMuxTimeOut = 13.0 //没数据就timeout
-    static func incomingSession(_ host: String, port: UInt16,p:SFProxy,delegate:SocketDelegate, queue: DispatchQueue) ->KcpTunConnector{
-        let c = KcpTunConnector.shared
-        if c.adapter == nil {
-            guard let adapter = Adapter.createAdapter(p, host: host, port: port) else  {
-                fatalError()
-            }
-            c.adapter = adapter
-        }
-        if c.tunSocket == nil {
-            let config = c.createTunConfig(p)
-            c.tunSocket = KcpStocket.init(proxy: p, config: config)
-        }
-        return c
-    }
+
     
     //new tcp stream income
-    func incomingStream(_ sid:UInt32,session:Xcon) {
+    func incomingStream(_ sid:UInt32,session:Xcon,host:String,port:UInt16) {
+        
+        guard let a = Adapter.createAdapter(self.proxy, host: host  , port: port) else  {
+            fatalError()
+        }
+        adapters[sid] = a
+        
+    
+        if tunSocket == nil {
+            let config = createTunConfig(self.proxy)
+            tunSocket = KcpStocket.init(proxy: self.proxy, config: config, queue: queue)
+        }
+        
+        
         guard let socket = tunSocket else {return}
         socket.incomingStream(sid, session: session)
-        session.didConnectWith(adapterSocket: self)
-        //        if let dispatchQueue = dispatchQueue {
-        //            dispatchQueue.asyncAfter(deadline: .now() + .milliseconds(100)) {
-        //                session.didConnect(self)
-        //            }
-        //        }
+       
+        
+    }
+    //开始发送
+    //MARK: for socket use
+    public func didDisconnect(_ stream:Xcon, error: Error?) {
+        adapters.removeValue(forKey: stream.sessionID)
+        stream.didDisconnectWith(socket: self)
+        
+    }
+    public func didConnect(_ stream:Xcon) {
+        
+        guard let a = adapters[stream.sessionID] else {return}
+        //adapter handshake data
+        let result = a.send(Data())
+        tunSocket.writeData(result.data, withTag: result.tag)
+    }
+    
+    func didReadData(_ data: Data,withTag:Int, stream: Xcon) {
+        guard let a = adapters[stream.sessionID] else {return}
+        do {
+            let result = try a.recv(data)
+            stream.didWrite(data: result.value, by: self)
+        }catch let e  {
+            Xcon.log("recv error \(e.localizedDescription)", level: .Error)
+        }
         
     }
     
+    //MARK: --------
+    
+    //MARK for Xcon use
     //需要协议转换和处理
-    public override func writeData(_ data: Data, withTag: Int) {
+    func writeData(_ data: Data, withTag: Int,session:UInt32) {
         //todo
+        guard let a = adapters[session] else {return}
+        let result = a.send(data)
+        tunSocket.writeData(result.data, withTag: result.tag)
     }
-    
-   
-    public func didReadData(_ data: Data, withTag: Int, stream:Xcon) {
-        stream.didRead(data: data, from: self)
-        //todo
-    }
-    
-    
-    
-    
     public override func readDataWithTag(_ tag: Int) {
         guard let s = tunSocket else {
             return
         }
         s.readDataWithTag(tag)
     }
-    public func didDisconnect(_ stream:Xcon, error: Error?) {
-        stream.didDisconnectWith(socket: self)
-    }
-    
-    
-    
+   
     public func didWriteData(_ data: Data?, withTag: Int, stream:Xcon) {
         
         stream.didWrite(data: data, by: self)
     }
     
-    public func didConnect(_ stream:Xcon) {
-        fatalError("AdapterSocket didConnect")
-        
-    }
+    
+
+    
+
+}
+
+
+extension KcpTunConnector{
     func createTunConfig(_ p:SFProxy) ->TunConfig {
         let c = TunConfig()
         
