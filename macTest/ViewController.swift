@@ -19,7 +19,7 @@ class ViewController: NSViewController ,XconDelegate{
     
     func didReadData(_ data: Data, withTag: Int, from: Xcon) {
         print("222 \(data as NSData)")
-        con!.disconnect(becauseOf: nil)
+        con!.forceDisconnect()
         con = nil
     }
     

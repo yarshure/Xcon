@@ -18,7 +18,7 @@ enum SmuxError:Error {
     case recvFin
     
 }
-class KcpStocket: NSObject,SFKcpTunDelegate {
+class KcpStocket: NSObject {
     var tun:SFKcpTun?
     static let SMuxTimeOut = 13.0 //没数据就timeout
     var snappy:SnappyHelper?
@@ -57,37 +57,34 @@ class KcpStocket: NSObject,SFKcpTunDelegate {
         
         let type:SOCKS5HostType = proxy.serverAddress.validateIpAddr()
         if type != .DOMAIN {
-            self.tun = SFKcpTun.init(config: config, ipaddr: proxy.serverAddress, port: Int32(proxy.serverPort)!, queue: self.dispatchQueue,delegate:self)
+            self.tun = SFKcpTun.init(config: config, ipaddr: proxy.serverAddress, port: Int32(proxy.serverPort)!, queue: self.dispatchQueue)
         }else {
             let ips = query(proxy.serverAddress)
             //解析
             if ips.isEmpty {
-                self.tun = SFKcpTun.init(config: config, ipaddr: ips.first!, port: Int32(proxy.serverPort)!, queue: self.dispatchQueue,delegate:self)
+                self.tun = SFKcpTun.init(config: config, ipaddr: ips.first!, port: Int32(proxy.serverPort)!, queue: self.dispatchQueue)
             }
         }
         
-        
+        self.tun!.start({[unowned self] (tun) in
+            self.ready = true
+            Xcon.log("tun connected", level: .Info)
+            self.sendNop(sid: 0)
+        }, recv: { [unowned self] (tun, date) in
+            self.didRecevied(date);
+        }) { (tun) in
+            self.ready = false
+        }
         self.keepAlive(timeOut: 10);
-        self.ready = true
+        
         if proxy.config.noComp {
             snappy = SnappyHelper()
         }
-    }
-    
-    public func connected(_ tun: SFKcpTun!) {
-        self.ready = true
-        Xcon.log("tun connected", level: .Info)
-        sendNop(sid: 0)
         
     }
     
-    func disConnected(_ tun: SFKcpTun!) {
-        self.ready = false
-    }
-    
-    func tunError(_ tun: SFKcpTun!, error: Error!) {
-        
-    }
+  
+   
     
     func didRecevied(_ data: Data!) {
         self.lastActive = Date()

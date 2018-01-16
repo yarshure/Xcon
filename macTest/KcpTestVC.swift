@@ -19,6 +19,7 @@ class KcpTestVC: NSViewController ,XconDelegate{
     
     func didWriteData(_ data: Data?, withTag: Int, from: Xcon) {
          print("didReadData \(data as? NSData)")
+         con.forceDisconnect()
     }
     
     func didConnect(_ socket: Xcon) {

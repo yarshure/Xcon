@@ -99,8 +99,9 @@ public class Xcon:SocketDelegate{
         self.sessionID = session
         self.delegate = delegate
     }
-    public func forceDisconnect(_ sessionID: UInt32) {
-        connector?.forceDisconnect(sessionID)
+    public func forceDisconnect(_ sessionID: UInt32 = 0) {
+        connector?.forceDisconnect(self.sessionID)
+        
     }
     public var remote:NWHostEndpoint? {
         get {
@@ -140,13 +141,7 @@ public class Xcon:SocketDelegate{
     }
    
     
-    public func disconnect(becauseOf error: Error?) {
-        connector?.disconnect(becauseOf: error)
-    }
-    
-    public func forceDisconnect(becauseOf error: Error?) {
-        connector?.disconnect(becauseOf: error)
-    }
+
     
     public func writeData(_ data: Data, withTag: Int) {
         if let kcp = connector as? KcpTunConnector {
@@ -172,9 +167,7 @@ public class Xcon:SocketDelegate{
     public func readDataToData(_ data: Data, withTag tag: Int, maxLength: Int) {
         
     }
-    public func forceDisconnect(){
-        
-    }
+   
     public static var debugEnable = false
     static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,delegate:XconDelegate,queue:DispatchQueue,sessionID:UInt32 = 0) ->Xcon?{
         let sid = sessionID + 3

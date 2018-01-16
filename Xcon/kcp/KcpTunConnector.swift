@@ -175,6 +175,12 @@ class KcpTunConnector: ProxyConnector{
     
     
 
+    //
+    public override func forceDisconnect(_ sessionID: UInt32) {
+        Xcon.log("send Fin \(sessionID)", level: .Notify)
+        adapters.removeValue(forKey: sessionID)
+        tunSocket.sendFin(sessionID)
+    }
     
 
 }
@@ -268,4 +274,5 @@ extension KcpTunConnector{
         return result
         
     }
+    
 }
