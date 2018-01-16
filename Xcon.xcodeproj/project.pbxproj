@@ -73,8 +73,6 @@
 		694650861FF62546000AFBE3 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6946507F1FF62546000AFBE3 /* Session.swift */; };
 		694650871FF62546000AFBE3 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6946507F1FF62546000AFBE3 /* Session.swift */; };
 		69C17711200DBCFA004BDB3A /* KcpTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C17710200DBCFA004BDB3A /* KcpTestVC.swift */; };
-		69C17720200DC032004BDB3A /* kcp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C1771D200DBFC0004BDB3A /* kcp.framework */; };
-		69C17721200DC032004BDB3A /* kcp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69C1771D200DBFC0004BDB3A /* kcp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69C17726200DC4AB004BDB3A /* util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C17725200DC4AB004BDB3A /* util.swift */; };
 		69C17727200DC4AB004BDB3A /* util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C17725200DC4AB004BDB3A /* util.swift */; };
 		69E96BAD200848600060659A /* UDPVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E96BAC200848600060659A /* UDPVC.swift */; };
@@ -96,34 +94,6 @@
 			remoteGlobalIDString = 691EBE271FC66DD3005FDCAF;
 			remoteInfo = XconMac;
 		};
-		69C17718200DBFC0004BDB3A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 69C17712200DBFC0004BDB3A /* libkcp.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 692AE3211EB2EE59006A4B9D;
-			remoteInfo = kcp;
-		};
-		69C1771A200DBFC0004BDB3A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 69C17712200DBFC0004BDB3A /* libkcp.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 692AE3541EB2EF83006A4B9D;
-			remoteInfo = kcptest;
-		};
-		69C1771C200DBFC0004BDB3A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 69C17712200DBFC0004BDB3A /* libkcp.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 69639BD51EE1AAC100893D18;
-			remoteInfo = kcpOSX;
-		};
-		69C17722200DC032004BDB3A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 69C17712200DBFC0004BDB3A /* libkcp.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 69639BD41EE1AAC100893D18;
-			remoteInfo = kcpOSX;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -133,7 +103,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				69C17721200DC032004BDB3A /* kcp.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,7 +166,6 @@
 		6946507E1FF62546000AFBE3 /* Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
 		6946507F1FF62546000AFBE3 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		69C17710200DBCFA004BDB3A /* KcpTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KcpTestVC.swift; sourceTree = "<group>"; };
-		69C17712200DBFC0004BDB3A /* libkcp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libkcp.xcodeproj; path = ../github/libkcp/iOSLib/libkcp/libkcp.xcodeproj; sourceTree = "<group>"; };
 		69C17725200DC4AB004BDB3A /* util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = util.swift; sourceTree = "<group>"; };
 		69C7DBEE1FE24E3600FB7FA2 /* ios.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ios.xcconfig; sourceTree = "<group>"; };
 		69C7DBEF1FE24E4200FB7FA2 /* mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = mac.xcconfig; sourceTree = "<group>"; };
@@ -228,7 +196,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69C17720200DC032004BDB3A /* kcp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,7 +205,6 @@
 		691EBDBC1FC575D8005FDCAF = {
 			isa = PBXGroup;
 			children = (
-				69C17712200DBFC0004BDB3A /* libkcp.xcodeproj */,
 				69E96BA82008476A0060659A /* uitl */,
 				691EBDC81FC575D8005FDCAF /* Xcon */,
 				691EBE291FC66DD3005FDCAF /* XconMac */,
@@ -379,16 +345,6 @@
 			path = kcp;
 			sourceTree = "<group>";
 		};
-		69C17713200DBFC0004BDB3A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				69C17719200DBFC0004BDB3A /* kcp.framework */,
-				69C1771B200DBFC0004BDB3A /* kcptest.app */,
-				69C1771D200DBFC0004BDB3A /* kcp.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		69E96BA82008476A0060659A /* uitl */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,7 +425,6 @@
 			);
 			dependencies = (
 				694650411FF4C8CD000AFBE3 /* PBXTargetDependency */,
-				69C17723200DC032004BDB3A /* PBXTargetDependency */,
 			);
 			name = macTest;
 			productName = macTest;
@@ -512,12 +467,6 @@
 			mainGroup = 691EBDBC1FC575D8005FDCAF;
 			productRefGroup = 691EBDC71FC575D8005FDCAF /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 69C17713200DBFC0004BDB3A /* Products */;
-					ProjectRef = 69C17712200DBFC0004BDB3A /* libkcp.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				691EBDC51FC575D8005FDCAF /* Xcon */,
@@ -526,30 +475,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		69C17719200DBFC0004BDB3A /* kcp.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = kcp.framework;
-			remoteRef = 69C17718200DBFC0004BDB3A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		69C1771B200DBFC0004BDB3A /* kcptest.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = kcptest.app;
-			remoteRef = 69C1771A200DBFC0004BDB3A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		69C1771D200DBFC0004BDB3A /* kcp.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = kcp.framework;
-			remoteRef = 69C1771C200DBFC0004BDB3A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		691EBDC41FC575D8005FDCAF /* Resources */ = {
@@ -695,11 +620,6 @@
 			isa = PBXTargetDependency;
 			target = 691EBE271FC66DD3005FDCAF /* XconMac */;
 			targetProxy = 694650401FF4C8CD000AFBE3 /* PBXContainerItemProxy */;
-		};
-		69C17723200DC032004BDB3A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = kcpOSX;
-			targetProxy = 69C17722200DC032004BDB3A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
