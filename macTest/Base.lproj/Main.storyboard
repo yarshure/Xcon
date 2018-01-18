@@ -732,17 +732,6 @@
                                     <segue destination="mWu-MR-zFv" kind="show" id="2Bm-Ov-PF0"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pv7-VU-O4T">
-                                <rect key="frame" x="406" y="6" width="62" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="kcp" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ayg-hc-xFA">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <segue destination="yZz-u6-RE1" kind="show" id="eCe-dW-Gpk"/>
-                                </connections>
-                            </button>
                         </subviews>
                     </view>
                 </viewController>
@@ -790,50 +779,28 @@
         <!--View Controller-->
         <scene sceneID="S39-yF-1fy">
             <objects>
-                <viewController id="mWu-MR-zFv" sceneMemberID="viewController">
+                <viewController id="mWu-MR-zFv" customClass="TLSNSViewController" customModule="macTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="4Ik-na-A8W">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sb6-jk-Hod">
-                                <rect key="frame" x="207" y="199" width="4" height="17"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SkG-UJ-Qz8">
+                                <rect key="frame" x="159" y="129" width="81" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="fyb-wW-gSg">
+                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Klj-SA-vy0">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="testTLS:" target="mWu-MR-zFv" id="4pY-T1-LaW"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                 </viewController>
                 <customObject id="b46-gq-g3M" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="840" y="662"/>
-        </scene>
-        <!--Kcp TestVC-->
-        <scene sceneID="L0P-UD-oeg">
-            <objects>
-                <viewController id="yZz-u6-RE1" customClass="KcpTestVC" customModule="macTest" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="jUp-gM-J2e">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="puo-cI-YbC">
-                                <rect key="frame" x="207" y="173" width="53" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="kcp test" id="lTH-l7-cu1">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                        </subviews>
-                    </view>
-                </viewController>
-                <customObject id="MNW-fG-v7s" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="820" y="1125"/>
         </scene>
     </scenes>
 </document>

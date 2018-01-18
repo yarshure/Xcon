@@ -66,15 +66,15 @@ class KcpStocket: NSObject {
             }
         }
         
-        self.tun!.start({[unowned self] (tun) in
-            self.ready = true
-            Xcon.log("tun connected", level: .Info)
-            self.sendNop(sid: 0)
-        }, recv: { [unowned self] (tun, date) in
-            self.didRecevied(date);
-        }) { (tun) in
-            self.ready = false
-        }
+//        self.tun!.start({[unowned self] (tun) in
+//            self.ready = true
+//            Xcon.log("tun connected", level: .Info)
+//            self.sendNop(sid: 0)
+//        }, recv: { [unowned self] (tun, date) in
+//            self.didRecevied(date);
+//        }) { (tun) in
+//            self.ready = false
+//        }
         self.keepAlive(timeOut: 10);
         
         if proxy.config.noComp {
