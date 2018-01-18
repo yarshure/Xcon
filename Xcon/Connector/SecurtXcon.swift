@@ -10,7 +10,7 @@ import Foundation
 import Security
 class SecurtXconHelper {
     static let helper = SecurtXconHelper()
-    var list:[Int:SecurtXcon] = [:]
+    var list:[UInt32:SecurtXcon] = [:]
 }
 public class SecurtXcon: Xcon {
     var ctx:SSLContext!
@@ -22,12 +22,10 @@ public class SecurtXcon: Xcon {
     
     var readBuffer:Data = Data() //recv from socket
     var writeBuffer:Data = Data() //prepare write to  socket
-    let tempq = DispatchQueue.init(label: "tls.queue")
-    init(q: DispatchQueue ,host:String,port:Int) {
-        super.init(q: q)
-    }
-    func test(){
-        print("test")
+    public let tempq = DispatchQueue.init(label: "tls.queue")
+    
+    func test(_ msg:String){
+        print(msg)
     }
     func checkStatus(status:OSStatus) {
         if status != 0{
@@ -49,10 +47,24 @@ public class SecurtXcon: Xcon {
         //self.delegate?.didConnect(self)
     }
     public override func didRead(data: Data, from: SocketProtocol) {
-        Xcon.log("read didRead", level: .Info)
+        Xcon.log("read didRead \(data as NSData)", level: .Info)
         
         readBuffer.append(data)
-        
+        var buffer:Data = Data.init(capacity: 4096)
+        var result:UnsafeMutablePointer<Int> = UnsafeMutablePointer<Int>.allocate(capacity: 1)
+        defer {
+            result.deallocate(capacity: 1)
+        }
+        _ = buffer.withUnsafeMutableBytes { ptr  in
+            SSLRead(ctx, ptr , 4096,   result)
+        }
+        if result.pointee > 0 {
+            buffer.count = result.pointee
+            self.delegate?.didReadData(data, withTag: 0, from: self)
+        }else {
+            Xcon.log("ssl read no data,continue read", level: .Notify)
+            connector?.readDataWithTag(0)
+        }
 //        var result:UnsafeMutablePointer<Int> = UnsafeMutablePointer<Int>.allocate(capacity: 1)
 //        defer {
 //            result.deallocate(capacity: 1)
@@ -70,26 +82,79 @@ public class SecurtXcon: Xcon {
     
     public override func didWrite(data: Data?, by: SocketProtocol) {
         
-        Xcon.log("didwrite ", level: .Info)
         
-        //self.delegate?.didWriteData(data, withTag: 0, from: self)
+        if !handShanked {
+            Xcon.log("didwrite reading...", level: .Info)
+            connector?.readDataWithTag(handShakeTag);
+        }else {
+            
+            delegate?.didWriteData(data, withTag: 0, from: self)
+        }
+       
         
     }
+    public func testTLS(){
+        tempq.async {
+            self.configTLS()
+        }
+    }
     public func configTLS(){
+        
+        SecurtXconHelper.helper.list[self.sessionID] = self
         ctx = SSLCreateContext(kCFAllocatorDefault, .clientSide, .streamType)
         var status: OSStatus
         //var
         // Now prepare it...
         //    - Setup our read and write callbacks...
         let read:SSLReadFunc = {c,data,len in
-            let socketfd:SecurtXcon = c.assumingMemoryBound(to: SecurtXcon.self).pointee
-            socketfd.test()
-            return 0
+            
+            let sid:UInt32 = c.assumingMemoryBound(to: UInt32.self).pointee
+            let socketfd = SecurtXconHelper.helper.list[sid]!
+            
+            
+            let bytesRequested = len.pointee
+            
+            // Read the data from the socket...
+            if socketfd.readBuffer.isEmpty {
+                //无数据
+                Xcon.log("no data", level: .Info)
+                len.initialize(to: 0)
+                return OSStatus(errSSLWouldBlock)
+            }else {
+                //
+                var toRead:Int = 0
+                if socketfd.readBuffer.count >= bytesRequested {
+                    toRead = bytesRequested
+                }else {
+                    toRead = socketfd.readBuffer.count
+                    
+                }
+                memcpy(data, (socketfd.readBuffer as NSData).bytes,toRead)
+                socketfd.readBuffer.removeSubrange( 0..<toRead)
+                
+                len.initialize(to: toRead)
+                
+                
+                if bytesRequested > toRead {
+                    
+                    return OSStatus(errSSLWouldBlock)
+                    
+                } else {
+                    
+                    return noErr
+                }
+            }
+            
+            
         }
         let write:SSLWriteFunc = {c,data,len in
-            let socketfd:SecurtXcon = c.assumingMemoryBound(to: SecurtXcon.self).pointee
-            socketfd.test()
-            
+//            let socketfd:SecurtXcon = c.assumingMemoryBound(to: SecurtXcon.self).pointee
+//            socketfd.test()
+            let socketfd:UInt32 = c.assumingMemoryBound(to: UInt32.self).pointee
+            let con = SecurtXconHelper.helper.list[socketfd]
+            let responseDatagram = NSData(bytes: data, length: len.pointee)
+            con!.writeRawData(responseDatagram as Data, tag: 0)
+            //con!.test("write")
             return 0
         }
         status = SSLSetIOFuncs(ctx, read, write)
@@ -99,31 +164,50 @@ public class SecurtXcon: Xcon {
         let ptr = UnsafeRawPointer.init(x.toOpaque())
         //SSLSetConnection(ctx, UnsafePointer(.toOpaque()))
         //UnsafePointer(Unmanaged.passUnretained(self).toOpaque())
-        status = SSLSetConnection(ctx, ptr)
+        status = SSLSetConnection(ctx, &sessionID)
         checkStatus(status: status)
         status = SSLSetSessionOption(ctx, SSLSessionOption.breakOnClientAuth, true)
         checkStatus(status: status)
         
         //SSLSetCertificate
-        repeat {status = SSLHandshake(ctx);}
-            while(status == errSSLWouldBlock);
-        handShanked = true
+        
+        repeat {
+            status = SSLHandshake(self.ctx);
+            Xcon.log("SSLHandshake...", level: .Info)
+        }while(status == errSSLWouldBlock)
+        self.handShanked = true
+        self.queue.async {
+            self.delegate?.didConnect(self)
+        }
+        
+        Xcon.log("SSLHandshake...Finished ", level: .Info)
     }
     
     override public func writeData(_ data: Data, withTag: Int) {
         //call TLS write
+        Xcon.log("write data to tls \(data as NSData)", level: .Info)
         var result:UnsafeMutablePointer<Int> = UnsafeMutablePointer<Int>.allocate(capacity: 1)
         defer {
             result.deallocate(capacity: 1)
         }
-        //给外部API 使用
-        if handShanked {
-            SSLWrite(self.ctx, (data as NSData).bytes, data.count,result )
-        }else {
-            fatalError("error")
-        }
+        SSLWrite(self.ctx, (data as NSData).bytes, data.count,result )
+        print(result.pointee)
     }
  
+    ///for TLS
+    
+    func writeRawData(_ data:Data, tag:Int){
+        //给外部API 使用
+        super.writeData(data, withTag: tag)
+    }
+    func readRawData(_ data:Data, tag:Int){
+        
+    }
+    
+    
+    
+    
+    
     func sslOutPut(data: Data,len:Int){
         //let temp = Data.init(bytes: data, count: len)
         connector?.writeData(data, withTag: handShakeTag)
@@ -220,7 +304,7 @@ private func sslWriteCallback(connection: SSLConnectionRef, data: UnsafeRawPoint
 //    let temp  = Data.init(buffer: <#T##UnsafeBufferPointer<SourceType>#>)
     let responseDatagram = NSData(bytes: data, length: bytesToWrite)
     
-    socketfd.test()
+    socketfd.test("")
    // memcpy(UnsafeMutableRawPointer!, UnsafeRawPointer!, <#T##__n: Int##Int#>)
     //socketfd.writeBuffer.append(temp)
 //    socketfd.queue.async {

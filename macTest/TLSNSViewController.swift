@@ -10,30 +10,39 @@ import Cocoa
 import Xcon
 class TLSNSViewController: NSViewController,XconDelegate {
     func didDisconnect(_ socket: Xcon, error: Error?) {
-        print("1")
+        print("didDisconnect")
     }
     
     func didReadData(_ data: Data, withTag: Int, from: Xcon) {
-         print("2")
+         print("didReadData \(data)")
     }
     
     func didWriteData(_ data: Data?, withTag: Int, from: Xcon) {
-         print("3")
+         print("didWriteData \(withTag)")
+        con.readDataWithTag(10)
     }
     
     func didConnect(_ socket: Xcon) {
-         print("4")
+         print("didConnect")
+         let str = """
+> GET / HTTP/1.1
+> Host: swiftai.us
+> User-Agent: curl/7.54.0
+> Accept: */*
+""".data(using: .utf8)!
+        con.writeData(str, withTag: 1);
     }
     
 
     var con:Xcon!
     var dq = DispatchQueue(label:"")
     override func viewDidLoad() {
-        con = Xcon.socketFromProxy(nil, targetHost: "swiftai.us", Port: 443, sID: 0, delegate: self , queue: dq, sessionID: 0, enableTLS: true)
+        con = Xcon.socketFromProxy(nil, targetHost: "swiftai.us", Port: 443 , delegate: self , queue: dq, enableTLS: true, sessionID: 0)
     }
     @IBAction func  testTLS(_ sender:Any){
-         let c = con as! SecurtXcon 
-            c.configTLS()
+         let c = con as! SecurtXcon
+       
+        c.testTLS()
         
     }
 }
