@@ -22,76 +22,171 @@
 
 import Foundation
 import kcp
-class KcpTunConnector: AdapterSocket{
-    static let shared = KcpTunConnector()
-    var proxy:SFProxy?
-    //var streams:[UInt32:Xcon] = [:]
-    var tunSocket:KcpStocket?
-    var adapter:Adapter? //代理协议处理器
+class KcpTunConnector: ProxyConnector{
+    static let shared:KcpTunConnector = {
+        
+        if let p = SFProxy.createProxyWithLine(line: "SS,0.0.0.0,6000,,", pname: "CN2"){
+            return KcpTunConnector.init(p: p)
+        }
+        fatalError()
+    }()
+   
+    //adapter key-v
+    var adapters:[UInt32:Adapter] = [:]
+    var tunSocket:KcpStocket!
+    let frameSize = 4096
     static let SMuxTimeOut = 13.0 //没数据就timeout
-    static func incomingSession(_ host: String, port: UInt16,p:SFProxy,delegate:SocketDelegate, queue: DispatchQueue) ->KcpTunConnector{
-        let c = KcpTunConnector.shared
-        if c.adapter == nil {
-            guard let adapter = Adapter.createAdapter(p, host: host, port: port) else  {
-                fatalError()
-            }
-            c.adapter = adapter
-        }
-        if c.tunSocket == nil {
-            let config = c.createTunConfig(p)
-            c.tunSocket = KcpStocket.init(proxy: p, config: config)
-        }
-        return c
-    }
+
     
     //new tcp stream income
-    func incomingStream(_ sid:UInt32,session:Xcon) {
+    func incomingStream(_ sid:UInt32,session:Xcon,host:String,port:UInt16) {
+        
+        guard let a = Adapter.createAdapter(self.proxy, host: host  , port: port) else  {
+            fatalError()
+        }
+        adapters[sid] = a
+        
+    
+        if tunSocket == nil {
+            let config = createTunConfig(self.proxy)
+            tunSocket = KcpStocket.init(proxy: self.proxy, config: config, queue: queue)
+        }
+        
+        
         guard let socket = tunSocket else {return}
         socket.incomingStream(sid, session: session)
-        session.didConnectWith(adapterSocket: self)
-        //        if let dispatchQueue = dispatchQueue {
-        //            dispatchQueue.asyncAfter(deadline: .now() + .milliseconds(100)) {
-        //                session.didConnect(self)
-        //            }
-        //        }
+       
+        
+    }
+    //开始发送
+    //MARK: for socket use
+    public func didDisconnect(_ stream:Xcon, error: Error?) {
+        Xcon.log("\(stream.sessionID) socket disconnect,remove adapter", level: .Notify)
+        adapters.removeValue(forKey: stream.sessionID)
+        stream.didDisconnectWith(socket: self)
+        
+    }
+    public func didConnect(_ stream:Xcon) {
+        
+        guard let a = adapters[stream.sessionID] else {return}
+        //adapter handshake data
+        
+        let result = a.send(Data())
+        //splite
+       
+        //socket connected
+        self.sendRawData(result.data, session: stream.sessionID)
+        if a.proxy.type == .SS {
+            //socket connected
+            stream.didConnectWith(adapterSocket: self)
+        }
+
+    }
+    
+    func didReadData(_ data: Data,withTag:Int, stream: Xcon) {
+        
+        guard let a = adapters[stream.sessionID] else {return}
+        
+        if a.streaming || a.proxy.type == .SS {
+            do {
+                let result = try a.recv(data)
+                stream.didRead(data: result.value, from: self)
+            }catch let e {
+                Xcon.log("\(e.localizedDescription)", level: .Error)
+            }
+            
+        }else {
+            //handshake
+            
+            do {
+                let cnnctFlag = a.streaming
+                
+                let result = try a.recv(data)
+                if result.result {
+                    //http socks5
+                    // socks 5 todo ,mutil time send shake and data
+                    let newcflag = a.streaming
+                    if cnnctFlag != newcflag {
+                        Xcon.log(" shake hand finished \(stream) result.value \(result.value as NSData)", level: .Debug)
+                        //变动第一次才发这个event
+                        stream.didConnectWith(adapterSocket: self)
+                        
+                    }else {
+                        Xcon.log(" shake hand finished \(stream) not finished , todo fixed", level: .Debug)
+                        fatalError()
+                    }
+                }else {
+                    Xcon.log("recv failure ", level: .Error)
+                }
+                
+            }catch let e  {
+                Xcon.log("recv error \(e.localizedDescription)", level: .Error)
+            }
+        }
+
         
     }
     
+    //MARK: --------
+    
+    //MARK for Xcon use
     //需要协议转换和处理
-    public override func writeData(_ data: Data, withTag: Int) {
+    func writeData(_ data: Data, withTag: Int,session:UInt32) {
         //todo
+        guard let a = adapters[session] else {
+            fatalError()
+            return
+            
+        }
+        
+        if !a.streaming {
+            fatalError()
+        }
+        if a.proxy.type == .SS {
+            let result = a.send(data)
+            self.sendRawData(result.data, session: session)
+        }else {
+             self.sendRawData(data, session: session)
+        }
+        
+        
+       
     }
-    
-   
-    public func didReadData(_ data: Data, withTag: Int, stream:Xcon) {
-        stream.didRead(data: data, from: self)
-        //todo
+    func sendRawData(_ data:Data,session:UInt32){
+        var databuffer:Data = Data()
+        let frames = split(data, cmd: cmdPSH, sid: session)
+        for f in frames {
+            databuffer.append(f.frameData())
+            
+        }
+        tunSocket.writeData(databuffer, withTag: 0)
     }
-    
-    
-    
-    
     public override func readDataWithTag(_ tag: Int) {
         guard let s = tunSocket else {
             return
         }
         s.readDataWithTag(tag)
     }
-    public func didDisconnect(_ stream:Xcon, error: Error?) {
-        stream.didDisconnectWith(socket: self)
-    }
-    
-    
-    
+   
     public func didWriteData(_ data: Data?, withTag: Int, stream:Xcon) {
         
         stream.didWrite(data: data, by: self)
     }
     
-    public func didConnect(_ stream:Xcon) {
-        fatalError("AdapterSocket didConnect")
-        
+    
+
+    //
+    public override func forceDisconnect(_ sessionID: UInt32) {
+        Xcon.log("send Fin \(sessionID)", level: .Notify)
+        adapters.removeValue(forKey: sessionID)
+        tunSocket.sendFin(sessionID)
     }
+    
+
+}
+
+
+extension KcpTunConnector{
     func createTunConfig(_ p:SFProxy) ->TunConfig {
         let c = TunConfig()
         
@@ -153,4 +248,31 @@ class KcpTunConnector: AdapterSocket{
         Xcon.log("KCPTUN: #######################", level: .Info)
         return c
     }
+    //对于打包需要split
+    func split(_ data:Data, cmd:UInt8,sid:UInt32) ->[Frame]{
+        //let fs = data.count/frameSize + 1
+        var result:[Frame] = []
+        var left:Int = data.count
+        var index:Int = 0
+        while left > frameSize {
+            if index >= data.count {
+                break
+            }
+            let subData = data.subdata(in: index ..< frameSize )
+            let f = Frame.init(cmd, sid: sid, data: subData)
+            index += frameSize
+            left -= frameSize
+            result.append(f)
+        }
+        
+        if left > 0 {
+            let subData = data.subdata(in: index ..< data.count )
+            let f = Frame.init(cmd, sid: sid, data: subData)
+            result.append(f)
+        }
+        
+        return result
+        
+    }
+    
 }

@@ -42,20 +42,20 @@ public struct Frame {
         self.data = data
     }
     func frameData() ->Data{
-        let f:SFData = SFData()
-        f.append(kcp.version)
-        f.append(cmd)
+        let fd:SFData = SFData()
+        fd.append(kcp.version)
+        fd.append(cmd)
         if let d = data {
-            f.append(UInt16(d.count))
+            fd.append(UInt16(d.count))
         }else {
-            f.append(UInt16(0))
+            fd.append(UInt16(0))
         }
         
-        f.append(sid)
+        fd.append(sid)
         if let d = data {
-            f.append(d)
+            fd.append(d)
         }
-        return f.data
+        return fd.data
     }
     public static  func testframe(){
         var f = Frame.init(0, sid: 3)

@@ -18,7 +18,7 @@ enum SmuxError:Error {
     case recvFin
     
 }
-class KcpStocket: NSObject,SFKcpTunDelegate {
+class KcpStocket: NSObject {
     var tun:SFKcpTun?
     static let SMuxTimeOut = 13.0 //没数据就timeout
     var snappy:SnappyHelper?
@@ -27,11 +27,12 @@ class KcpStocket: NSObject,SFKcpTunDelegate {
     var ready:Bool = false
     
     var dispatchTimer:DispatchSourceTimer?
-    var dispatchQueue :DispatchQueue?
+    var dispatchQueue :DispatchQueue
     var readBuffer:Data = Data()
     var lastFrame:Frame? // not full frame ,需要快速把已经收到的data 给应用
     var lastActive:Date = Date()
     var proxy:SFProxy
+    var sendbuffer:Data = Data()
     var streams:[UInt32:Xcon] = [:]
     func shutdown(){
         if let t = dispatchTimer {
@@ -49,28 +50,41 @@ class KcpStocket: NSObject,SFKcpTunDelegate {
     }
 
     
-    init(proxy:SFProxy,config:TunConfig) {
+    init(proxy:SFProxy,config:TunConfig,queue:DispatchQueue) {
         self.proxy = proxy
+        self.dispatchQueue = queue
         super.init()
-        self.tun = SFKcpTun.init(config: config, ipaddr: proxy.serverIP, port: Int32(proxy.serverPort)!, queue: self.dispatchQueue!)
-        self.tun?.delegate = self
+        
+        let type:SOCKS5HostType = proxy.serverAddress.validateIpAddr()
+        if type != .DOMAIN {
+            self.tun = SFKcpTun.init(config: config, ipaddr: proxy.serverAddress, port: Int32(proxy.serverPort)!, queue: self.dispatchQueue)
+        }else {
+            let ips = query(proxy.serverAddress)
+            //解析
+            if ips.isEmpty {
+                self.tun = SFKcpTun.init(config: config, ipaddr: ips.first!, port: Int32(proxy.serverPort)!, queue: self.dispatchQueue)
+            }
+        }
+        
+        self.tun!.start({[unowned self] (tun) in
+            self.ready = true
+            Xcon.log("tun connected", level: .Info)
+            self.sendNop(sid: 0)
+        }, recv: { [unowned self] (tun, date) in
+            self.didRecevied(date);
+        }) { (tun) in
+            self.ready = false
+        }
         self.keepAlive(timeOut: 10);
-        self.ready = true
+        
         if proxy.config.noComp {
             snappy = SnappyHelper()
         }
-    }
-    func connected(_ tun: SFKcpTun!) {
-        self.ready = true
-    }
-    
-    func disConnected(_ tun: SFKcpTun!) {
         
     }
     
-    func tunError(_ tun: SFKcpTun!, error: Error!) {
-        
-    }
+  
+   
     
     func didRecevied(_ data: Data!) {
         self.lastActive = Date()
@@ -86,7 +100,7 @@ class KcpStocket: NSObject,SFKcpTunDelegate {
         
         
         
-        //SKit.log("mux recv data: \(data.count) \(data as NSData)",level: .Debug)
+        Xcon.log("mux recv data: \(data.count) \(data as NSData)",level: .Debug)
         let _ = streams.flatMap{ k,v in
             return k
         }
@@ -94,86 +108,55 @@ class KcpStocket: NSObject,SFKcpTunDelegate {
         //SKit.log("\(ss.sorted()) all active stream", level: .Debug)
         while self.readBuffer.count >= headerSize {
             let r = readFrame()
-            if let f = r.0 {
+            if let f = r.frame {
+               
+                Xcon.log("Event recv sessionid:\(f.sid)", level: .Debug)
                 if f.sid == 0 {
-                    Xcon.log("Nop Event recv", level: .Debug)
+                    Xcon.log("main connection keep alive ok", level: .Debug)
                 }else {
-                    if let stream =  streams[f.sid] {
+                    guard let stream = streams[f.sid] else {
+                        processFrame(f: f,error: r.error)
+                        Xcon.log("mux not found stream \(f.sid)", level: .Error)
+                        continue
                         
-                        
-                        
-                        
-                        
-                        if let d = f.data {
-                            if r.1 == nil {
-                                //full packet
-                               
-                                 KcpTunConnector.shared.didReadData(data, withTag: 0, stream: stream)
-                                
-                                self.lastFrame = nil
-                            }else {
-                                //no full
-                                if !d.isEmpty {
-                                   
-                                    KcpTunConnector.shared.didReadData(d, withTag: 0, stream: stream)
-                                }
-                                
-                                
-                                
-                                self.lastFrame = f
-                                //reset data
-                                self.lastFrame?.data = nil
-                            }
+                    }
+                    if let d = f.data {
+                         Xcon.log("frame data:\(d as NSData)", level: .Debug)
+                        if r.error == nil {
+                            //full packet
                             
+                            KcpTunConnector.shared.didReadData(d, withTag: 0, stream: stream)
+                            
+                            self.lastFrame = nil
                         }else {
-                            if f.cmd == cmdFIN {
+                            //no full
+                            if !d.isEmpty {
                                 
-                                 KcpTunConnector.shared.didDisconnect(stream, error: nil)
-                            }else  {
-                                if r.1 == SmuxError.bodyNotFull {
-                                    Xcon.log("frame \(f.desc) packet not full",level: .Error)
-                                    
-                                    break
-                                }
+                                KcpTunConnector.shared.didReadData(d, withTag: 0, stream: stream)
                             }
                             
+                            
+                            
+                            self.lastFrame = f
+                            //reset data
+                            self.lastFrame?.data = nil
                         }
                         
                     }else {
-                        Xcon.log("frame \(f.desc) not found stream drop packet",level: .Error)
-                        
-                        if let d = f.data {
-                            if r.1 == nil {
-                                //full packet
-                                //stream.didReadData(d, withTag: 0, from: self)
-                                self.lastFrame = nil
-                            }else {
-                                //no full
-                                //stream.didReadData(d, withTag: 0, from: self)
-                                
-                                
-                                self.lastFrame = f
-                                //reset data
-                                self.lastFrame?.data = nil
-                            }
+                        if f.cmd == cmdFIN {
                             
-                        }else {
-                            if f.cmd == cmdFIN {
-                                //stream.didDisconnect(self, error: SmuxError.recvFin)
-                            }else  {
-                                //                                if r.1 == SmuxError.bodyNotFull {
-                                //                                    SKit.log("frame \(f.desc) packet not full",level: .Error)
-                                //
-                                //                                    break
-                                //                                }
+                            KcpTunConnector.shared.didDisconnect(stream, error: nil)
+                        }else  {
+                            if r.1 == SmuxError.bodyNotFull {
+                                Xcon.log("frame \(f.desc) packet not full",level: .Error)
+                                
+                                break
                             }
-                            
                         }
-                        //关闭链接
-                        sendFin(f.sid)
                         
                     }
                     
+   
                 }
                 
             }else {
@@ -182,8 +165,35 @@ class KcpStocket: NSObject,SFKcpTunDelegate {
         }
         
     }
-    
-    func readFrame() -> (Frame?,SmuxError?) {
+    func processFrame(f:Frame,error:SmuxError?) {
+        
+        if let d = f.data {
+            if error == nil {
+                //full packet
+                //stream.didReadData(d, withTag: 0, from: self)
+                Xcon.log("\(f.sid) full drop", level: .Notify)
+                self.lastFrame = nil
+            }else {
+                //no full
+                //stream.didReadData(d, withTag: 0, from: self)
+                
+                Xcon.log("\(f.sid) not full \(f.left) ", level: .Notify)
+                self.lastFrame = f
+                //reset data
+                self.lastFrame?.data = nil
+            }
+            
+        }else {
+            Xcon.log("\(f.sid) not full \(f.cmd) frame left \(f.left)", level: .Notify)
+            
+            
+        }
+        sendFin(f.sid)
+        //关闭链接
+        
+    }
+    func readFrame() -> (frame:Frame?,error:SmuxError?) {
+        Xcon.log("readbuffer \(readBuffer as NSData)", level: .Debug)
         if let _ = lastFrame {
             let l = lastFrame!.left
             var tocopy:Int = 0
@@ -271,24 +281,29 @@ extension KcpStocket{
     }
 
     public  func writeData(_ data: Data, withTag: Int) {
-        //先经过ss
-        //fatalError()
-        //        guard let  adapter = Adapter else { return  }
-        //        let newdata = adapter.send(data)
-        //        tun.inputDataAdapter(newdata)
+        
         // api
         self.lastActive = Date()
         Xcon.log("write \(data as NSData)",level: .Debug)
-        if let tun = tun {
+        if let tun = tun ,ready == true{
             tun.input(data)
+            
+            if !sendbuffer.isEmpty {
+                let buffer = sendbuffer
+                tun.input(buffer)
+                //可能浪费内存
+                sendbuffer.removeAll(keepingCapacity: true)
+            }
+            
         }else {
-            Xcon.log("kcptun not ready ", level: .Error)
+            sendbuffer.append(data)
+            Xcon.log("kcptun not ready ,data keep in send buffer", level: .Error)
         }
     }
     func keepAlive(timeOut:Int)  {
         //  q = DispatchQueue(label:"com.yarshure.keepalive")
         let timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags.init(rawValue: 0), queue:dispatchQueue )
-        dispatchQueue!.async{
+        dispatchQueue.async{
             let interval: Double = Double(timeOut)
             
             let delay = DispatchTime.now()
@@ -300,7 +315,7 @@ extension KcpStocket{
                 if Date().timeIntervalSince(self.lastActive) > KcpStocket.SMuxTimeOut{
                     self.shutdown()
                 }else {
-                    self.sendNop()
+                    self.sendNop(sid: 0)
                 }
                 //self.call(self.dispatch_timer)
             }
@@ -312,9 +327,9 @@ extension KcpStocket{
         }
         self.dispatchTimer = timer
     }
-    func sendNop(){
-        Xcon.log("send Nop", level: .Debug)
-        let frame = Frame(cmdNOP,sid:0)
+    func sendNop(sid:UInt32){
+        Xcon.log("send Nop \(sid)", level: .Debug)
+        let frame = Frame(cmdNOP,sid:sid)
         let data = frame.frameData()
         //self.streams[0] = session
         if let s = snappy {
@@ -334,9 +349,16 @@ extension KcpStocket{
     }
     //new tcp stream income
     func incomingStream(_ sid:UInt32,session:Xcon) {
-        guard let _ = tun else {return}
-       
+        guard let _ = tun else { return}
+        Xcon.log("send SYN \(sid)", level: .Debug)
         self.streams[sid] = session
+        //send SYN
+        let frame = Frame(cmdSYN,sid:UInt32(sid))
+        let fdata = frame.frameData()
+        
+        writeData(fdata, withTag: 0)
+        
+        KcpTunConnector.shared.didConnect(session)
         //        if let dispatchQueue = dispatchQueue {
         //            dispatchQueue.asyncAfter(deadline: .now() + .milliseconds(100)) {
         //                session.didConnect(self)
@@ -344,4 +366,5 @@ extension KcpStocket{
         //        }
         
     }
+   
 }

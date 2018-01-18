@@ -10,6 +10,8 @@ import Foundation
 import XSocket
 import NetworkExtension
 import os.log
+//Xcon use normal send data and session manager
+
 public protocol XconDelegate: class {
     /**
      The socket did disconnect.
@@ -63,7 +65,7 @@ public class Xcon:SocketDelegate{
     }
     
     public func didRead(data: Data, from: SocketProtocol) {
-        Xcon.log("read didRead", level: .Info)
+        Xcon.log("Adapter read didRead", level: .Info)
         
         self.delegate?.didReadData(data, withTag: 0, from: self)
         
@@ -90,11 +92,16 @@ public class Xcon:SocketDelegate{
     var adapter:Adapter?
     var connector:AdapterSocket?
     
-    init(q:DispatchQueue) {
+    init(q:DispatchQueue,remote:String,port:UInt16,session:UInt32,delegate:XconDelegate) {
         self.queue = q
+        self.remoteAddress = remote
+        self.remotePort = port
+        self.sessionID = session
+        self.delegate = delegate
     }
-    public func forceDisconnect(_ sessionID: UInt32) {
-        connector?.forceDisconnect(sessionID)
+    public func forceDisconnect(_ sessionID: UInt32 = 0) {
+        connector?.forceDisconnect(self.sessionID)
+        
     }
     public var remote:NWHostEndpoint? {
         get {
@@ -126,21 +133,25 @@ public class Xcon:SocketDelegate{
     
     public var tcp: Bool = false
     
+    var remoteAddress:String = ""
+    var remotePort:UInt16 = 0
+    var sessionID:UInt32 = 0
     deinit {
         Xcon.log("Xcon deinit", level: .Debug)
     }
    
     
-    public func disconnect(becauseOf error: Error?) {
-        connector?.disconnect(becauseOf: error)
-    }
-    
-    public func forceDisconnect(becauseOf error: Error?) {
-        connector?.disconnect(becauseOf: error)
-    }
+
     
     public func writeData(_ data: Data, withTag: Int) {
-        connector?.writeData(data, withTag: withTag)
+        if let kcp = connector as? KcpTunConnector {
+            kcp.writeData(data, withTag: withTag, session: self.sessionID)
+        }else {
+             connector?.writeData(data, withTag: withTag)
+        }
+        //self.queue.async {
+            self.delegate?.didWriteData(data, withTag: withTag, from: self)
+        //}
     }
     
     public func readDataWithTag(_ tag: Int) {
@@ -158,27 +169,22 @@ public class Xcon:SocketDelegate{
     public func readDataToData(_ data: Data, withTag tag: Int, maxLength: Int) {
         
     }
-    public func forceDisconnect(){
-        
-    }
+   
     public static var debugEnable = false
-    static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,sID:UInt,delegate:XconDelegate,queue:DispatchQueue,sessionID:Int = 0,enableTLS:Bool = false) ->Xcon?{
-        var con:Xcon
-        if !enableTLS {
-            con =  Xcon.init(q: queue)
-        }else {
-            con = SecurtXcon.init(q: queue, host: targetHost, port: Int(Port))
-        }
-        con.delegate = delegate
+    static public func socketFromProxy(_ p: SFProxy?,targetHost:String,Port:UInt16,delegate:XconDelegate,queue:DispatchQueue,sessionID:UInt32 = 0) ->Xcon?{
+        let sid = sessionID + 3
+        let con = Xcon.init(q: queue, remote: targetHost, port: Port, session: sid, delegate: delegate)
+ 
         if let p = p {
             //proxy mode
-            if !p.kcptun  {
-                let c = ProxyConnector.connectTo(targetHost, port: Port, p: p, delegate: con, queue: queue)
-                con.connector = c
-            }else {
-                fatalError()
-            }
             
+            let c = ProxyConnector.connectTo(targetHost, port: Port, p: p, delegate: con, queue: queue)
+            
+            con.connector = c
+            if p.kcptun  {
+                let kcp = c as! KcpTunConnector
+                kcp.incomingStream(sid, session: con, host: targetHost,port: Port)
+            }
         }else {
             let c = DirectConnector.connectTo(targetHost, port: Port, delegate: con, queue: queue)
            

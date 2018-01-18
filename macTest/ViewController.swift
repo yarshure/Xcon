@@ -19,7 +19,7 @@ class ViewController: NSViewController ,XconDelegate{
     
     func didReadData(_ data: Data, withTag: Int, from: Xcon) {
         print("222 \(data as NSData)")
-        con!.disconnect(becauseOf: nil)
+        con!.forceDisconnect()
         con = nil
     }
     
@@ -42,7 +42,7 @@ class ViewController: NSViewController ,XconDelegate{
     let p = SFProxy.create(name: "11", type: .HTTP, address: "192.168.11.131", port: "8000", passwd: "", method: "", tls: false)
     func start(){
         
-        if let x = Xcon.socketFromProxy(self.p, targetHost: "www.google.com", Port: 80, sID: 1, delegate: self, queue: q){
+        if let x = Xcon.socketFromProxy(self.p, targetHost: "www.google.com", Port: 80, delegate: self, queue: q){
             self.con = x
         }
     }

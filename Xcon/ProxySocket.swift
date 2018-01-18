@@ -27,7 +27,7 @@ public class ProxyConnector: AdapterSocket {
     var targetHost:String = ""
     var targetPort:UInt16 = 0
  
-    
+ 
     init(p:SFProxy) {
         proxy = p
         
@@ -45,26 +45,37 @@ public class ProxyConnector: AdapterSocket {
        
     }
     static func connectTo(_ host: String, port: UInt16,p:SFProxy,delegate:SocketDelegate, queue: DispatchQueue) ->ProxyConnector{
-        switch p.type{
-        case .HTTP,.HTTPS:
-            return  HTTPProxyConnector.connect(host, port: port, p: p, delegate: delegate, queue: queue)
-            
-        case .SS:
-            return TCPSSConnector.connect(host, port: port, p: p, delegate: delegate, queue: queue)
-            
-        case .SS3:
-            return TCPSSConnector.connect(host, port: port, p: p, delegate: delegate, queue: queue)
-          
-        case .SOCKS5:
-            return Socks5Connector.connect(host, port: port, p: p, delegate: delegate, queue: queue)
-           
-        case .HTTPAES:
-            return   TCPSSConnector.connect(host, port: port, p: p, delegate: delegate, queue: queue)
-            
-        case .LANTERN:
-            return TCPSSConnector.connect(host, port: port, p: p, delegate: delegate, queue: queue)
-           
+        if !p.kcptun {
+            switch p.type{
+                
+            case .HTTP,.HTTPS:
+                return  HTTPProxyConnector.connect(host, port: port, p: p, delegate: delegate, queue: queue)
+                
+            case .SS:
+                return TCPSSConnector.connect(host, port: port, p: p, delegate: delegate, queue: queue)
+                
+            case .SS3:
+                return TCPSSConnector.connect(host, port: port, p: p, delegate: delegate, queue: queue)
+                
+            case .SOCKS5:
+                return Socks5Connector.connect(host, port: port, p: p, delegate: delegate, queue: queue)
+                
+            case .HTTPAES:
+                return   TCPSSConnector.connect(host, port: port, p: p, delegate: delegate, queue: queue)
+                
+            case .LANTERN:
+                return TCPSSConnector.connect(host, port: port, p: p, delegate: delegate, queue: queue)
+                
+            }
+        }else {
+            if  KcpTunConnector.shared.queue == nil {
+                KcpTunConnector.shared.queue = queue
+            }
+            KcpTunConnector.shared.proxy = p
+            return KcpTunConnector.shared
         }
+        
+        
     }
     public override func start() {
         guard let port = UInt16(proxy.serverPort) else {

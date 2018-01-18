@@ -33,7 +33,7 @@ class TCP: NSViewController,XconDelegate {
         super.viewDidLoad()
         let x = "http,192.168.11.131,8000,,"
         if let p = SFProxy.createProxyWithLine(line: x, pname: "CN2"){
-            self.con = Xcon.socketFromProxy(p, targetHost: "twitter.com", Port: 443, sID: 0, delegate: self, queue: DispatchQueue.main)
+            self.con = Xcon.socketFromProxy(p, targetHost: "twitter.com", Port: 443, delegate: self, queue: DispatchQueue.main, sessionID: 1)
         }
         
         // Do view setup here.

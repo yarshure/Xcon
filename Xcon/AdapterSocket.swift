@@ -11,7 +11,7 @@ import XSocket
 import NetworkExtension
 public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     
-    
+    var adapter:Adapter? //代理协议处理器 ss over http /ss over tls,ss over kcp,ss over socks5
     public var sourcePort: XPort?{
         get {
             return nil

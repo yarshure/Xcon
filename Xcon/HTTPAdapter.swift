@@ -13,6 +13,7 @@ class HTTPAdapter: Adapter {
     public var reqHeader:SFHTTPRequestHeader?
     public var respHeader:SFHTTPResponseHeader?
     var headerData:Data = Data()
+    var headerSend:Bool = false
     override var streaming:Bool{
         get {
             return connected
@@ -89,15 +90,22 @@ class HTTPAdapter: Adapter {
         
     }
     
-    override func send(_ data: Data) -> Data {
-        if data.count == 0 {
+    override func send(_ tdata: Data) -> (data: Data, tag: Int) {
+        
+        if tdata.count == 0 {
             //send connect data
-           return buildRequestHeader()
+            headerSend = true
+           return (buildRequestHeader(),-1000)
         }else {
             if streaming {
-                 return data
+                 return (tdata,0)
             }else {
-                fatalError()
+                if headerSend {
+                    return (Data(),-2000)
+                }else {
+                    return (Data(),-3000)
+                }
+               
             }
            
         }

@@ -105,7 +105,7 @@ class SSAdapter:Adapter {
         
     }
     
-    override func send(_ data: Data) -> Data {
+    override func send(_ data: Data) -> (Data,Int) {
         var datatemp:Data?
         if !headSent {
             var temp = Data()
@@ -143,13 +143,13 @@ class SSAdapter:Adapter {
         if let dd = datatemp {
             if let cipher =  engine.encrypt(encrypt_bytes: dd) {
                 //socks_writing = true
-                return cipher
+                return (cipher,-1)
             }
         }else {
             Xcon.log("encrypt init error or data length 0",level: .Error)
             fatalError()
             
         }
-        return Data()
+        return (Data(),-3000)
     }
 }
