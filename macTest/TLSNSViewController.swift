@@ -26,9 +26,14 @@ class TLSNSViewController: NSViewController,XconDelegate {
     }
     
 
-    var con:Xcon?
+    var con:Xcon!
     var dq = DispatchQueue(label:"")
     override func viewDidLoad() {
         con = Xcon.socketFromProxy(nil, targetHost: "swiftai.us", Port: 443, sID: 0, delegate: self , queue: dq, sessionID: 0, enableTLS: true)
+    }
+    @IBAction func  testTLS(_ sender:Any){
+         let c = con as! SecurtXcon 
+            c.configTLS()
+        
     }
 }

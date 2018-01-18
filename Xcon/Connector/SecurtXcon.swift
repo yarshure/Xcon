@@ -8,6 +8,10 @@
 
 import Foundation
 import Security
+class SecurtXconHelper {
+    static let helper = SecurtXconHelper()
+    var list:[Int:SecurtXcon] = [:]
+}
 public class SecurtXcon: Xcon {
     var ctx:SSLContext!
     var certState:SSLClientCertificateState!
@@ -16,12 +20,14 @@ public class SecurtXcon: Xcon {
     let handShakeTag:Int = -3000
     var handShanked:Bool = false
     
-    
     var readBuffer:Data = Data() //recv from socket
     var writeBuffer:Data = Data() //prepare write to  socket
     let tempq = DispatchQueue.init(label: "tls.queue")
     init(q: DispatchQueue ,host:String,port:Int) {
         super.init(q: q)
+    }
+    func test(){
+        print("test")
     }
     func checkStatus(status:OSStatus) {
         if status != 0{
@@ -35,9 +41,9 @@ public class SecurtXcon: Xcon {
         connector?.readDataWithTag(handShakeTag)
         //异步的
         
-        tempq.async {
-            self.configTLS()
-        }
+//        tempq.async {
+//            self.configTLS()
+//        }
         
         //
         //self.delegate?.didConnect(self)
@@ -69,18 +75,31 @@ public class SecurtXcon: Xcon {
         //self.delegate?.didWriteData(data, withTag: 0, from: self)
         
     }
-    func configTLS(){
+    public func configTLS(){
         ctx = SSLCreateContext(kCFAllocatorDefault, .clientSide, .streamType)
         var status: OSStatus
         //var
         // Now prepare it...
         //    - Setup our read and write callbacks...
-        status = SSLSetIOFuncs(ctx, sslReadCallback, sslWriteCallback)
+        let read:SSLReadFunc = {c,data,len in
+            let socketfd:SecurtXcon = c.assumingMemoryBound(to: SecurtXcon.self).pointee
+            socketfd.test()
+            return 0
+        }
+        let write:SSLWriteFunc = {c,data,len in
+            let socketfd:SecurtXcon = c.assumingMemoryBound(to: SecurtXcon.self).pointee
+            socketfd.test()
+            
+            return 0
+        }
+        status = SSLSetIOFuncs(ctx, read, write)
         checkStatus(status: status)
-        let x = Unmanaged.passUnretained(self)
-        
+        let x = Unmanaged.passRetained(self)
+        //self.socketPtr.pointee = x
+        let ptr = UnsafeRawPointer.init(x.toOpaque())
         //SSLSetConnection(ctx, UnsafePointer(.toOpaque()))
-        status = SSLSetConnection(ctx, x.toOpaque())
+        //UnsafePointer(Unmanaged.passUnretained(self).toOpaque())
+        status = SSLSetConnection(ctx, ptr)
         checkStatus(status: status)
         status = SSLSetSessionOption(ctx, SSLSessionOption.breakOnClientAuth, true)
         checkStatus(status: status)
@@ -201,13 +220,14 @@ private func sslWriteCallback(connection: SSLConnectionRef, data: UnsafeRawPoint
 //    let temp  = Data.init(buffer: <#T##UnsafeBufferPointer<SourceType>#>)
     let responseDatagram = NSData(bytes: data, length: bytesToWrite)
     
+    socketfd.test()
    // memcpy(UnsafeMutableRawPointer!, UnsafeRawPointer!, <#T##__n: Int##Int#>)
     //socketfd.writeBuffer.append(temp)
 //    socketfd.queue.async {
 //       
 //    }
     
-    socketfd.writeBuffer.append(responseDatagram as Data)
+    //socketfd.writeBuffer.append(responseDatagram as Data)
      //socketfd.sslOutPut(data: responseDatagram  as Data, len: bytesToWrite)
     
     return noErr
