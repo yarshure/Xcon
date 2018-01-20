@@ -27,56 +27,78 @@ public class SecurtXcon: Xcon {
     func test(_ msg:String){
         print(msg)
     }
+    public override func didDisconnectWith(socket: SocketProtocol) {
+        Xcon.log("didDisconnectWith", level: .Info)
+        if readBuffer.isEmpty {
+            self.delegate?.didDisconnect(self, error: nil)
+        }else {
+            Xcon.log("didDisconnectWith wait write data to ....", level: .Info)
+        }
+        
+        
+        
+    }
     func checkStatus(status:OSStatus) {
         if status != 0{
-            print("\(status)")
+            if let str =  SecCopyErrorMessageString(status, nil) {
+                 Xcon.log("\(status):" +  (str as String),level: .Info)
+            }
+            
+           
         }
+    }
+    func showState() ->SSLSessionState  {
+        var state:SSLSessionState = SSLSessionState.init(rawValue: 0)!
+        SSLGetSessionState(self.ctx, &state)
+        Xcon.log("SSLHandshake...state:" + state.description, level: .Info)
+        return state
+       
     }
     public override func didConnectWith(adapterSocket: SocketProtocol) {
         Xcon.log("didConnectWith", level: .Info)
-        
-        //
+
         connector?.readDataWithTag(handShakeTag)
-        //异步的
-        
-//        tempq.async {
-//            self.configTLS()
-//        }
-        
-        //
-        //self.delegate?.didConnect(self)
     }
     public override func didRead(data: Data, from: SocketProtocol) {
-        Xcon.log("read didRead \(data as NSData)", level: .Info)
-        
-        readBuffer.append(data)
-        var buffer:Data = Data.init(capacity: 4096)
-        var result:UnsafeMutablePointer<Int> = UnsafeMutablePointer<Int>.allocate(capacity: 1)
-        defer {
-            result.deallocate(capacity: 1)
-        }
-        _ = buffer.withUnsafeMutableBytes { ptr  in
-            SSLRead(ctx, ptr , 4096,   result)
-        }
-        if result.pointee > 0 {
-            buffer.count = result.pointee
-            self.delegate?.didReadData(data, withTag: 0, from: self)
+        Xcon.log("socket didRead count:\(data.count) \(data as NSData)", level: .Info)
+        //handshake auto read/write
+        if handShanked {
+             self.readBuffer.append(data)
+            var buffer:Data = Data.init(capacity: 4096)
+            var result:UnsafeMutablePointer<Int> = UnsafeMutablePointer<Int>.allocate(capacity: 1)
+            defer {
+                result.deallocate(capacity: 1)
+            }
+            _ = buffer.withUnsafeMutableBytes { ptr  in
+                SSLRead(self.ctx, ptr , 4096,   result)
+            }
+            if result.pointee > 0 {
+                Xcon.log("TLS didRead \(buffer as NSData)", level: .Info)
+                buffer.count = result.pointee
+                
+                self.delegate?.didReadData(buffer, withTag: 0, from: self)
+            }else {
+                Xcon.log("ssl read no data,continue read", level: .Notify)
+                
+            }
         }else {
-            Xcon.log("ssl read no data,continue read", level: .Notify)
-            connector?.readDataWithTag(0)
+            tempq.suspend()
+            self.readBuffer.append(data)
+            tempq.resume()
         }
-//        var result:UnsafeMutablePointer<Int> = UnsafeMutablePointer<Int>.allocate(capacity: 1)
-//        defer {
-//            result.deallocate(capacity: 1)
-//        }
-//        let buffer:UnsafeMutableRawPointer = UnsafeMutableRawPointer.allocate(bytes: 8096, alignedTo: 1)
-//        SSLRead(ctx, buffer, 8096, result)
-//
-//        if result.pointee > 0 {
-//            let d = NSData.init(bytesNoCopy: buffer, length: result.pointee)
-//            self.delegate?.didReadData((d as Data), withTag: 0, from: self)
-//        }
         
+//        //after handshake, normal read
+//        connector?.readDataWithTag(handShakeTag)
+//        if handShanked {
+//            //dispatch
+//            tempq.async {
+//                
+//            }
+//            
+//        }else {
+//            Xcon.log("#########", level: .Notify)
+//        }
+//        
         
     }
     
@@ -100,8 +122,14 @@ public class SecurtXcon: Xcon {
     }
     func readFunc() ->SSLReadFunc {
         return { c,data,len in
+            Xcon.log("ReadFunc...\(len.pointee)", level: .Info)
             let sid:UInt32 = c.assumingMemoryBound(to: UInt32.self).pointee
-            let socketfd = SecurtXconHelper.helper.list[sid]!
+            guard let  socketfd = SecurtXconHelper.helper.list[sid] else {
+                Xcon.log("ReadFunc...,not found socketfd", level: .Info)
+                return  OSStatus(errSSLWouldBlock)
+                
+            }
+            
             
             
             let bytesRequested = len.pointee
@@ -109,7 +137,7 @@ public class SecurtXcon: Xcon {
             // Read the data from the socket...
             if socketfd.readBuffer.isEmpty {
                 //无数据
-                Xcon.log("no data", level: .Info)
+                Xcon.log("readFunc no data", level: .Info)
                 len.initialize(to: 0)
                 return OSStatus(errSSLWouldBlock)
             }else {
@@ -123,7 +151,7 @@ public class SecurtXcon: Xcon {
                 }
                 memcpy(data, (socketfd.readBuffer as NSData).bytes,toRead)
                 socketfd.readBuffer.removeSubrange( 0..<toRead)
-                
+                Xcon.log("readbuffer left:\(socketfd.readBuffer.count)", level: .Info)
                 len.initialize(to: toRead)
                 
                 
@@ -142,6 +170,7 @@ public class SecurtXcon: Xcon {
         return { c,data,len in
             //            let socketfd:SecurtXcon = c.assumingMemoryBound(to: SecurtXcon.self).pointee
             //            socketfd.test()
+            Xcon.log("writeFunc...", level: .Info)
             let socketfd:UInt32 = c.assumingMemoryBound(to: UInt32.self).pointee
             let con = SecurtXconHelper.helper.list[socketfd]
             let responseDatagram = NSData(bytes: data, length: len.pointee)
@@ -168,21 +197,52 @@ public class SecurtXcon: Xcon {
         //UnsafePointer(Unmanaged.passUnretained(self).toOpaque())
         status = SSLSetConnection(ctx, &sessionID)
         checkStatus(status: status)
+        status = SSLSetPeerDomainName(ctx, remoteAddress, remoteAddress.count)
+        //status = SSLSetSessionOption(ctx, SSLSessionOption.breakOnClientAuth, true)
+        checkStatus(status: status)
+        status = SSLSetProtocolVersionMin(ctx, SSLProtocol.tlsProtocol1)
+        status = SSLSetProtocolVersionMax(ctx, SSLProtocol.tlsProtocol13)
+        var numSupported:Int = 0
+        status = SSLGetNumberEnabledCiphers(ctx, &numSupported)
+        print("enabled ciphers count \(numSupported)")
+        checkStatus(status: status)
+//        let supported:UnsafeMutablePointer<SSLCipherSuite> = UnsafeMutablePointer<SSLCipherSuite>.allocate(capacity: numSupported)
+//        status = SSLGetSupportedCiphers(ctx, supported, &numSupported)
+//        checkStatus(status: status)
+//
+//        let enabled:UnsafeMutablePointer<SSLCipherSuite> = UnsafeMutablePointer<SSLCipherSuite>.allocate(capacity: numSupported)
+//        enabled.initialize(from: supported, count: numSupported)
+////        for x in 0..<numSupported {
+////           tmp.pointee = supported.pointee
+////           supported = supported.advanced(by: 1)
+////        }
+//        status =  SSLSetEnabledCiphers(ctx, enabled, numSupported)
+//        checkStatus(status: status)
+       
         status = SSLSetSessionOption(ctx, SSLSessionOption.breakOnClientAuth, true)
         checkStatus(status: status)
-        
-        //SSLSetCertificate
-        
         repeat {
             status = SSLHandshake(self.ctx);
+            _ = showState()
+            checkStatus(status: status)
+            Xcon.log("readbuffer left:\(self.readBuffer.count)", level: .Info)
             Xcon.log("SSLHandshake...", level: .Info)
+            usleep(500)
         }while(status == errSSLWouldBlock)
-        self.handShanked = true
-        self.queue.async {
-            self.delegate?.didConnect(self)
+    
+        //Handshake complete, ready for normal I/O
+        if showState() == .connected {
+            self.handShanked = true
+            self.queue.async {
+                self.delegate?.didConnect(self)
+            }
+            
+        }else {
+            Xcon.log("SSLHandshake...Finished  failure", level: .Info)
         }
         
-        Xcon.log("SSLHandshake...Finished ", level: .Info)
+        
+        
     }
     
     override public func writeData(_ data: Data, withTag: Int) {
@@ -194,129 +254,25 @@ public class SecurtXcon: Xcon {
         }
         SSLWrite(self.ctx, (data as NSData).bytes, data.count,result )
         print(result.pointee)
+        
     }
  
     ///for TLS
     
     func writeRawData(_ data:Data, tag:Int){
         //给外部API 使用
+        Xcon.log("write data to remote \(data as NSData)", level: .Info)
         super.writeData(data, withTag: tag)
     }
     func readRawData(_ data:Data, tag:Int){
         
     }
-    
-    
-    
-    
-    
-    func sslOutPut(data: Data,len:Int){
-        //let temp = Data.init(bytes: data, count: len)
-        connector?.writeData(data, withTag: handShakeTag)
-        //self.writeBuffer.removeAll(keepingCapacity: true)
-    }
-    func sslIntPut(){
-        
-    }
-    
-    
-    
-}
-
-
-
-///
-/// SSL Read Callback
-///
-/// - Parameters:
-///        - connection:    The connection to read from (contains pointer to active Socket object).
-///        - data:            The area for the returned data.
-///        - dataLength:    The amount of data to read.
-///
-/// - Returns:            The `OSStatus` reflecting the result of the call.
-///
-private func sslReadCallback(connection: SSLConnectionRef, data: UnsafeMutableRawPointer, dataLength: UnsafeMutablePointer<Int>) -> OSStatus {
-    
-    // Extract the socket file descriptor from the context...
-    let socketfd:SecurtXcon = connection.assumingMemoryBound(to: SecurtXcon.self).pointee
-    
-    // Now the bytes to read...
-    let bytesRequested = dataLength.pointee
-    
-    // Read the data from the socket...
-    if socketfd.readBuffer.isEmpty {
-        //无数据
-        dataLength.initialize(to: 0)
-        return OSStatus(errSSLWouldBlock)
-    }else {
-        //
-        var toRead:Int = 0
-        if socketfd.readBuffer.count >= bytesRequested {
-            toRead = bytesRequested
-        }else {
-            toRead = socketfd.readBuffer.count
-            
-        }
-        memcpy(data, (socketfd.readBuffer as NSData).bytes,toRead)
-        socketfd.readBuffer.removeSubrange( 0..<toRead)
-        
-        dataLength.initialize(to: toRead)
-        
-        
-        if bytesRequested > toRead {
-            
-            return OSStatus(errSSLWouldBlock)
-            
-        } else {
-            
-            return noErr
-        }
+    deinit {
+        SSLClose(ctx)
     }
 
 }
 
-///
-/// SSL Write Callback
-///
-/// - Parameters:
-///        - connection:    The connection to write to (contains pointer to active Socket object).
-///        - data:            The data to be written.
-///        - dataLength:    The amount of data to be written.
-///
-/// - Returns:            The `OSStatus` reflecting the result of the call.
-///
-private func sslWriteCallback(connection: SSLConnectionRef, data: UnsafeRawPointer, dataLength: UnsafeMutablePointer<Int>) -> OSStatus {
-    
-    // Extract the socket file descriptor from the context...
-    let socketfd:SecurtXcon = connection.assumingMemoryBound(to: SecurtXcon.self).pointee
-    
-    // Now the bytes to read...
-    let bytesToWrite = dataLength.pointee
-    
-    //let temp = Data.init(bytes: data, count: bytesToWrite)
-//    var temp = Data.init(count: bytesToWrite)
-//    temp.withUnsafeMutableBytes { (ptr:UnsafeMutableRawPointer)  in
-//        memcpy(ptr, data, bytesToWrite)
-//    }
-//    var pointer = UnsafeMutableRawPointer.allocate(bytes: bytesToWrite, alignedTo: MemoryLayout<UInt8>.alignment)
-//    memcpy(pointer, data, bytesToWrite)
-//
-//    let typedPointer1 = pointer.bindMemory(to: UInt8.self, capacity: bytesToWrite)
-//
-//    let temp  = Data.init(buffer: <#T##UnsafeBufferPointer<SourceType>#>)
-    let responseDatagram = NSData(bytes: data, length: bytesToWrite)
-    
-    socketfd.test("")
-   // memcpy(UnsafeMutableRawPointer!, UnsafeRawPointer!, <#T##__n: Int##Int#>)
-    //socketfd.writeBuffer.append(temp)
-//    socketfd.queue.async {
-//       
-//    }
-    
-    //socketfd.writeBuffer.append(responseDatagram as Data)
-     //socketfd.sslOutPut(data: responseDatagram  as Data, len: bytesToWrite)
-    
-    return noErr
-    
 
-}
+
+

@@ -30,7 +30,7 @@ class ViewController: NSViewController ,XconDelegate{
     
     func didConnect(_ socket: Xcon) {
         print("222 4")
-        let str = "GET / HTTP/1.1\r\nHost: baidu.com\r\nUser-Agent: curl/7.54.0\r\nAccept: */*\r\n\r\n".data(using: .utf8)!
+        let str = "GET / HTTP/1.1\r\nHost: www.google.com\r\nUser-Agent: curl/7.54.0\r\nAccept: */*\r\n\r\n".data(using: .utf8)!
         con?.writeData(str, withTag: 0)
         
     }

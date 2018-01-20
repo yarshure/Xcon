@@ -75,14 +75,14 @@ class XTLSAdapter {
             status = SSLHandshake(self.ctx);
             var state:SSLSessionState = SSLSessionState.init(rawValue: 0)!
             SSLGetSessionState(self.ctx, &state)
-            XProxy.log("SSLHandshake...state:" + state.description, level: .Info)
+            Xcon.log("SSLHandshake...state:" + state.description, level: .Info)
         }while(status == errSSLWouldBlock)
         self.handShanked = true
         dispatchQueue.async {[unowned self] in
             self.provider.didSecure()
         }
         
-        XProxy.log("SSLHandshake...Finished ", level: .Info)
+        Xcon.log("SSLHandshake...Finished ", level: .Info)
     }
     //SSLWrite(_ context: SSLContext, _ data: UnsafeRawPointer?, _ dataLength: Int, _ processed: UnsafeMutablePointer<Int>) -> OSStatus
 
@@ -127,7 +127,7 @@ class XTLSAdapter {
             // Read the data from the socket...
             if socketfd.tlsReadBuffer.isEmpty {
                 //无数据
-                XProxy.log("no data", level: .Info)
+                Xcon.log("no data", level: .Info)
                 len.initialize(to: 0)
                 return OSStatus(errSSLWouldBlock)
             }else {

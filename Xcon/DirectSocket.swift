@@ -42,7 +42,7 @@ public class DirectConnector:AdapterSocket{
     }
     
     public override func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
-       
+        //have bug ,chain not read full
         Xcon.log("DirectConnector didDisconnect", level: .Info)
         self.socketdelegate?.didDisconnectWith(socket: self)
     }

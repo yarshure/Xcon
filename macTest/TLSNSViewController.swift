@@ -14,7 +14,7 @@ class TLSNSViewController: NSViewController,XconDelegate {
     }
     
     func didReadData(_ data: Data, withTag: Int, from: Xcon) {
-         print("didReadData \(data)")
+         print("didReadData \(data as NSData)")
     }
     
     func didWriteData(_ data: Data?, withTag: Int, from: Xcon) {
