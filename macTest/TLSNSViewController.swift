@@ -24,12 +24,7 @@ class TLSNSViewController: NSViewController,XconDelegate {
     
     func didConnect(_ socket: Xcon) {
          print("didConnect")
-         let str = """
-> GET / HTTP/1.1
-> Host: swiftai.us
-> User-Agent: curl/7.54.0
-> Accept: */*
-""".data(using: .utf8)!
+         let str = "GET / HTTP/1.1\r\nHost: swiftai.us\r\nUser-Agent: curl/7.54.0\r\nAccept: */*\r\n\r\n".data(using: .utf8)!
         con.writeData(str, withTag: 1);
     }
     

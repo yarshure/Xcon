@@ -70,7 +70,7 @@ public class SecurtXcon: Xcon {
                 result.deallocate(capacity: 1)
             }
             _ = buffer.withUnsafeMutableBytes { ptr  in
-                SSLRead(self.ctx, ptr , 4096,   result)
+               SSLRead(self.ctx, ptr , 4096,   result)
             }
             if result.pointee > 0 {
                 Xcon.log("TLS didRead \(buffer as NSData)", level: .Info)
@@ -125,7 +125,8 @@ public class SecurtXcon: Xcon {
             Xcon.log("ReadFunc...\(len.pointee)", level: .Info)
             let sid:UInt32 = c.assumingMemoryBound(to: UInt32.self).pointee
             guard let  socketfd = SecurtXconHelper.helper.list[sid] else {
-                Xcon.log("ReadFunc...,not found socketfd", level: .Info)
+                
+                Xcon.log("ReadFunc...,not found socketfd:\(SecurtXconHelper.helper.list)", level: .Info)
                 return  OSStatus(errSSLWouldBlock)
                 
             }
@@ -137,7 +138,7 @@ public class SecurtXcon: Xcon {
             // Read the data from the socket...
             if socketfd.readBuffer.isEmpty {
                 //无数据
-                Xcon.log("readFunc no data", level: .Info)
+                Xcon.log("readFunc no data", level: .Debug)
                 len.initialize(to: 0)
                 return OSStatus(errSSLWouldBlock)
             }else {
@@ -221,12 +222,13 @@ public class SecurtXcon: Xcon {
        
         status = SSLSetSessionOption(ctx, SSLSessionOption.breakOnClientAuth, true)
         checkStatus(status: status)
+        Xcon.log("begin SSLHandshake...", level: .Info)
         repeat {
             status = SSLHandshake(self.ctx);
-            _ = showState()
-            checkStatus(status: status)
-            Xcon.log("readbuffer left:\(self.readBuffer.count)", level: .Info)
-            Xcon.log("SSLHandshake...", level: .Info)
+            //_ = showState()
+            //checkStatus(status: status)
+            //Xcon.log("readbuffer left:\(self.readBuffer.count)", level: .Info)
+            
             usleep(500)
         }while(status == errSSLWouldBlock)
     
