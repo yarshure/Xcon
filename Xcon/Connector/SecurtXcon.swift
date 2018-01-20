@@ -98,16 +98,8 @@ public class SecurtXcon: Xcon {
             self.configTLS()
         }
     }
-    public func configTLS(){
-        
-        SecurtXconHelper.helper.list[self.sessionID] = self
-        ctx = SSLCreateContext(kCFAllocatorDefault, .clientSide, .streamType)
-        var status: OSStatus
-        //var
-        // Now prepare it...
-        //    - Setup our read and write callbacks...
-        let read:SSLReadFunc = {c,data,len in
-            
+    func readFunc() ->SSLReadFunc {
+        return { c,data,len in
             let sid:UInt32 = c.assumingMemoryBound(to: UInt32.self).pointee
             let socketfd = SecurtXconHelper.helper.list[sid]!
             
@@ -144,24 +136,34 @@ public class SecurtXcon: Xcon {
                     return noErr
                 }
             }
-            
-            
         }
-        let write:SSLWriteFunc = {c,data,len in
-//            let socketfd:SecurtXcon = c.assumingMemoryBound(to: SecurtXcon.self).pointee
-//            socketfd.test()
+    }
+    func writeFunc() ->SSLWriteFunc {
+        return { c,data,len in
+            //            let socketfd:SecurtXcon = c.assumingMemoryBound(to: SecurtXcon.self).pointee
+            //            socketfd.test()
             let socketfd:UInt32 = c.assumingMemoryBound(to: UInt32.self).pointee
             let con = SecurtXconHelper.helper.list[socketfd]
             let responseDatagram = NSData(bytes: data, length: len.pointee)
             con!.writeRawData(responseDatagram as Data, tag: 0)
             //con!.test("write")
             return 0
+            
         }
-        status = SSLSetIOFuncs(ctx, read, write)
+    }
+    public func configTLS(){
+        
+        SecurtXconHelper.helper.list[self.sessionID] = self
+        ctx = SSLCreateContext(kCFAllocatorDefault, .clientSide, .streamType)
+        var status: OSStatus
+        //var
+        // Now prepare it...
+        //    - Setup our read and write callbacks...
+        
+        status = SSLSetIOFuncs(ctx, readFunc(), writeFunc())
+        
         checkStatus(status: status)
-        let x = Unmanaged.passRetained(self)
-        //self.socketPtr.pointee = x
-        let ptr = UnsafeRawPointer.init(x.toOpaque())
+        
         //SSLSetConnection(ctx, UnsafePointer(.toOpaque()))
         //UnsafePointer(Unmanaged.passUnretained(self).toOpaque())
         status = SSLSetConnection(ctx, &sessionID)

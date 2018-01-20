@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6907E9DB2011B77600E7B1FE /* XTLSProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6907E9DA2011B77500E7B1FE /* XTLSProtocol.swift */; };
 		691EBDCB1FC575D8005FDCAF /* Xcon.h in Headers */ = {isa = PBXBuildFile; fileRef = 691EBDC91FC575D8005FDCAF /* Xcon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		691EBDD21FC5771C005FDCAF /* Xcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD11FC5771C005FDCAF /* Xcon.swift */; };
 		691EBDD41FC57745005FDCAF /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD31FC57745005FDCAF /* Adapter.swift */; };
@@ -72,6 +73,10 @@
 		694650851FF62546000AFBE3 /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6946507E1FF62546000AFBE3 /* Frame.swift */; };
 		694650861FF62546000AFBE3 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6946507F1FF62546000AFBE3 /* Session.swift */; };
 		694650871FF62546000AFBE3 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6946507F1FF62546000AFBE3 /* Session.swift */; };
+		694AA32C201330CD003B040E /* XTLSAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694AA32B201330CD003B040E /* XTLSAdapter.swift */; };
+		694AA32D201330CD003B040E /* XTLSAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694AA32B201330CD003B040E /* XTLSAdapter.swift */; };
+		694AA32F201330D4003B040E /* TLSextension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694AA32E201330D4003B040E /* TLSextension.swift */; };
+		694AA330201330D4003B040E /* TLSextension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694AA32E201330D4003B040E /* TLSextension.swift */; };
 		6974B604200C578700925831 /* SecurtXcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6974B603200C578700925831 /* SecurtXcon.swift */; };
 		6974B605200C578700925831 /* SecurtXcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6974B603200C578700925831 /* SecurtXcon.swift */; };
 		6974B607200C5D3B00925831 /* TLSCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6974B606200C5D3B00925831 /* TLSCallBack.swift */; };
@@ -118,6 +123,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6907E9DA2011B77500E7B1FE /* XTLSProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTLSProtocol.swift; sourceTree = "<group>"; };
 		6913C3B31FDFBD4B006483C1 /* todouse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todouse.swift; sourceTree = "<group>"; };
 		691EBDC61FC575D8005FDCAF /* Xcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Xcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		691EBDC91FC575D8005FDCAF /* Xcon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Xcon.h; sourceTree = "<group>"; };
@@ -173,6 +179,8 @@
 		6946507D1FF62546000AFBE3 /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		6946507E1FF62546000AFBE3 /* Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
 		6946507F1FF62546000AFBE3 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		694AA32B201330CD003B040E /* XTLSAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XTLSAdapter.swift; sourceTree = "<group>"; };
+		694AA32E201330D4003B040E /* TLSextension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLSextension.swift; sourceTree = "<group>"; };
 		6974B603200C578700925831 /* SecurtXcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurtXcon.swift; sourceTree = "<group>"; };
 		6974B606200C5D3B00925831 /* TLSCallBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSCallBack.swift; sourceTree = "<group>"; };
 		6974B609200C932600925831 /* TLSNSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSNSViewController.swift; sourceTree = "<group>"; };
@@ -300,8 +308,11 @@
 		693A36471FC7CBC6007FDE26 /* Connector */ = {
 			isa = PBXGroup;
 			children = (
+				694AA32E201330D4003B040E /* TLSextension.swift */,
+				694AA32B201330CD003B040E /* XTLSAdapter.swift */,
 				691EBDD11FC5771C005FDCAF /* Xcon.swift */,
 				6974B603200C578700925831 /* SecurtXcon.swift */,
+				6907E9DA2011B77500E7B1FE /* XTLSProtocol.swift */,
 				69E96BE8200A58E30060659A /* issue.txt */,
 				693A36491FC7CC4A007FDE26 /* Connector.swift */,
 				6974B606200C5D3B00925831 /* TLSCallBack.swift */,
@@ -560,7 +571,9 @@
 				691EBE001FC650C8005FDCAF /* SSSocket.swift in Sources */,
 				694650771FF6252D000AFBE3 /* BlockCrypt.swift in Sources */,
 				694650741FF62512000AFBE3 /* Config.swift in Sources */,
+				694AA32C201330CD003B040E /* XTLSAdapter.swift in Sources */,
 				693A364A1FC7CC4A007FDE26 /* Connector.swift in Sources */,
+				6907E9DB2011B77600E7B1FE /* XTLSProtocol.swift in Sources */,
 				694650861FF62546000AFBE3 /* Session.swift in Sources */,
 				691EBDE21FC57B53005FDCAF /* Socks5Adapter.swift in Sources */,
 				6946506D1FF62420000AFBE3 /* AEADCrypto.swift in Sources */,
@@ -568,6 +581,7 @@
 				691EBDE01FC57B47005FDCAF /* HTTPAdapter.swift in Sources */,
 				69E96BB82008767B0060659A /* KcpStocket.swift in Sources */,
 				6974B604200C578700925831 /* SecurtXcon.swift in Sources */,
+				694AA32F201330D4003B040E /* TLSextension.swift in Sources */,
 				693A364D1FC7CD71007FDE26 /* AdapterSocket.swift in Sources */,
 				691EBDF01FC57F4B005FDCAF /* SFEncrypt.swift in Sources */,
 				691EBDFA1FC582C1005FDCAF /* EncryptExtension.swift in Sources */,
@@ -583,6 +597,7 @@
 			files = (
 				69E96BB120086D170060659A /* todouse.swift in Sources */,
 				691EBE3E1FC66E10005FDCAF /* HTTPSocket.swift in Sources */,
+				694AA32D201330CD003B040E /* XTLSAdapter.swift in Sources */,
 				691EBE3D1FC66E0C005FDCAF /* ProxySocket.swift in Sources */,
 				69C17727200DC4AB004BDB3A /* util.swift in Sources */,
 				694650851FF62546000AFBE3 /* Frame.swift in Sources */,
@@ -607,6 +622,7 @@
 				691EBE331FC66DE6005FDCAF /* Xcon.swift in Sources */,
 				694650811FF62546000AFBE3 /* Mux.swift in Sources */,
 				694650871FF62546000AFBE3 /* Session.swift in Sources */,
+				694AA330201330D4003B040E /* TLSextension.swift in Sources */,
 				693A364E1FC7CD71007FDE26 /* AdapterSocket.swift in Sources */,
 				694650721FF624FA000AFBE3 /* Fec.swift in Sources */,
 				69E96BB92008767B0060659A /* KcpStocket.swift in Sources */,
