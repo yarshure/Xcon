@@ -37,7 +37,7 @@ class TLSNSViewController: NSViewController,XconDelegate {
     @IBAction func  testTLS(_ sender:Any){
          let c = con as! SecurtXcon
        
-        c.testTLS()
+        //c.testTLS()
         
     }
 }

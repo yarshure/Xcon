@@ -11,6 +11,9 @@ import Security
 class SecurtXconHelper {
     static let helper = SecurtXconHelper()
     var list:[UInt32:SecurtXcon] = [:]
+    func getXcon(_ key:UInt32) ->SecurtXcon {
+        return list[3]!
+    }
 }
 public class SecurtXcon: Xcon {
     var ctx:SSLContext!
@@ -43,8 +46,6 @@ public class SecurtXcon: Xcon {
             if let str =  SecCopyErrorMessageString(status, nil) {
                  Xcon.log("\(status):" +  (str as String),level: .Info)
             }
-            
-           
         }
     }
     func showState() ->SSLSessionState  {
@@ -57,30 +58,40 @@ public class SecurtXcon: Xcon {
     public override func didConnectWith(adapterSocket: SocketProtocol) {
         Xcon.log("didConnectWith", level: .Info)
 
-        connector?.readDataWithTag(handShakeTag)
+        if !handShanked{
+            testTLS()
+        }
+        //connector?.readDataWithTag(handShakeTag)
     }
     public override func didRead(data: Data, from: SocketProtocol) {
         Xcon.log("socket didRead count:\(data.count) \(data as NSData)", level: .Info)
         //handshake auto read/write
         if handShanked {
              self.readBuffer.append(data)
-            var buffer:Data = Data.init(capacity: 4096)
+            
             var result:UnsafeMutablePointer<Int> = UnsafeMutablePointer<Int>.allocate(capacity: 1)
             defer {
                 result.deallocate(capacity: 1)
             }
-            _ = buffer.withUnsafeMutableBytes { ptr  in
-               SSLRead(self.ctx, ptr , 4096,   result)
-            }
-            if result.pointee > 0 {
-                Xcon.log("TLS didRead \(buffer as NSData)", level: .Info)
-                buffer.count = result.pointee
+            
+            var rtx:OSStatus = SSLGetBufferedReadSize(ctx, result)
+            if rtx == 0 {
+                var buffer:Data = Data.init(capacity: result.pointee)
+                _ = buffer.withUnsafeMutableBytes { ptr  in
+                    SSLRead(self.ctx, ptr , result.pointee,   result)
+                }
+                if result.pointee > 0 {
+                    Xcon.log("TLS didRead \(buffer as NSData)", level: .Info)
+                    buffer.count = result.pointee
+                    
+                    self.delegate?.didReadData(buffer, withTag: 0, from: self)
+                }else {
+                    Xcon.log("ssl read no data,continue read", level: .Notify)
+                    
+                }
                 
-                self.delegate?.didReadData(buffer, withTag: 0, from: self)
-            }else {
-                Xcon.log("ssl read no data,continue read", level: .Notify)
-                
             }
+           connector?.readDataWithTag(10)
         }else {
             tempq.suspend()
             self.readBuffer.append(data)
@@ -124,12 +135,7 @@ public class SecurtXcon: Xcon {
         return { c,data,len in
             Xcon.log("ReadFunc...\(len.pointee)", level: .Info)
             let sid:UInt32 = c.assumingMemoryBound(to: UInt32.self).pointee
-            guard let  socketfd = SecurtXconHelper.helper.list[sid] else {
-                
-                Xcon.log("ReadFunc...,not found socketfd:\(SecurtXconHelper.helper.list)", level: .Info)
-                return  OSStatus(errSSLWouldBlock)
-                
-            }
+            let  socketfd = SecurtXconHelper.helper.getXcon(sid)
             
             
             
@@ -173,9 +179,9 @@ public class SecurtXcon: Xcon {
             //            socketfd.test()
             Xcon.log("writeFunc...", level: .Info)
             let socketfd:UInt32 = c.assumingMemoryBound(to: UInt32.self).pointee
-            let con = SecurtXconHelper.helper.list[socketfd]
+            let con = SecurtXconHelper.helper.getXcon(socketfd)
             let responseDatagram = NSData(bytes: data, length: len.pointee)
-            con!.writeRawData(responseDatagram as Data, tag: 0)
+            con.writeRawData(responseDatagram as Data, tag: 0)
             //con!.test("write")
             return 0
             
