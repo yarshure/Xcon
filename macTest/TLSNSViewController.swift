@@ -8,7 +8,18 @@
 
 import Cocoa
 import Xcon
+import DarwinCore
 class TLSNSViewController: NSViewController,XconDelegate {
+    
+    func didConnect(_ socket: Xcon, cert: SecTrust?) {
+        let certs = TLSToolCommon().logCertificateData(for: cert!)
+        print("didConnect")
+        let str = "GET / HTTP/1.1\r\nHost: swiftai.us\r\nUser-Agent: curl/7.54.0\r\nAccept: */*\r\n\r\n".data(using: .utf8)!
+        con.writeData(str, withTag: 1);
+    }
+    
+ 
+    
     func didDisconnect(_ socket: Xcon, error: Error?) {
         print("didDisconnect")
     }
@@ -23,9 +34,7 @@ class TLSNSViewController: NSViewController,XconDelegate {
     }
     
     func didConnect(_ socket: Xcon) {
-         print("didConnect")
-         let str = "GET / HTTP/1.1\r\nHost: swiftai.us\r\nUser-Agent: curl/7.54.0\r\nAccept: */*\r\n\r\n".data(using: .utf8)!
-        con.writeData(str, withTag: 1);
+        
     }
     
 

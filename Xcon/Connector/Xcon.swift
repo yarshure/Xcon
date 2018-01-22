@@ -46,6 +46,13 @@ public protocol XconDelegate: class {
      - parameter socket: The connected socket.
      */
     func didConnect(_ socket: Xcon)
+    
+    /**
+     The socket client shakehand finished and connectd, return cert data
+     
+     - parameter socket: The connected socket.
+     */
+    func didConnect(_ socket: Xcon, cert:SecTrust?)
 }
 public class Xcon:SocketDelegate{
     public func didConnectWith(adapterSocket: SocketProtocol) {
@@ -146,12 +153,13 @@ public class Xcon:SocketDelegate{
     public func writeData(_ data: Data, withTag: Int) {
         if let kcp = connector as? KcpTunConnector {
             kcp.writeData(data, withTag: withTag, session: self.sessionID)
+            self.didWrite(data: data, by: kcp)
+            self.delegate?.didWriteData(data, withTag: withTag, from: self)
         }else {
              connector?.writeData(data, withTag: withTag)
         }
-        //self.queue.async {
-            self.delegate?.didWriteData(data, withTag: withTag, from: self)
-        //}
+        
+        
     }
     
     public func readDataWithTag(_ tag: Int) {

@@ -96,6 +96,7 @@ public class SecurtXcon: Xcon {
             tempq.suspend()
             self.readBuffer.append(data)
             tempq.resume()
+            connector?.readDataWithTag(handShakeTag)
         }
         
 //        //after handshake, normal read
@@ -241,8 +242,24 @@ public class SecurtXcon: Xcon {
         //Handshake complete, ready for normal I/O
         if showState() == .connected {
             self.handShanked = true
+            let cert:UnsafeMutablePointer<SSLClientCertificateState> = UnsafeMutablePointer<SSLClientCertificateState>.allocate(capacity: 1)
+            defer {
+                cert.deallocate(capacity: 1)
+            }
+            
+            status = SSLGetClientCertificateState(ctx, cert)
+            checkStatus(status: status)
+            
+//            let trusts:UnsafeMutablePointer<SecTrust?> = UnsafeMutablePointer<SecTrust?>.allocate(capacity: 1)
+//
+//            defer {
+//                trusts.deallocate(capacity: 1)
+//            }
+            var t:SecTrust?
+            status =  SSLCopyPeerTrust(ctx, &t)
+            checkStatus(status: status)
             self.queue.async {
-                self.delegate?.didConnect(self)
+                self.delegate?.didConnect(self,cert:t)
             }
             
         }else {

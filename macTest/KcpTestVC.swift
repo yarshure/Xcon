@@ -10,6 +10,14 @@ import Cocoa
 import Xcon
 import os.log
 class KcpTestVC: NSViewController ,XconDelegate{
+    func didConnect(_ socket: Xcon, cert: SecTrust?) {
+        
+    }
+    
+    func didConnect(_ socket: Xcon, cert: Data) {
+        
+    }
+    
     func didDisconnect(_ socket: Xcon, error: Error?) {
         let ts = Date().timeIntervalSince(start)
         if #available(OSX 10.12, *) {

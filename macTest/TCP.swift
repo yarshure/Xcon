@@ -9,6 +9,10 @@
 import Cocoa
 import Xcon
 class TCP: NSViewController,XconDelegate {
+    func didConnect(_ socket: Xcon, cert: SecTrust?) {
+        
+    }
+   
     func didDisconnect(_ socket: Xcon, error: Error?) {
         
     }
