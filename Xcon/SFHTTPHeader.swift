@@ -54,7 +54,7 @@ public let cData:Data = "CONNECT".data(using: .utf8)!
 public let SSL_CONNECTION_RESPONSE = "HTTP/1.1 200 Connection established\r\n\r\n"
 public let http:Data = "HTTP".data(using: .utf8)!
 
-public let http503 = "HTTP/1.1 503 Service Unavailable\r\rServer: A.BIG.T/2.0\r\nContent-Type: text/html\r\nAccept-Ranges: bytes\r\nContent-Length: 0\r\nConnection: close\r\n\r\n"
+public let http503 = "HTTP/1.1 503 Service Unavailable\r\nServer: A.BIG.T/2.0\r\nContent-Type: text/html\r\nAccept-Ranges: bytes\r\nContent-Length: 0\r\nConnection: close\r\n\r\n"
 
 
 public protocol HTTPProtocol {
