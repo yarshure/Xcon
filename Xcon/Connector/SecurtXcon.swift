@@ -8,6 +8,7 @@
 
 import Foundation
 import Security
+import DarwinCore
 class SecurtXconHelper {
     static let helper = SecurtXconHelper()
     var list:[UInt32:SecurtXcon] = [:]
@@ -73,6 +74,7 @@ public class SecurtXcon: Xcon {
             defer {
                 result.deallocate(capacity: 1)
             }
+
             
             var rtx:OSStatus = SSLGetBufferedReadSize(ctx, result)
             if rtx == 0 {
@@ -98,23 +100,9 @@ public class SecurtXcon: Xcon {
             tempq.resume()
             connector?.readDataWithTag(handShakeTag)
         }
-        
-//        //after handshake, normal read
-//        connector?.readDataWithTag(handShakeTag)
-//        if handShanked {
-//            //dispatch
-//            tempq.async {
-//                
-//            }
-//            
-//        }else {
-//            Xcon.log("#########", level: .Notify)
-//        }
-//        
-        
+ 
     }
-    
-    public override func didWrite(data: Data?, by: SocketProtocol) {
+        override public func didWrite(data: Data?, by: SocketProtocol) {
         
         
         if !handShanked {
@@ -127,7 +115,7 @@ public class SecurtXcon: Xcon {
        
         
     }
-    public func testTLS(){
+    func testTLS(){
         tempq.async {
             self.configTLS()
         }
@@ -137,8 +125,6 @@ public class SecurtXcon: Xcon {
             Xcon.log("ReadFunc...\(len.pointee)", level: .Info)
             let sid:UInt32 = c.assumingMemoryBound(to: UInt32.self).pointee
             let  socketfd = SecurtXconHelper.helper.getXcon(sid)
-            
-            
             
             let bytesRequested = len.pointee
             
@@ -289,9 +275,7 @@ public class SecurtXcon: Xcon {
         Xcon.log("write data to remote \(data as NSData)", level: .Info)
         super.writeData(data, withTag: tag)
     }
-    func readRawData(_ data:Data, tag:Int){
-        
-    }
+
     deinit {
         SSLClose(ctx)
     }
