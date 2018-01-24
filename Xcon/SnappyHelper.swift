@@ -54,15 +54,16 @@ class SnappyHelper {
         var sec:Bool = false
         dataBuffer.withUnsafeBytes { (input: UnsafePointer<Int8>) -> Void in
             if snappy_uncompressed_length(input, dataBuffer.count,output_length) != SNAPPY_OK{
-                fatalError()
                 Xcon.log("snappy snappy_uncompressed_length error", level: .Error)
+                fatalError()
+                
             }else {
                 if snappy_uncompress(input, dataBuffer.count, out, output_length) == SNAPPY_OK {
                     print("ok \(count.pointee)")
                     sec = true
                 }else {
-                    fatalError()
                     Xcon.log("snappy snappy_uncompress error", level: .Error)
+                    fatalError()
                 }
             }
             

@@ -38,9 +38,14 @@ public class SecurtXcon: Xcon {
     }
     func check(_ status:OSStatus) {
         if status != 0{
+            #if os(macOS)
             if let str =  SecCopyErrorMessageString(status, nil) {
                  Xcon.log("\(status):" +  (str as String),level: .Info)
             }
+            #else
+                let error = NSError.init(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: nil)
+                Xcon.log("tls ctx status:\(error.localizedDescription):",level: .Info)
+            #endif
         }
     }
     func showState() ->SSLSessionState  {

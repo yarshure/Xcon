@@ -8,14 +8,4 @@
 
 import Foundation
 
-public protocol XTLSProtocol {
-    var ctx:SSLContext!
-    var certState:SSLClientCertificateState!
-    var negCipher:SSLCipherSuite!
-    var negVersion:SSLProtocol!
-    let handShakeTag:Int
-    var handShanked:Bool
-    
-    func startHandShake()
-    
-}
+
