@@ -9,13 +9,7 @@
 import Foundation
 import Security
 import DarwinCore
-class SecurtXconHelper {
-    static let helper = SecurtXconHelper()
-    var list:[UInt32:SecurtXcon] = [:]
-    func getXcon(_ key:UInt32) ->SecurtXcon {
-        return list[3]!
-    }
-}
+
 public class SecurtXcon: Xcon {
     var ctx:SSLContext!
     var certState:SSLClientCertificateState!
@@ -123,8 +117,8 @@ public class SecurtXcon: Xcon {
     func readFunc() ->SSLReadFunc {
         return { c,data,len in
             Xcon.log("ReadFunc...\(len.pointee)", level: .Info)
-            let sid:UInt32 = c.assumingMemoryBound(to: UInt32.self).pointee
-            let  socketfd = SecurtXconHelper.helper.getXcon(sid)
+            let unmanaged:Unmanaged<SecurtXcon>  =   Unmanaged.fromOpaque(c)
+            let socketfd:SecurtXcon = unmanaged.takeUnretainedValue()
             
             let bytesRequested = len.pointee
             
@@ -165,8 +159,8 @@ public class SecurtXcon: Xcon {
             //            let socketfd:SecurtXcon = c.assumingMemoryBound(to: SecurtXcon.self).pointee
             //            socketfd.test()
             Xcon.log("writeFunc...", level: .Info)
-            let socketfd:UInt32 = c.assumingMemoryBound(to: UInt32.self).pointee
-            let con = SecurtXconHelper.helper.getXcon(socketfd)
+            let unmanaged:Unmanaged<SecurtXcon>  =   Unmanaged.fromOpaque(c)
+            let con:SecurtXcon = unmanaged.takeUnretainedValue()
             let responseDatagram = NSData(bytes: data, length: len.pointee)
             con.writeRawData(responseDatagram as Data, tag: 0)
             //con!.test("write")
@@ -176,7 +170,7 @@ public class SecurtXcon: Xcon {
     }
     public func configTLS(){
         
-        SecurtXconHelper.helper.list[self.sessionID] = self
+        
         ctx = SSLCreateContext(kCFAllocatorDefault, .clientSide, .streamType)
         var status: OSStatus
         //var
@@ -187,9 +181,7 @@ public class SecurtXcon: Xcon {
         
         checkStatus(status: status)
         
-        //SSLSetConnection(ctx, UnsafePointer(.toOpaque()))
-        //UnsafePointer(Unmanaged.passUnretained(self).toOpaque())
-        status = SSLSetConnection(ctx, &sessionID)
+        status = SSLSetConnection(ctx, Unmanaged.passUnretained(self).toOpaque())
         checkStatus(status: status)
         status = SSLSetPeerDomainName(ctx, remoteAddress, remoteAddress.count)
         //status = SSLSetSessionOption(ctx, SSLSessionOption.breakOnClientAuth, true)
