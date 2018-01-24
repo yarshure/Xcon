@@ -30,13 +30,13 @@ public class SecurtXcon: Xcon {
         if readBuffer.isEmpty {
             self.delegate?.didDisconnect(self, error: nil)
         }else {
-            Xcon.log("didDisconnectWith wait write data to ....", level: .Info)
+            Xcon.log("didDisconnectWith wait write data to ....\(readBuffer as NSData)", level: .Info)
         }
         
         
         
     }
-    func checkStatus(status:OSStatus) {
+    func check(_ status:OSStatus) {
         if status != 0{
             if let str =  SecCopyErrorMessageString(status, nil) {
                  Xcon.log("\(status):" +  (str as String),level: .Info)
@@ -62,31 +62,8 @@ public class SecurtXcon: Xcon {
         Xcon.log("socket didRead count:\(data.count) \(data as NSData)", level: .Info)
         //handshake auto read/write
         if handShanked {
-             self.readBuffer.append(data)
-            
-            var result:UnsafeMutablePointer<Int> = UnsafeMutablePointer<Int>.allocate(capacity: 1)
-            defer {
-                result.deallocate(capacity: 1)
-            }
-
-            
-            var rtx:OSStatus = SSLGetBufferedReadSize(ctx, result)
-            if rtx == 0 {
-                var buffer:Data = Data.init(capacity: result.pointee)
-                _ = buffer.withUnsafeMutableBytes { ptr  in
-                    SSLRead(self.ctx, ptr , result.pointee,   result)
-                }
-                if result.pointee > 0 {
-                    Xcon.log("TLS didRead \(buffer as NSData)", level: .Info)
-                    buffer.count = result.pointee
-                    
-                    self.delegate?.didReadData(buffer, withTag: 0, from: self)
-                }else {
-                    Xcon.log("ssl read no data,continue read", level: .Notify)
-                    
-                }
-                
-            }
+            self.readBuffer.append(data)
+            tlsRead()
            connector?.readDataWithTag(10)
         }else {
             tempq.suspend()
@@ -96,7 +73,33 @@ public class SecurtXcon: Xcon {
         }
  
     }
-        override public func didWrite(data: Data?, by: SocketProtocol) {
+    func tlsRead(){
+        var status:OSStatus
+        repeat {
+            var result:UnsafeMutablePointer<Int> = UnsafeMutablePointer<Int>.allocate(capacity: 1)
+            defer {
+                result.deallocate(capacity: 1)
+            }
+            let  buff:UnsafeMutableRawPointer = UnsafeMutableRawPointer.allocate(bytes: 4096, alignedTo: 1)
+            status = SSLRead(self.ctx, buff , 4096,   result)
+            check(status)
+            if status == errSSLClosedGraceful {
+                
+                break
+            }
+            if result.pointee > 0 {
+                let responseDatagram = NSData(bytes: buff, length: result.pointee)
+                Xcon.log("TLS didRead \(responseDatagram)", level: .Debug)
+                
+                
+                self.delegate?.didReadData(responseDatagram as Data, withTag: 0, from: self)
+            }else {
+                Xcon.log("ssl read no data,continue read", level: .Error)
+                
+            }
+        }while(status != errSSLWouldBlock)
+    }
+    override public func didWrite(data: Data?, by: SocketProtocol) {
         
         
         if !handShanked {
@@ -179,19 +182,19 @@ public class SecurtXcon: Xcon {
         
         status = SSLSetIOFuncs(ctx, readFunc(), writeFunc())
         
-        checkStatus(status: status)
+        check(status)
         
         status = SSLSetConnection(ctx, Unmanaged.passUnretained(self).toOpaque())
-        checkStatus(status: status)
+        check(status)
         status = SSLSetPeerDomainName(ctx, remoteAddress, remoteAddress.count)
         //status = SSLSetSessionOption(ctx, SSLSessionOption.breakOnClientAuth, true)
-        checkStatus(status: status)
+        check(status)
         status = SSLSetProtocolVersionMin(ctx, SSLProtocol.tlsProtocol1)
         status = SSLSetProtocolVersionMax(ctx, SSLProtocol.tlsProtocol13)
         var numSupported:Int = 0
         status = SSLGetNumberEnabledCiphers(ctx, &numSupported)
         print("enabled ciphers count \(numSupported)")
-        checkStatus(status: status)
+        check(status)
 //        let supported:UnsafeMutablePointer<SSLCipherSuite> = UnsafeMutablePointer<SSLCipherSuite>.allocate(capacity: numSupported)
 //        status = SSLGetSupportedCiphers(ctx, supported, &numSupported)
 //        checkStatus(status: status)
@@ -206,7 +209,7 @@ public class SecurtXcon: Xcon {
 //        checkStatus(status: status)
        
         status = SSLSetSessionOption(ctx, SSLSessionOption.breakOnClientAuth, true)
-        checkStatus(status: status)
+        check(status)
         Xcon.log("begin SSLHandshake...", level: .Info)
         repeat {
             status = SSLHandshake(self.ctx);
@@ -226,7 +229,7 @@ public class SecurtXcon: Xcon {
             }
             
             status = SSLGetClientCertificateState(ctx, cert)
-            checkStatus(status: status)
+            check(status)
             
 //            let trusts:UnsafeMutablePointer<SecTrust?> = UnsafeMutablePointer<SecTrust?>.allocate(capacity: 1)
 //
@@ -235,7 +238,7 @@ public class SecurtXcon: Xcon {
 //            }
             var t:SecTrust?
             status =  SSLCopyPeerTrust(ctx, &t)
-            checkStatus(status: status)
+            check(status)
             self.queue.async {
                 self.delegate?.didConnect(self,cert:t)
             }
