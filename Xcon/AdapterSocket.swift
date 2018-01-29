@@ -130,7 +130,7 @@ public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     }
     
     public func readDataWithTag(_ tag: Int) {
-        Xcon.log("readDataWithTag \(tag)", level: .Info)
+        Xcon.log("readDataWithTag \(tag)", level: .Debug)
         socket.readDataWithTag(tag)
     }
     

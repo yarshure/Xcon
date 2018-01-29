@@ -72,14 +72,14 @@ public class Xcon:SocketDelegate{
     }
     
     public func didRead(data: Data, from: SocketProtocol) {
-        Xcon.log("Adapter read didRead", level: .Info)
+        Xcon.log("Adapter read didRead", level: .Debug)
         
         self.delegate?.didReadData(data, withTag: 0, from: self)
         
     }
     
     public func didWrite(data: Data?, by: SocketProtocol) {
-        Xcon.log("didwrite ", level: .Info)
+        Xcon.log("didwrite ", level: .Debug)
         
         self.delegate?.didWriteData(data, withTag: 0, from: self)
         

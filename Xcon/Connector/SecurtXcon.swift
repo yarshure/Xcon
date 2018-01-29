@@ -64,7 +64,7 @@ public class SecurtXcon: Xcon {
         //connector?.readDataWithTag(handShakeTag)
     }
     public override func didRead(data: Data, from: SocketProtocol) {
-        Xcon.log("socket didRead count:\(data.count) \(data as NSData)", level: .Info)
+        Xcon.log("socket didRead count:\(data.count) \(data as NSData)", level: .Debug)
         //handshake auto read/write
         if handShanked {
             self.readBuffer.append(data)
@@ -108,7 +108,7 @@ public class SecurtXcon: Xcon {
         
         
         if !handShanked {
-            Xcon.log("didwrite reading...", level: .Info)
+            Xcon.log("didwrite reading...", level: .Debug)
             connector?.readDataWithTag(handShakeTag);
         }else {
             
