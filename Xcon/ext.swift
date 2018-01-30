@@ -149,6 +149,7 @@ public enum SFConnectionMode:String {
     case HTTPS = "HTTPS"
     case TCP = "TCP"
     case UDP = "UDP"
+    case DNS = "DNS"
     //case CONNECT = "CONNECT"
     public var description: String {
         switch self {
@@ -156,6 +157,7 @@ public enum SFConnectionMode:String {
         case .HTTPS: return "HTTPS"
         case .TCP: return "TCP"
         case .UDP: return "UDP"
+        case .DNS: return "DNS"
             //case CONNECT: return "CONNECT"
         }
     }
