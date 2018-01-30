@@ -197,7 +197,8 @@ open  class  SFHTTPResponseHeader :SFHTTPHeader{
         }
         
         if lines.count > 1 {
-            lines.remove(at: 1)
+            //why?
+            //lines.remove(at: 1)
             self.parserData(lines)
         }
         if params.count > 0 {

@@ -51,6 +51,15 @@ class UDPVC: NSViewController,RawSocketDelegate {
             print(e)
         }
         
+        let ips = ["1.1\r\n","2.2\r\n"]
+        var str:String = "HTTP/1.1 200 OK\r\n"
+        for (idx,yy) in ips.enumerated(){
+            str += "IP\(idx): "
+            str += yy
+        }
+        str += "\r\n\r\n"
+        let resp = SFHTTPResponseHeader.init(data: str.data(using: .utf8)!)
+        print(resp!.headerString(nil))
         // Do view setup here.
     }
     

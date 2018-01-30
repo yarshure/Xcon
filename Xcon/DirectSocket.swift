@@ -49,7 +49,7 @@ public class DirectConnector:AdapterSocket{
     
     public override func didReadData(_ data: Data, withTag: Int, from: RawSocketProtocol) {
        
-        Xcon.log("read length:\(data.count):\(withTag)", level: .Info)
+        Xcon.log("read length:\(data.count):\(withTag)", level: .Trace)
         self.socketdelegate?.didRead(data: data, from: self)
     }
     
