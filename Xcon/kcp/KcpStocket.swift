@@ -77,7 +77,7 @@ class KcpStocket {
             self.sendNop(sid: 0)
         }, recv: { [unowned self] (tun, date) in
             self.didRecevied(date);
-        }) { (tun) in
+        }) {[unowned self]  (tun) in
             self.ready = false
         }
         self.keepAlive(timeOut: 10);
@@ -105,7 +105,7 @@ class KcpStocket {
         
         
         
-        Xcon.log("mux recv data: \(data.count) \(data as NSData)",level: .Debug)
+       // Xcon.log("mux recv data: \(data.count) \(data as NSData)",level: .Debug)
         let _ = streams.flatMap{ k,v in
             return k
         }
@@ -126,7 +126,7 @@ class KcpStocket {
                         
                     }
                     if let d = f.data {
-                         Xcon.log("frame data:\(d as NSData)", level: .Debug)
+                         //Xcon.log("frame data:\(d as NSData)", level: .Debug)
                         if r.error == nil {
                             //full packet
                             
@@ -165,7 +165,7 @@ class KcpStocket {
                 }
                 
             }else {
-                Xcon.log("buffer \(self.readBuffer as NSData) parser error",level: .Debug)
+               // Xcon.log("buffer \(self.readBuffer as NSData) parser error",level: .Debug)
             }
         }
         
@@ -198,7 +198,7 @@ class KcpStocket {
         
     }
     func readFrame() -> (frame:Frame?,error:SmuxError?) {
-        Xcon.log("readbuffer \(readBuffer as NSData)", level: .Debug)
+        //Xcon.log("readbuffer \(readBuffer as NSData)", level: .Debug)
         if let _ = lastFrame {
             let l = lastFrame!.left
             var tocopy:Int = 0
@@ -307,7 +307,7 @@ extension KcpStocket{
                 let buffer = sendbuffer
                 tun.input(buffer)
                 //可能浪费内存
-                sendbuffer.removeAll(keepingCapacity: true)
+                sendbuffer.removeAll(keepingCapacity: false)
             }
             
         }else {
