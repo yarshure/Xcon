@@ -19,7 +19,7 @@ enum SmuxError:Error {
     case recvFin
     
 }
-class KcpStocket: NSObject {
+class KcpStocket {
     var tun:SFKcpTun?
     static let SMuxTimeOut = 13.0 //没数据就timeout
     var snappy:SnappyHelper?
@@ -54,7 +54,7 @@ class KcpStocket: NSObject {
     init(proxy:SFProxy,config:TunConfig,queue:DispatchQueue) {
         self.proxy = proxy
         self.dispatchQueue = queue
-        super.init()
+     
         
         let type:SOCKS5HostType = proxy.serverAddress.validateIpAddr()
         if type != .DOMAIN {
