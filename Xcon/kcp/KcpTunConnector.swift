@@ -20,6 +20,7 @@
 // 测试先是不加密，aes 加密， adapter 加密
 // 重新链接 需要？
 
+import NetworkExtension
 import Foundation
 import kcp
 class KcpTunConnector: ProxyConnector{
@@ -181,7 +182,20 @@ class KcpTunConnector: ProxyConnector{
         adapters.removeValue(forKey: sessionID)
         tunSocket.sendFin(sessionID)
     }
-    
+    public override var local:NWHostEndpoint?{
+        get {
+            return tunSocket.localAddress()
+        }
+    }
+    public override var remote: NWHostEndpoint? {
+        get {
+            if !tunSocket.proxy.serverIP.isEmpty {
+                 return NWHostEndpoint.init(hostname:tunSocket.proxy.serverIP,port:tunSocket.proxy.serverPort)
+            }
+            return NWHostEndpoint.init(hostname:tunSocket.proxy.serverAddress,port:tunSocket.proxy.serverPort)
+            
+        }
+    }
 
 }
 

@@ -30,6 +30,7 @@ public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     }
     public var remote: NWHostEndpoint? {
         get {
+         
             return socket.remote
         }
     }

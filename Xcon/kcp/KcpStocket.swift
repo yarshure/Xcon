@@ -9,6 +9,7 @@
 import Foundation
 import kcp
 import snappy
+import NetworkExtension
 enum SmuxError:Error {
     
     case noHead
@@ -61,7 +62,11 @@ class KcpStocket: NSObject {
         }else {
             let ips = query(proxy.serverAddress)
             //解析
+            
             if ips.isEmpty {
+                if proxy.serverIP.isEmpty {
+                    proxy.serverIP = ips.first!
+                }
                 self.tun = SFKcpTun.init(config: config, ipaddr: ips.first!, port: Int32(proxy.serverPort)!, queue: self.dispatchQueue)
             }
         }
@@ -252,12 +257,22 @@ class KcpStocket: NSObject {
 
 extension KcpStocket{
     //tun delegate
-    func localAddress() ->String {
+    func localAddress() ->NWHostEndpoint? {
         if let tun = tun {
-            return tun.localAddress()
+            
+            
+            return NWHostEndpoint.init(hostname: tun.localAddress() , port: "\(tun.localPort())")
+            
         }
-        return "local"
+        return nil
     }
+    func remoteAddress() ->String {
+        if let _ = tun {
+            return proxy.serverAddress
+        }
+        return "remote"
+    }
+   
     //when network changed,should call this
     func destoryTun() {
         if let tun = tun {
