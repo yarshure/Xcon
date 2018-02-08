@@ -66,15 +66,15 @@ class KcpStocket: NSObject {
             }
         }
         
-//        self.tun!.start({[unowned self] (tun) in
-//            self.ready = true
-//            Xcon.log("tun connected", level: .Info)
-//            self.sendNop(sid: 0)
-//        }, recv: { [unowned self] (tun, date) in
-//            self.didRecevied(date);
-//        }) { (tun) in
-//            self.ready = false
-//        }
+        self.tun!.start({[unowned self] (tun) in
+            self.ready = true
+            Xcon.log("tun connected", level: .Info)
+            self.sendNop(sid: 0)
+        }, recv: { [unowned self] (tun, date) in
+            self.didRecevied(date);
+        }) { (tun) in
+            self.ready = false
+        }
         self.keepAlive(timeOut: 10);
         
         if proxy.config.noComp {
@@ -167,7 +167,7 @@ class KcpStocket: NSObject {
     }
     func processFrame(f:Frame,error:SmuxError?) {
         
-        if let d = f.data {
+        if let _ = f.data {
             if error == nil {
                 //full packet
                 //stream.didReadData(d, withTag: 0, from: self)
@@ -284,7 +284,7 @@ extension KcpStocket{
         
         // api
         self.lastActive = Date()
-        Xcon.log("write \(data as NSData)",level: .Debug)
+        Xcon.log("KCP write \(data as NSData)",level: .Debug)
         if let tun = tun ,ready == true{
             tun.input(data)
             

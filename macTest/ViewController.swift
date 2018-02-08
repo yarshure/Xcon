@@ -45,9 +45,10 @@ class ViewController: NSViewController ,XconDelegate{
     var con:Xcon?
     let q = DispatchQueue.init(label: "test.queue")
     //let p = SFProxy.create(name: "11", type: .SS, address: "35.197.117.170", port: "53784", passwd: "aHR0cHM6Ly9yYXcuZ2l0aHVidXN", method: "aes-256-cfb", tls: false)
-    let p = SFProxy.create(name: "11", type: .HTTP, address: "192.168.11.131", port: "8000", passwd: "", method: "", tls: false)
+    //let p = SFProxy.create(name: "11", type: .HTTP, address: "192.168.11.131", port: "8000", passwd: "", method: "", tls: false)
+    let p = SFProxy.create(name: "11", type: .HTTP, address: "45.76.141.59", port: "8000", passwd: "", method: "", tls: false)
     func start(){
-        
+        self.p?.kcptun = true
         if let x = Xcon.socketFromProxy(self.p, targetHost: "www.google.com", Port: 80, delegate: self, queue: q){
             self.con = x
         }
