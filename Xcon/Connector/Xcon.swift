@@ -56,7 +56,7 @@ public protocol XconDelegate: class {
 }
 public class Xcon:SocketDelegate{
     public func didConnectWith(adapterSocket: SocketProtocol) {
-        Xcon.log("didConnectWith", level: .Info)
+        Xcon.log("didConnectWith \(adapterSocket)", level: .Info)
         
         self.delegate?.didConnect(self)
         
@@ -64,7 +64,7 @@ public class Xcon:SocketDelegate{
     
     
     public func didDisconnectWith(socket: SocketProtocol) {
-        Xcon.log("didDisconnectWith", level: .Info)
+        Xcon.log("didDisconnectWith \(socket)", level: .Info)
         
         self.delegate?.didDisconnect(self, error: nil)
         

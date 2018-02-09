@@ -26,7 +26,7 @@ public class SecurtXcon: Xcon {
         print(msg)
     }
     public override func didDisconnectWith(socket: SocketProtocol) {
-        Xcon.log("didDisconnectWith", level: .Info)
+        Xcon.log("didDisconnectWith \(socket)", level: .Info)
         if readBuffer.isEmpty {
             self.delegate?.didDisconnect(self, error: nil)
         }else {
@@ -56,7 +56,7 @@ public class SecurtXcon: Xcon {
        
     }
     public override func didConnectWith(adapterSocket: SocketProtocol) {
-        Xcon.log("didConnectWith", level: .Info)
+        Xcon.log("didConnectWith \(adapterSocket)", level: .Info)
 
         if !handShanked{
             testTLS()

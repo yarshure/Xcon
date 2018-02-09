@@ -43,7 +43,7 @@ public class DirectConnector:AdapterSocket{
     
     public override func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
         //have bug ,chain not read full
-        Xcon.log("DirectConnector didDisconnect", level: .Info)
+        Xcon.log("DirectConnector didDisconnect:\(socket)", level: .Info)
         self.socketdelegate?.didDisconnectWith(socket: self)
     }
     
@@ -54,7 +54,7 @@ public class DirectConnector:AdapterSocket{
     }
     
     public override func didWriteData(_ data: Data?, withTag: Int, from: RawSocketProtocol) {
-        Xcon.log("didWriteData", level: .Info)
+        Xcon.log("didWriteData", level: .Trace)
         self.socketdelegate?.didWrite(data: data, by: self)
     }
     
