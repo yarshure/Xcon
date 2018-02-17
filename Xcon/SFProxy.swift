@@ -85,7 +85,7 @@ public class SFKCPTunConfig:CommonModel {
         datashard      <- map["datashard"]
         parityshard       <- map["parityshard"]
         dscp  <- map["dscp"]
-        dscp  <- map["NoComp"]
+        noComp  <- map["NoComp"]
         
 //         public var mode:String  = "fast2"
 //        public var key:String = "" //pkdf2 use
