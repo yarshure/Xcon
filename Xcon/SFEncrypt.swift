@@ -617,10 +617,10 @@ public class SSEncrypt {
                 let iv_need_len = iv_len - ivBuffer.count
                 
                 
-                ivBuffer.append(encrypt_bytes.subdata(in: Range(0 ..< iv_need_len)))
+                ivBuffer.append(encrypt_bytes.subdata(in: 0 ..< iv_need_len))
                 recvCTX(iv: ivBuffer) //
                 //ivBuffer
-                cipher = encrypt_bytes.subdata(in: Range(iv_need_len ..< encrypt_bytes.count ))
+                cipher = encrypt_bytes.subdata(in: iv_need_len ..< encrypt_bytes.count )
             }
             
         }else {
@@ -674,7 +674,7 @@ public class SSEncrypt {
                                          kd: ramdonKey!)
                 
                 ctx.counter += UInt64(left.count)
-                let result = cipher.subdata(in: Range(Int(padding) ..< cipher.count))
+                let result = cipher.subdata(in: Int(padding) ..< cipher.count)
                 return result
                 
             }else {
@@ -785,8 +785,8 @@ public class SSEncrypt {
             ctx.counter += UInt64(encrypt_bytes.count)
             
             //let end = Int(padding)+
-            result.append(cipher.subdata(in: Range(Int(padding) ..< cipher.count
-            )))
+            result.append(cipher.subdata(in: Int(padding) ..< cipher.count
+            ))
             //debugLog("000 encrypt")
             return result
         }else {

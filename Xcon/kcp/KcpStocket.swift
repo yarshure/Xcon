@@ -106,7 +106,7 @@ class KcpStocket {
         
         
        // Xcon.log("mux recv data: \(data.count) \(data as NSData)",level: .Debug)
-        let _ = streams.flatMap{ k,v in
+        let _ = streams.compactMap{ k,v in
             return k
         }
         //cpu high

@@ -83,9 +83,9 @@ public class SecurtXcon: Xcon {
         repeat {
             var result:UnsafeMutablePointer<Int> = UnsafeMutablePointer<Int>.allocate(capacity: 1)
             defer {
-                result.deallocate(capacity: 1)
+                result.deallocate()
             }
-            let  buff:UnsafeMutableRawPointer = UnsafeMutableRawPointer.allocate(bytes: 4096, alignedTo: 1)
+            let  buff:UnsafeMutableRawPointer = UnsafeMutableRawPointer.allocate(byteCount: 4096, alignment: 1)
             status = SSLRead(self.ctx, buff , 4096,   result)
             check(status)
             if status == errSSLClosedGraceful {
@@ -230,7 +230,7 @@ public class SecurtXcon: Xcon {
             self.handShanked = true
             let cert:UnsafeMutablePointer<SSLClientCertificateState> = UnsafeMutablePointer<SSLClientCertificateState>.allocate(capacity: 1)
             defer {
-                cert.deallocate(capacity: 1)
+                cert.deallocate()
             }
             
             status = SSLGetClientCertificateState(ctx, cert)
@@ -261,7 +261,7 @@ public class SecurtXcon: Xcon {
         Xcon.log("write data to tls \(data as NSData)", level: .Info)
         var result:UnsafeMutablePointer<Int> = UnsafeMutablePointer<Int>.allocate(capacity: 1)
         defer {
-            result.deallocate(capacity: 1)
+            result.deallocate()
         }
         SSLWrite(self.ctx, (data as NSData).bytes, data.count,result )
         print(result.pointee)

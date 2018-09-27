@@ -34,8 +34,8 @@ class Socks5Adapter: Adapter {
             let auth : UnsafeMutablePointer<UInt8> =  UnsafeMutablePointer<UInt8>.allocate(capacity: 1)
             buffer.copyBytes(to: auth, from: Range(1 ... 1))
             defer {
-                version.deallocate(capacity: 1)
-                auth.deallocate(capacity: 1)
+                version.deallocate()
+                auth.deallocate()
             }
             if version.pointee == SOCKS_VERSION {
                 
@@ -43,7 +43,7 @@ class Socks5Adapter: Adapter {
                 if auth.pointee == 0x00 {
                     //no auth
                     if buffer.count > 2 {
-                        buffer =  buffer.subdata(in: Range(2 ..< buffer.count))
+                        buffer =  buffer.subdata(in: 2 ..< buffer.count)
                     }else {
                         recvBuffer = Data()
                     }
@@ -54,7 +54,7 @@ class Socks5Adapter: Adapter {
                 }else if auth.pointee == 0x02 {
                     //user/password auth
                     if buffer.count > 2 {
-                        buffer =  buffer.subdata(in: Range(2 ..< buffer.count))
+                        buffer =  buffer.subdata(in: 2 ..< buffer.count)
                     }else {
                         recvBuffer = Data()
                     }
@@ -103,12 +103,12 @@ class Socks5Adapter: Adapter {
             let result : UnsafeMutablePointer<UInt8> =  UnsafeMutablePointer<UInt8>.allocate(capacity: 1)
             buffer.copyBytes(to: result, from: 1..<2)
             defer {
-                version.deallocate(capacity: 1)
-                result.deallocate(capacity: 1)
+                version.deallocate()
+                result.deallocate()
             }
             if version.pointee == SOCKS_AUTH_VERSION && result.pointee == SOCKS_AUTH_SUCCESS {
                 if buffer.count > 2 {
-                    buffer = buffer.subdata(in: Range(2 ..< buffer.count))
+                    buffer = buffer.subdata(in: 2 ..< buffer.count)
                 }else {
                     recvBuffer = Data()
                 }
@@ -138,8 +138,8 @@ class Socks5Adapter: Adapter {
             let result : UnsafeMutablePointer<UInt8> =  UnsafeMutablePointer<UInt8>.allocate(capacity: 1)
             buffer.copyBytes(to: result, from: Range(1 ... 1))
             defer {
-                version.deallocate(capacity: 1)
-                result.deallocate(capacity: 1)
+                version.deallocate()
+                result.deallocate()
             }
             if version.pointee == SOCKS_VERSION && result.pointee == 0x00 {
                 
@@ -155,31 +155,31 @@ class Socks5Adapter: Adapter {
                     
                     let port: UnsafeMutablePointer<UInt8> =  UnsafeMutablePointer<UInt8>.allocate(capacity: 2)
                     defer {
-                        ip.deallocate(capacity: 4)
-                        port.deallocate(capacity: 2)
+                        ip.deallocate()
+                        port.deallocate()
                     }
-                    buffer.copyBytes(to: port, from: Range(8 ..< 10))
+                    buffer.copyBytes(to: port, from: 8 ..< 10)
                     //Xcon.log("\(cIDString) Bind respond \(ip.pointee):\(port.pointee)",level: .Debug)
                     if buffer.count > 10  {
-                        recvBuffer = buffer.subdata(in: Range(10 ..<  buffer.count))
+                        recvBuffer = buffer.subdata(in: 10 ..<  buffer.count)
                     }else {
                         recvBuffer = nil
                     }
                    
                 }else if type.pointee == SOCKS_DOMAIN  {
                     let length: UnsafeMutablePointer<UInt8> =  UnsafeMutablePointer<UInt8>.allocate(capacity: 1)
-                    buffer.copyBytes(to: length, from: Range(4 ..< 5))
-                    _ = buffer.subdata(in: Range(5 ..< 5 +  Int(length.pointee)))
+                    buffer.copyBytes(to: length, from: 4 ..< 5)
+                    _ = buffer.subdata(in: 5 ..< 5 +  Int(length.pointee))
                     let port: UnsafeMutablePointer<UInt8> =  UnsafeMutablePointer<UInt8>.allocate(capacity: 2)
                     defer {
-                        length.deallocate(capacity: 1)
-                        port.deallocate(capacity: 1)
+                        length.deallocate()
+                        port.deallocate()
                     }
-                    buffer.copyBytes(to: port, from: Range(5+Int(length.pointee) ..< 7+Int(length.pointee)))
+                    buffer.copyBytes(to: port, from: 5+Int(length.pointee) ..< 7+Int(length.pointee))
                     //Xcon.log("\(cIDString) Bind respond domain name length:\(length.pointee) \(domainname):\(port.pointee)",level: .Debug)
                     let len = 5+Int(length.pointee) + 2
                     if buffer.count >  len {
-                        recvBuffer = buffer.subdata(in: Range(len ..< buffer.count ))
+                        recvBuffer = buffer.subdata(in: len ..< buffer.count )
                     }else {
                         recvBuffer = nil
                     }

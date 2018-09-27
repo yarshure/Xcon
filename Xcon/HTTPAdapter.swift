@@ -76,8 +76,8 @@ class HTTPAdapter: Adapter {
                 let len =  r.upperBound // https need delete CONNECT respond
                 if len < data.count {
                     //copy and reset buffer
-                    let dataX = headerData.subdata(in: Range(len ..< headerData.count ))
-                    headerData.resetBytes(in: Range(0 ..< headerData.count))
+                    let dataX = headerData.subdata(in: len ..< headerData.count )
+                    headerData.resetBytes(in: 0 ..< headerData.count)
                     return (true,dataX)
                 }else {
                     return (true,Data())// SFAdapterError.invalidHTTPWaitRespond

@@ -161,7 +161,7 @@ public class Socks5Connector:ProxyConnector{
                 if auth.pointee == 0x00 {
                     //no auth
                     if buffer.count > 2 {
-                        buffer =  buffer.subdata(in: Range(2 ..< buffer.count))
+                        buffer =  buffer.subdata(in: 2 ..< buffer.count)
                     }else {
                         recvBuffer = Data()
                     }
@@ -171,7 +171,8 @@ public class Socks5Connector:ProxyConnector{
                 }else if auth.pointee == 0x02 {
                     //user/password auth
                     if buffer.count > 2 {
-                        buffer =  buffer.subdata(in: Range(2 ..< buffer.count))
+                        //TODO: test 
+                        buffer =  buffer.subdata(in: 2 ..< buffer.count)
                     }else {
                         recvBuffer = Data()
                     }
@@ -189,8 +190,8 @@ public class Socks5Connector:ProxyConnector{
             }else {
                Xcon.log("socks5 client don't recv  respon ver error ver:\(version.pointee)",level: .Debug)
             }
-            version.deallocate(capacity: 1)
-            auth.deallocate(capacity: 1)
+            version.deallocate()
+            auth.deallocate()
         }else if stage == .AuthSend {
             
             if recvBuffer == nil {
@@ -218,7 +219,7 @@ public class Socks5Connector:ProxyConnector{
             
             if version.pointee == SOCKS_AUTH_VERSION && result.pointee == SOCKS_AUTH_SUCCESS {
                 if buffer.count > 2 {
-                    buffer = buffer.subdata(in: Range(2 ..< buffer.count))
+                    buffer = buffer.subdata(in: 2 ..< buffer.count)
                 }else {
                     recvBuffer = Data()
                 }
@@ -229,8 +230,8 @@ public class Socks5Connector:ProxyConnector{
                 Xcon.log("socks5 client  .Auth failure",level: .Warning)
                 self.disconnect(becauseOf: nil)
             }
-            version.deallocate(capacity: 1)
-            result.deallocate(capacity: 1)
+            version.deallocate()
+            result.deallocate()
         }else if stage == .Bind {
             if recvBuffer == nil {
                 recvBuffer = Data()
@@ -258,30 +259,30 @@ public class Socks5Connector:ProxyConnector{
                     buffer.copyBytes(to: ip, from: Range(4 ... 7))
                     
                     let port: UnsafeMutablePointer<UInt8> =  UnsafeMutablePointer<UInt8>.allocate(capacity: 2)
-                    buffer.copyBytes(to: port, from: Range(8 ..< 10))
+                    buffer.copyBytes(to: port, from: 8 ..< 10)
                    //XCon.log("\(cIDString) Bind respond \(ip.pointee):\(port.pointee)",level: .Debug)
                     if buffer.count > 10  {
-                        recvBuffer = buffer.subdata(in: Range(10 ..<  buffer.count))
+                        recvBuffer = buffer.subdata(in: 10 ..<  buffer.count)
                     }else {
                         recvBuffer = nil
                     }
-                    ip.deallocate(capacity: 4)
-                    port.deallocate(capacity: 2)
+                    ip.deallocate( )
+                    port.deallocate( )
                 }else if type.pointee == SOCKS_DOMAIN  {
                     let length: UnsafeMutablePointer<UInt8> =  UnsafeMutablePointer<UInt8>.allocate(capacity: 1)
-                    buffer.copyBytes(to: length, from: Range(4 ..< 5))
-                    _ = buffer.subdata(in: Range(5 ..< 5 +  Int(length.pointee)))
+                    buffer.copyBytes(to: length, from: 4 ..< 5)
+                    _ = buffer.subdata(in: 5 ..< 5 +  Int(length.pointee))
                     let port: UnsafeMutablePointer<UInt8> =  UnsafeMutablePointer<UInt8>.allocate(capacity: 2)
-                    buffer.copyBytes(to: port, from: Range(5+Int(length.pointee) ..< 7+Int(length.pointee)))
+                    buffer.copyBytes(to: port, from: 5+Int(length.pointee) ..< 7+Int(length.pointee))
                    //XCon.log("\(cIDString) Bind respond domain name length:\(length.pointee) \(domainname):\(port.pointee)",level: .Debug)
                     let len = 5+Int(length.pointee) + 2
                     if buffer.count >  len {
-                        recvBuffer = buffer.subdata(in: Range(len ..< buffer.count ))
+                        recvBuffer = buffer.subdata(in: len ..< buffer.count )
                     }else {
                         recvBuffer = nil
                     }
-                    length.deallocate(capacity: 1)
-                    port.deallocate(capacity: 1)
+                    length.deallocate( )
+                    port.deallocate( )
                 }else if type.pointee == SOCKS_IPV6 {
                     Xcon.log("\(cIDString) Bind respond ipv6 currnetly don't support",level:.Error)
                 }
@@ -289,13 +290,13 @@ public class Socks5Connector:ProxyConnector{
                 stage = .Connected
                
                 sock5connected()
-                reserved.deallocate(capacity: 1)
-                type.deallocate(capacity: 1)
+                reserved.deallocate( )
+                type.deallocate()
             }else {
                Xcon.log("\(cIDString) don't recv .Bind respon",level: .Debug)
             }
-            version.deallocate(capacity: 1)
-            result.deallocate(capacity: 1)
+            version.deallocate( )
+            result.deallocate()
         }else if stage == .Connected {
 //            queueCall {
 //                if let buffer = self.recvBuffer  {

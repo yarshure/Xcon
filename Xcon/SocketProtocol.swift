@@ -43,7 +43,7 @@ public protocol SocketProtocol: class {
     var socket: RawSocketProtocol! { get }
     
     /// The delegate instance.
-    weak var socketdelegate: SocketDelegate? { get set }
+    var socketdelegate: SocketDelegate? { get set }
     
     /// The current connection status of the socket.
     var status: SocketStatus { get }

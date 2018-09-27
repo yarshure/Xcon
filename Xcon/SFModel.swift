@@ -64,7 +64,7 @@ open class CommonModel:NSObject,Mappable{
     open func toDictionary() -> [String:Any]?{
         return Mapper().toJSON(self)
     }
-    open static func fromDictionary<T:Mappable>(_ dict:Any?) ->T?{
+    public static func fromDictionary<T:Mappable>(_ dict:Any?) ->T?{
         return Mapper<T>().map(JSON:dict as! [String : Any])
     }
 }

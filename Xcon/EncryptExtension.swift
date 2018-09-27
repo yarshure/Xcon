@@ -114,8 +114,8 @@ extension Data {
         let ptr2 = (self as NSData).bytes
         CCHmac(algorithm.toCCEnum(),ptr,  keyData.count, ptr2, Int(self.count), result)
         let data = Data.init(bytes:  result, count: digestLen)
-        result.deallocate(capacity: digestLen)
-        return data.subdata(in: Range(0 ..< 10))
+        result.deallocate()
+        return data.subdata(in: 0 ..< 10)
         //.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
     }
 

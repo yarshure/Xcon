@@ -18,8 +18,8 @@ class SnappyHelper {
         count.pointee =  snappy_max_compressed_length(data.count)
         let out:UnsafeMutablePointer<Int8> = UnsafeMutablePointer<Int8>.allocate(capacity: count.pointee)
         defer {
-            out.deallocate(capacity: count.pointee)
-            count.deallocate(capacity: 1)
+            out.deallocate()
+            count.deallocate()
             
         }
         data.withUnsafeBytes { (input: UnsafePointer<Int8>) -> Void in
@@ -47,9 +47,9 @@ class SnappyHelper {
         
         let out:UnsafeMutablePointer<Int8> = UnsafeMutablePointer<Int8>.allocate(capacity: count.pointee)
         defer {
-            out.deallocate(capacity: count.pointee)
-            count.deallocate(capacity: 1)
-            output_length.deallocate(capacity: 1)
+            out.deallocate( )
+            count.deallocate( )
+            output_length.deallocate()
         }
         var sec:Bool = false
         dataBuffer.withUnsafeBytes { (input: UnsafePointer<Int8>) -> Void in

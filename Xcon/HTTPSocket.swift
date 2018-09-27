@@ -101,7 +101,7 @@ public  class HTTPProxyConnector:ProxyConnector {
                                 d.didConnectWith(adapterSocket: self)
                             }
                             if len < data.count {
-                                let dataX = data.subdata(in: Range(len ..< data.count ))
+                                let dataX = data.subdata(in: len ..< data.count )
                                
                                self.socketdelegate?.didRead(data: dataX, from: self)
                                 

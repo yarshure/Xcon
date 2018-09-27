@@ -103,7 +103,7 @@ public struct KCPTunConfig {
                     saltBytes, salt.count,
                     hash,
                     UInt32(rounds),
-                    derivedKeyBytes, derivedKeyData.count)
+                    derivedKeyBytes, keyByteCount)
             }
         }
         if (derivationStatus != 0) {

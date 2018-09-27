@@ -114,7 +114,7 @@ public class SFKCPTunConfig:CommonModel {
     func pbkdf2(hash :CCPBKDFAlgorithm, password: String, salt: Data, keyByteCount: Int, rounds: Int) -> Data? {
         let passwordData = password.data(using:String.Encoding.utf8)!
         var derivedKeyData = Data(repeating:0, count:keyByteCount)
-        
+        let count = keyByteCount
         let derivationStatus = derivedKeyData.withUnsafeMutableBytes {derivedKeyBytes in
             salt.withUnsafeBytes { saltBytes in
                 
@@ -124,7 +124,7 @@ public class SFKCPTunConfig:CommonModel {
                     saltBytes, salt.count,
                     hash,
                     UInt32(rounds),
-                    derivedKeyBytes, derivedKeyData.count)
+                    derivedKeyBytes, count)
             }
         }
         if (derivationStatus != 0) {
@@ -452,7 +452,7 @@ public class SFProxy:CommonModel {
         }
         return info
     }
-    static open func loadFromDictioanry(_ dic:AnyObject?) ->SFProxy?{
+    static public func loadFromDictioanry(_ dic:AnyObject?) ->SFProxy?{
         return self.fromDictionary(dic)
     }
     public func base64String() ->String {

@@ -4,6 +4,6 @@
 //
 //  Created by yarshure on 2017/12/14.
 //  Copyright © 2017年 yarshure. All rights reserved.
-//
-OTHER_LDFLAGS = $(inherited)  -weak_framework Sodium -weak_framework CommonCrypto -weak_framework  kcp -framework SwiftyJSON -framework ObjectMapper  -framework  snappy -framework XFoundation//-mbedcrypto//lcrypto // - //mbedcrypto
+// CommonCrypto
+OTHER_LDFLAGS = $(inherited)  -weak_framework Sodium -weak_framework  -weak_framework  kcp -framework SwiftyJSON -framework ObjectMapper  -framework  snappy -framework XFoundation//-mbedcrypto//lcrypto // - //mbedcrypto
 LIBRARY_SEARCH_PATHS = $(inherited) "$(PROJECT_DIR)/Carthage/Build/iOS/"

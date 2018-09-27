@@ -148,7 +148,6 @@
 		691EBE2A1FC66DD3005FDCAF /* XconMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XconMac.h; sourceTree = "<group>"; };
 		691EBE2B1FC66DD3005FDCAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		693A35431FC6726E007FDE26 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/Mac/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
-		693A35441FC6726E007FDE26 /* CommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommonCrypto.framework; path = Carthage/Build/Mac/CommonCrypto.framework; sourceTree = "<group>"; };
 		693A35451FC6726E007FDE26 /* Crypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crypto.framework; path = Carthage/Build/Mac/Crypto.framework; sourceTree = "<group>"; };
 		693A35461FC6726E007FDE26 /* AxLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AxLogger.framework; path = Carthage/Build/Mac/AxLogger.framework; sourceTree = "<group>"; };
 		693A35471FC6726E007FDE26 /* kcp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = kcp.framework; path = Carthage/Build/Mac/kcp.framework; sourceTree = "<group>"; };
@@ -271,7 +270,6 @@
 				693A35781FC69381007FDE26 /* XSocket.framework */,
 				693A35461FC6726E007FDE26 /* AxLogger.framework */,
 				693A35431FC6726E007FDE26 /* CocoaAsyncSocket.framework */,
-				693A35441FC6726E007FDE26 /* CommonCrypto.framework */,
 				693A35451FC6726E007FDE26 /* Crypto.framework */,
 				693A35481FC6726E007FDE26 /* IDZSwiftCommonCrypto.framework */,
 				693A35471FC6726E007FDE26 /* kcp.framework */,
@@ -469,7 +467,7 @@
 				TargetAttributes = {
 					691EBDC51FC575D8005FDCAF = {
 						CreatedOnToolsVersion = 9.1;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Manual;
 					};
 					691EBE271FC66DD3005FDCAF = {
@@ -812,7 +810,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -842,7 +840,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
