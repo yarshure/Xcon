@@ -58,7 +58,7 @@ class KcpStocket {
         
         let type:SOCKS5HostType = proxy.serverAddress.validateIpAddr()
         if type != .DOMAIN {
-            self.tun = SFKcpTun.init(config: config, ipaddr: proxy.serverAddress, port: Int32(proxy.serverPort)!, queue: self.dispatchQueue)
+            self.tun = SFKcpTun.init(config: config, ipaddr: proxy.serverAddress, port: proxy.serverPort, queue: self.dispatchQueue)
         }else {
             let ips = query(proxy.serverAddress)
             //解析
@@ -67,7 +67,7 @@ class KcpStocket {
                 if proxy.serverIP.isEmpty {
                     proxy.serverIP = ips.first!
                 }
-                self.tun = SFKcpTun.init(config: config, ipaddr: ips.first!, port: Int32(proxy.serverPort)!, queue: self.dispatchQueue)
+                self.tun = SFKcpTun.init(config: config, ipaddr: ips.first!, port: proxy.serverPort, queue: self.dispatchQueue)
             }
         }
         

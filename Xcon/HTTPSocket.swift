@@ -59,7 +59,7 @@ public  class HTTPProxyConnector:ProxyConnector {
                 //有bug
                 
                 //let e = NSError(domain:errDomain , code: 10,userInfo:["reason":"http auth failure!!!"])
-                Xcon.log("socketDidCloseReadStream",items: data,level:.Error)
+                Xcon.log("socketDidCloseStream",items: data,level:.Error)
                 //self.forceDisconnect()
                 //sendReq()
                 //NSLog("CONNECT status\(r.sCode) ")

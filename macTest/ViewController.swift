@@ -36,8 +36,8 @@ class ViewController: NSViewController ,XconDelegate{
     
     func didConnect(_ socket: Xcon) {
         print("222 4")
-        print(socket.remote)
-        print(socket.local)
+        print(socket.remote as Any)
+        print(socket.local as Any)
         let str = "GET / HTTP/1.1\r\nHost: www.google.com\r\nUser-Agent: curl/7.54.0\r\nAccept: */*\r\n\r\n".data(using: .utf8)!
         con?.writeData(str, withTag: 0)
         
@@ -47,10 +47,10 @@ class ViewController: NSViewController ,XconDelegate{
     var con:Xcon?
     let q = DispatchQueue.init(label: "test.queue")
     //let p = SFProxy.create(name: "11", type: .SS, address: "35.197.117.170", port: "53784", passwd: "aHR0cHM6Ly9yYXcuZ2l0aHVidXN", method: "aes-256-cfb", tls: false)
-    //let p = SFProxy.create(name: "11", type: .HTTP, address: "192.168.11.131", port: "8000", passwd: "", method: "", tls: false)
-    let p = SFProxy.create(name: "11", type: .HTTP, address: "45.76.141.59", port: "8000", passwd: "", method: "", tls: false)
+    let p = SFProxy.create(name: "11", type: .HTTP, address: "192.168.11.131", port: "6000", passwd: "", method: "", tls: false)
+    //let p = SFProxy.create(name: "11", type: .HTTP, address: "45.76.141.59", port: "8000", passwd: "", method: "", tls: false)
     func start(){
-        self.p?.kcptun = true
+        //self.p?.kcptun = true
         if let x = Xcon.socketFromProxy(self.p, targetHost: "www.google.com", Port: 80, delegate: self, queue: q){
             self.con = x
         }
@@ -71,8 +71,8 @@ class ViewController: NSViewController ,XconDelegate{
         count.pointee =  snappy_max_compressed_length(st.count)
         let out:UnsafeMutablePointer<Int8> = UnsafeMutablePointer<Int8>.allocate(capacity: count.pointee)
         defer {
-            out.deallocate(capacity: count.pointee)
-            count.deallocate(capacity: 1)
+            out.deallocate()
+            count.deallocate()
             
         }
         st.withUnsafeBytes { (input: UnsafePointer<Int8>) -> Void in
@@ -93,8 +93,8 @@ class ViewController: NSViewController ,XconDelegate{
         count.pointee =  snappy_max_compressed_length(mid.count)
         let out:UnsafeMutablePointer<Int8> = UnsafeMutablePointer<Int8>.allocate(capacity: count.pointee)
         defer {
-            out.deallocate(capacity: count.pointee)
-            count.deallocate(capacity: 1)
+            out.deallocate()
+            count.deallocate()
             
         }
         
