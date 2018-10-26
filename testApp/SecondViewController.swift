@@ -1,17 +1,20 @@
 //
-//  ViewController.swift
-//  macTest
+//  SecondViewController.swift
+//  testApp
 //
-//  Created by yarshure on 2017/12/28.
-//  Copyright © 2017年 yarshure. All rights reserved.
+//  Created by yarshure on 2018/10/26.
+//  Copyright © 2018 yarshure. All rights reserved.
 //
 
-import Cocoa
+import UIKit
 import  Xcon
 import snappy
 import XSocket
 import ObjectMapper
-class ViewController: NSViewController ,XconDelegate{
+class SecondViewController: UIViewController,XconDelegate {
+
+   
+
     func didConnect(_ socket: Xcon, cert: SecTrust?) {
         
     }
@@ -43,7 +46,7 @@ class ViewController: NSViewController ,XconDelegate{
         
     }
     
-
+    
     var con:Xcon?
     let q = DispatchQueue.init(label: "test.queue")
     //let p = SFProxy.create(name: "11", type: .SS, address: "35.197.117.170", port: "53784", passwd: "aHR0cHM6Ly9yYXcuZ2l0aHVidXN", method: "aes-256-cfb", tls: false)
@@ -60,10 +63,11 @@ class ViewController: NSViewController ,XconDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         Xcon.debugEnable = true
+        Xsocket.debugEnable = true
         start()
         // Do any additional setup after loading the view.
     }
-
+    
     func testsnappy(){
         let st = "sdlfjlsadfjalsdjfalsdfjlasf".data(using: .utf8)!
         
@@ -143,12 +147,8 @@ class ViewController: NSViewController ,XconDelegate{
         //print(ProxyGroupSettings.share.proxys)
         
     }
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
-
+   
+    
 
 }
 

@@ -62,7 +62,7 @@ class KcpTestVC: NSViewController ,XconDelegate{
     let queue = DispatchQueue.init(label: "callback.kcp")
     override func viewDidLoad() {
         super.viewDidLoad()
-        let kcptun = "http,45.76.141.59,8000,,"
+        let kcptun = "http,45.76.141.59,6000,,"
         guard let p = SFProxy.createProxyWithLine(line: kcptun, pname: "CN2") else{
             fatalError()
         }

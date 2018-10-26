@@ -1,0 +1,13 @@
+//
+//  ios.xcconfig
+//  Xcon
+//
+//  Created by yarshure on 2018/10/26.
+//  Copyright © 2018 yarshure. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+LIBRARY_SEARCH_PATHS = $(inherited) "$(PROJECT_DIR)/Carthage/Build/iOS/"
+FRAMEWORK_SEARCH_PATHS =  $(inherited) "$(PROJECT_DIR)/Carthage/Build/iOS/"
