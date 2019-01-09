@@ -698,7 +698,7 @@ public class SSEncrypt {
                     cipherDataDecrypt.count, // size_t dataOutAvailable,
                     &outLengthDecrypt); // size_t *dataOutMoved)
                 
-                if (updateDecrypt == CCCryptorStatus(0))
+                if (updateDecrypt == kCCSuccess)
                 {
                     //Cut Data Out with nedded length
                     //设置解密长度
@@ -808,7 +808,7 @@ public class SSEncrypt {
                                                           ptr,
                                                           cipherData.count,
                                                           &outLength);
-            if (update == CCCryptorStatus(0))
+            if (update == kCCSuccess)
             {
                 //Cut Data Out with nedded length
                 cipherData.count = outLength;

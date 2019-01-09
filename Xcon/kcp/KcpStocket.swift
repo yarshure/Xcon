@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import kcp
+import KCP
 import snappy
 import NetworkExtension
 enum SmuxError:Error {
@@ -20,10 +20,10 @@ enum SmuxError:Error {
     
 }
 class KcpStocket {
-    var tun:SFKcpTun?
+    var tun:KCP?
     static let SMuxTimeOut = 13.0 //没数据就timeout
     var snappy:SnappyHelper?
-    var config:TunConfig = TunConfig()
+    var config:KcpConfig?
     var smuxConfig:Config = Config()
     var ready:Bool = false
     
@@ -44,30 +44,33 @@ class KcpStocket {
     var useCell:Bool{
         get {
             if let t = tun {
-                t.useCell()
+              return t.useCell()
             }
             return false
         }
     }
 
     
-    init(proxy:SFProxy,config:TunConfig,queue:DispatchQueue) {
+    init(proxy:SFProxy,config:KcpConfig,queue:DispatchQueue) {
         self.proxy = proxy
         self.dispatchQueue = queue
      
         
         let type:SOCKS5HostType = proxy.serverAddress.validateIpAddr()
         if type != .DOMAIN {
-            self.tun = SFKcpTun.init(config: config, ipaddr: proxy.serverAddress, port: proxy.serverPort, queue: self.dispatchQueue)
+            self.tun = KCP.init(config: config, ipaddr: proxy.serverAddress, port: (proxy.serverPort), queue: self.dispatchQueue)
         }else {
             let ips = query(proxy.serverAddress)
             //解析
             
-            if ips.isEmpty {
+            if !ips.isEmpty {
                 if proxy.serverIP.isEmpty {
                     proxy.serverIP = ips.first!
                 }
-                self.tun = SFKcpTun.init(config: config, ipaddr: ips.first!, port: proxy.serverPort, queue: self.dispatchQueue)
+                self.tun = KCP.init(config: config, ipaddr: ips.first!, port:(proxy.serverPort), queue: self.dispatchQueue)
+            }else {
+                Xcon.log("dns resolv failure:\(proxy.serverAddress)", level: .Info)
+                self.tun = KCP.init(config: config, ipaddr: proxy.serverAddress, port: (proxy.serverPort), queue: self.dispatchQueue)
             }
         }
         
@@ -76,6 +79,7 @@ class KcpStocket {
             Xcon.log("tun connected", level: .Info)
             self.sendNop(sid: 0)
         }, recv: { [unowned self] (tun, date) in
+            Xcon.log("tun recv len:\(date.count)", level: .Trace)
             self.didRecevied(date);
         }) {[unowned self]  (tun) in
             self.ready = false
@@ -287,9 +291,9 @@ extension KcpStocket{
         if let tun = tun {
             if let s = snappy {
                 let newData = s.compress(data)
-                tun.input(newData)
+                tun.input(data: newData)
             }else {
-                tun.input(data)
+                tun.input(data: data)
             }
             
         }
@@ -301,11 +305,11 @@ extension KcpStocket{
         self.lastActive = Date()
         Xcon.log("KCP write \(data as NSData)",level: .Debug)
         if let tun = tun ,ready == true{
-            tun.input(data)
+            tun.input(data: data)
             
             if !sendbuffer.isEmpty {
                 let buffer = sendbuffer
-                tun.input(buffer)
+                tun.input(data: buffer)
                 //可能浪费内存
                 sendbuffer.removeAll(keepingCapacity: false)
             }

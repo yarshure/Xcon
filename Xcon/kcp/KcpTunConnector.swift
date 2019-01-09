@@ -22,7 +22,7 @@
 
 import NetworkExtension
 import Foundation
-import kcp
+import KCP
 class KcpTunConnector: ProxyConnector{
     static let shared:KcpTunConnector = {
         
@@ -77,6 +77,7 @@ class KcpTunConnector: ProxyConnector{
        
         //socket connected
         self.sendRawData(result.data, session: stream.sessionID)
+        Xcon.log("send \(result.data)", level: .Trace)
         if a.proxy.type == .SS {
             //socket connected
             stream.didConnectWith(adapterSocket: self)
@@ -201,16 +202,24 @@ class KcpTunConnector: ProxyConnector{
 
 
 extension KcpTunConnector{
-    func createTunConfig(_ p:SFProxy) ->TunConfig {
-        let c = TunConfig()
-        
-        c.dataShards = Int32(p.config.datashard)
-        c.parityShards = Int32(p.config.parityshard)
+    func createTunConfig(_ p:SFProxy) ->KcpConfig {
+        var c = KcpConfig()
+        if !p.config.crypt.isEmpty {
+            c.crypt = KcpCryptoMethod.init(rawValue: p.config.crypt)!
+            if  let d = p.pkbdf2Key() {
+                c.key = d
+            }
+            
+            
+        }
+
+        c.dataShards = p.config.datashard
+        c.parityShards = p.config.parityshard
         //c.nodelay = p.config.
-        c.sndwnd = Int32(p.config.sndwnd)
-        c.rcvwnd = Int32(p.config.rcvwnd)
-        c.mtu = Int32(p.config.mtu)
-        c.iptos = Int32(p.config.dscp)
+        c.sndwnd = p.config.sndwnd
+        c.rcvwnd = p.config.rcvwnd
+        c.mtu = p.config.mtu
+        c.iptos = p.config.dscp
         switch p.config.mode {
         case "normal":
             c.nodelay = 0
@@ -239,17 +248,10 @@ extension KcpTunConnector{
             c.nc = 1
             break
         }
-        if !p.config.crypt.isEmpty {
-            c.crypt = p.config.crypt
-            if  let d = p.pkbdf2Key() {
-                c.key = d
-            }
-            
-            
-        }
+        
         Xcon.log("KCPTUN: #######################", level: .Info)
         Xcon.log("KCPTUN: Crypto = \(p.config.crypt)", level: .Info)
-        Xcon.log("KCPTUN: key = \(c.key as NSData)", level: .Debug)
+        Xcon.log("KCPTUN: key = \(c.key as NSData?)", level: .Debug)
         
         if p.config.noComp {
             Xcon.log("KCPTUN: compress = true", level: .Info)
