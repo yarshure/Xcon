@@ -90,7 +90,6 @@
 		69A33BA62182F35D002FCA75 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9B2182F35D002FCA75 /* SwiftyJSON.framework */; };
 		69A33BA72182F35D002FCA75 /* XSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9C2182F35D002FCA75 /* XSocket.framework */; };
 		69A33BA82182F35D002FCA75 /* DarwinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9D2182F35D002FCA75 /* DarwinCore.framework */; };
-		69A33BA92182F35D002FCA75 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9E2182F35D002FCA75 /* CommonCrypto.framework */; };
 		69A33BAA2182F35D002FCA75 /* snappy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9F2182F35D002FCA75 /* snappy.framework */; };
 		69A33BAB2182F35D002FCA75 /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33BA02182F35D002FCA75 /* Sodium.framework */; };
 		69A33BAD2182F73E002FCA75 /* Xcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDC61FC575D8005FDCAF /* Xcon.framework */; };
@@ -297,7 +296,6 @@
 				69A33BA22182F35D002FCA75 /* AxLogger.framework in Frameworks */,
 				69A33BA82182F35D002FCA75 /* DarwinCore.framework in Frameworks */,
 				69A33BAB2182F35D002FCA75 /* Sodium.framework in Frameworks */,
-				69A33BA92182F35D002FCA75 /* CommonCrypto.framework in Frameworks */,
 				69A33BA72182F35D002FCA75 /* XSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
