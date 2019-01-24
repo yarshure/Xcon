@@ -36,22 +36,22 @@ public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     }
     public func didDisconnect(_ socket: RawSocketProtocol, error: Error?) {
         
-        fatalError("AdapterSocket didDisconnect")
+        fatalError("AdapterSocket didDisconnect need imp in subClass")
        
     }
     
     public func didReadData(_ data: Data, withTag: Int, from: RawSocketProtocol) {
         
-        fatalError("AdapterSocket didReadData")
+        fatalError("AdapterSocket didReadData  need imp in subClass")
     }
     
     public func didWriteData(_ data: Data?, withTag: Int, from: RawSocketProtocol) {
-        fatalError("AdapterSocket didWriteData")
+        fatalError("AdapterSocket didWriteData  need imp in subClass")
         
     }
     
     public func didConnect(_ socket: RawSocketProtocol) {
-        fatalError("AdapterSocket didConnect")
+        fatalError("AdapterSocket didConnect  need imp in subClass")
       
     }
     
@@ -79,7 +79,8 @@ public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     }
     
     public func disconnect(becauseOf error: Error?) {
-        socket.disconnect(becauseOf: error)
+        //close ring
+        self.socketdelegate?.didDisconnectWith(socket: self)
     }
     
     public func forceDisconnect(becauseOf error: Error?) {
@@ -116,7 +117,7 @@ public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     public var tcp: Bool = true
     
     public func connectTo(_ host: String, port: UInt16, enableTLS: Bool, tlsSettings: [NSObject : AnyObject]?) throws {
-        socket = RawSocketFactory.getRawSocket()
+        socket = RawSocketFactory.getRawSocket(type: SocketBaseType.NW, tcp: true)
         socket.queue = self.queue //dispatch queue
         socket.delegate = self
        
