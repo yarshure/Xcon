@@ -78,27 +78,27 @@ func sysVersion() ->Int {
     return 10
 }
 public extension rawHeader {
-    public func to<T>(type: T.Type) -> T {
+    func to<T>(type: T.Type) -> T {
         return self.withUnsafeBytes { $0.pointee }
     }
-    public func Version() ->UInt8 {
+    func Version() ->UInt8 {
         return self.first!
     }
-    public func cmd() ->UInt8{
+    func cmd() ->UInt8{
         return self[1]
     }
-    public func Length() ->Int{
+    func Length() ->Int{
      
         let x = self.subdata(in: 2 ..< 4)
         let y = x.to(type: UInt16.self)
         return Int(y)
     }
-    public func StreamID() ->UInt32{
+    func StreamID() ->UInt32{
         let x = self.subdata(in: 4 ..< 8)
         let y = x.to(type: UInt32.self)
         return y
     }
-    public func desc() ->String{
+    func desc() ->String{
         return String.init(format: "Version:%d Cmd:%d StreamID:%d Length:%d", Version(),cmd(),StreamID(),Length())
     }
 }

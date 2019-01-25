@@ -22,6 +22,8 @@ extension SSLSessionState:CustomStringConvertible{
             
         case .connected:
             return "connected"
+        @unknown default:
+            return "unknown"
         }
     }
 }
@@ -36,6 +38,8 @@ extension SSLClientCertificateState:CustomStringConvertible {
             return "certRequested"
         case .certSent:
             return "certSent"
+        @unknown default:
+             return "unknown"
         }
     }
     

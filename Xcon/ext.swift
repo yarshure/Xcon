@@ -8,23 +8,23 @@
 
 import Foundation
 public extension String {
-    public func to(index:Int) ->String{
+    func to(index:Int) ->String{
         return String(self[..<self.index(self.startIndex, offsetBy:index)])
         
     }
-    public func to(index:String.Index) ->String{
+    func to(index:String.Index) ->String{
         return String(self[..<index])
         
     }
-    public func from(index:Int) ->String{
+    func from(index:Int) ->String{
         return String(self[self.index(self.startIndex, offsetBy:index)...])
         
     }
-    public func from(index:String.Index) ->String{
+    func from(index:String.Index) ->String{
         return String(self[index...])
         
     }
-    public func validateIpAddr() ->SOCKS5HostType{
+    func validateIpAddr() ->SOCKS5HostType{
         var sin = sockaddr_in()
         var sin6 = sockaddr_in6()
         

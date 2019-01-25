@@ -86,8 +86,9 @@ public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     public func forceDisconnect(becauseOf error: Error?) {
         if socket != nil  {
             socket.disconnect(becauseOf: error)
+            socket  = nil
         }
-        
+        self.socketdelegate?.didDisconnectWith(socket: self)
     }
     
     public func forceDisconnect(_ sessionID: UInt32) {
