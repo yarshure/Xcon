@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		6907E9DB2011B77600E7B1FE /* XTLSProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6907E9DA2011B77500E7B1FE /* XTLSProtocol.swift */; };
+		691A541C22016C6500C3C086 /* KcpConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A541B22016C6500C3C086 /* KcpConfig.swift */; };
+		691A541D22016C6500C3C086 /* KcpConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A541B22016C6500C3C086 /* KcpConfig.swift */; };
+		691A541F22016C6C00C3C086 /* KCP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A541E22016C6C00C3C086 /* KCP.swift */; };
+		691A542022016C6C00C3C086 /* KCP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A541E22016C6C00C3C086 /* KCP.swift */; };
 		691EBDCB1FC575D8005FDCAF /* Xcon.h in Headers */ = {isa = PBXBuildFile; fileRef = 691EBDC91FC575D8005FDCAF /* Xcon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		691EBDD21FC5771C005FDCAF /* Xcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD11FC5771C005FDCAF /* Xcon.swift */; };
 		691EBDD41FC57745005FDCAF /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD31FC57745005FDCAF /* Adapter.swift */; };
@@ -193,6 +197,8 @@
 /* Begin PBXFileReference section */
 		6907E9DA2011B77500E7B1FE /* XTLSProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTLSProtocol.swift; sourceTree = "<group>"; };
 		6913C3B31FDFBD4B006483C1 /* todouse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todouse.swift; sourceTree = "<group>"; };
+		691A541B22016C6500C3C086 /* KcpConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KcpConfig.swift; sourceTree = "<group>"; };
+		691A541E22016C6C00C3C086 /* KCP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCP.swift; sourceTree = "<group>"; };
 		691EBDC61FC575D8005FDCAF /* Xcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Xcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		691EBDC91FC575D8005FDCAF /* Xcon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Xcon.h; sourceTree = "<group>"; };
 		691EBDCA1FC575D8005FDCAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -470,6 +476,8 @@
 		6946506F1FF624E5000AFBE3 /* kcp */ = {
 			isa = PBXGroup;
 			children = (
+				691A541E22016C6C00C3C086 /* KCP.swift */,
+				691A541B22016C6500C3C086 /* KcpConfig.swift */,
 				6913C3B31FDFBD4B006483C1 /* todouse.swift */,
 				6946507E1FF62546000AFBE3 /* Frame.swift */,
 				6946507C1FF62545000AFBE3 /* Mux.swift */,
@@ -733,6 +741,7 @@
 			files = (
 				691EBDFC1FC650A7005FDCAF /* HTTPSocket.swift in Sources */,
 				691EBDD61FC57810005FDCAF /* SFProxy.swift in Sources */,
+				691A541F22016C6C00C3C086 /* KCP.swift in Sources */,
 				694650801FF62546000AFBE3 /* Mux.swift in Sources */,
 				69C17726200DC4AB004BDB3A /* util.swift in Sources */,
 				693A36501FC7CD9D007FDE26 /* SocketProtocol.swift in Sources */,
@@ -744,6 +753,7 @@
 				691EBDE41FC57B61005FDCAF /* SSAdapter.swift in Sources */,
 				694650841FF62546000AFBE3 /* Frame.swift in Sources */,
 				6946507A1FF62532000AFBE3 /* Channel.swift in Sources */,
+				691A541C22016C6500C3C086 /* KcpConfig.swift in Sources */,
 				69E96BB220086D170060659A /* todouse.swift in Sources */,
 				691EBDD21FC5771C005FDCAF /* Xcon.swift in Sources */,
 				691EBDDE1FC57B20005FDCAF /* ext.swift in Sources */,
@@ -791,6 +801,7 @@
 				694650751FF62512000AFBE3 /* Config.swift in Sources */,
 				6946506E1FF62420000AFBE3 /* AEADCrypto.swift in Sources */,
 				691EBE311FC66DDE005FDCAF /* SFEncrypt.swift in Sources */,
+				691A542022016C6C00C3C086 /* KCP.swift in Sources */,
 				691EBE3A1FC66E01005FDCAF /* Socks5Adapter.swift in Sources */,
 				691EBE3B1FC66E05005FDCAF /* DirectSocket.swift in Sources */,
 				69E96BB6200874770060659A /* KcpTunConnector.swift in Sources */,
@@ -810,6 +821,7 @@
 				6974B605200C578700925831 /* SecurtXcon.swift in Sources */,
 				691EBE341FC66DE9005FDCAF /* SFHTTPHeader.swift in Sources */,
 				691EBE371FC66DF5005FDCAF /* SFProxy.swift in Sources */,
+				691A541D22016C6500C3C086 /* KcpConfig.swift in Sources */,
 				691EBE401FC66E1A005FDCAF /* HTTPAdapter.swift in Sources */,
 				691EBE391FC66DFD005FDCAF /* ext.swift in Sources */,
 				694650831FF62546000AFBE3 /* Stream.swift in Sources */,
