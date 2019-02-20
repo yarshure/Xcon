@@ -72,7 +72,9 @@ class Adapter:AdapterProtocol {
             return (realHost + "\(realPort)").hash
         }
     }
-    
+    func hash(into hasher: inout Hasher) {
+        return hasher.combine((realHost + "\(realPort)").hash)
+    }
     static func ==(lhs: Adapter, rhs: Adapter) -> Bool {
         // 这里不对吧？
         //return lhs.realHost == rhs.realHost && lhs.realPort == rhs.realPort

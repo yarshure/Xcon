@@ -92,25 +92,20 @@ public struct KCPTunConfig {
     
     func pbkdf2(hash :CCPBKDFAlgorithm, password: String, salt: Data, keyByteCount: Int, rounds: Int) -> Data? {
         let passwordData = password.data(using:String.Encoding.utf8)!
-        var derivedKeyData = Data(repeating:0, count:keyByteCount)
-        
-        let derivationStatus = derivedKeyData.withUnsafeMutableBytes {derivedKeyBytes in
-            salt.withUnsafeBytes { saltBytes in
-                
-                CCKeyDerivationPBKDF(
-                    CCPBKDFAlgorithm(kCCPBKDF2),
-                    password, passwordData.count,
-                    saltBytes, salt.count,
-                    hash,
-                    UInt32(rounds),
-                    derivedKeyBytes, keyByteCount)
-            }
+        let derivedKeyBytes = UnsafeMutablePointer<UInt8>.allocate(capacity: keyByteCount )
+        salt.withUnsafeBytes { saltBytes in
+             let saltptr:UnsafeBufferPointer<UInt8> = saltBytes.bindMemory(to: UInt8.self)
+            CCKeyDerivationPBKDF(
+                CCPBKDFAlgorithm(kCCPBKDF2),
+                password, passwordData.count,
+                saltptr.baseAddress, salt.count,
+                hash,
+                UInt32(rounds),
+                derivedKeyBytes, keyByteCount)
         }
-        if (derivationStatus != 0) {
-            print("Error: \(derivationStatus)")
-            return nil;
-        }
+       
         
-        return derivedKeyData
+        let buffer = UnsafeMutableBufferPointer<UInt8>.init(start: derivedKeyBytes, count: keyByteCount)
+        return Data.init(buffer: buffer)
     }
 }

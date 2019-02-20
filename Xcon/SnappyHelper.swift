@@ -22,7 +22,9 @@ class SnappyHelper {
             count.deallocate()
             
         }
-        data.withUnsafeBytes { (input: UnsafePointer<Int8>) -> Void in
+        data.withUnsafeBytes { (inp: UnsafeRawBufferPointer) -> Void in
+            let inputbuffer = inp.bindMemory(to: Int8.self)
+            let input:UnsafePointer<Int8> = inputbuffer.baseAddress!
             if snappy_compress(input, data.count, out, count) == SNAPPY_OK {
                 Xcon.log("ok \(count.pointee)",level:.Info)
                 
@@ -52,7 +54,9 @@ class SnappyHelper {
             output_length.deallocate()
         }
         var sec:Bool = false
-        dataBuffer.withUnsafeBytes { (input: UnsafePointer<Int8>) -> Void in
+        dataBuffer.withUnsafeBytes { (inp: UnsafeRawBufferPointer) -> Void in
+            let inputbuffer = inp.bindMemory(to: Int8.self)
+            let input:UnsafePointer<Int8> = inputbuffer.baseAddress!
             if snappy_uncompressed_length(input, dataBuffer.count,output_length) != SNAPPY_OK{
                 Xcon.log("snappy snappy_uncompressed_length error", level: .Error)
                 fatalError()

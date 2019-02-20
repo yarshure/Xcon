@@ -374,25 +374,24 @@ public class AEADCrypto {
         
         var outptr:UnsafeMutablePointer<UInt8>?
         
-        
-        _ = cd.withUnsafeMutableBytes( { (ptr:UnsafeMutablePointer<UInt8>) in
-            outptr = ptr
+        _ = cd.withUnsafeMutableBytes( { (ptr:UnsafeMutableRawBufferPointer) in
+            let buffer:UnsafeMutableBufferPointer<UInt8> = ptr.bindMemory(to: UInt8.self)
+            outptr = buffer.baseAddress
         })
-        
         var inptr:UnsafePointer<UInt8>?
         
-        _ = md.withUnsafeBytes({ (ptr:UnsafePointer<UInt8>)  in
-            inptr = ptr
+        _ = md.withUnsafeBytes({ (ptr:UnsafeRawBufferPointer)  in
+            inptr = ptr.bindMemory(to: UInt8.self).baseAddress
         })
         
         var kptr:UnsafePointer<UInt8>?
-        _ = kd.withUnsafeBytes({ (ptr:UnsafePointer<UInt8>)  in
-            kptr = ptr
+        _ = kd.withUnsafeBytes({ (ptr:UnsafeRawBufferPointer)  in
+            kptr = ptr.bindMemory(to: UInt8.self).baseAddress
         })
         
         var nptr:UnsafePointer<UInt8>?
-        _ = nd.withUnsafeBytes({ (ptr:UnsafePointer<UInt8>)  in
-            nptr = ptr
+        _ = nd.withUnsafeBytes({ (ptr:UnsafeRawBufferPointer)  in
+            nptr = ptr.bindMemory(to: UInt8.self).baseAddress
         })
         switch send_ctx.m{
         case .SALSA20:
@@ -501,8 +500,8 @@ public class AEADCrypto {
                 
                 var ptr :UnsafeMutableRawPointer?
                 
-                _ = cipherDataDecrypt.withUnsafeMutableBytes {mutableBytes in
-                    ptr = UnsafeMutableRawPointer.init(mutableBytes)
+                _ = cipherDataDecrypt.withUnsafeMutableBytes {(mutableBytes:UnsafeMutableRawBufferPointer) in
+                    ptr = mutableBytes.baseAddress
                 }
                 
                 //Update Cryptor
@@ -521,8 +520,9 @@ public class AEADCrypto {
                     
                     var ptr :UnsafeMutableRawPointer?
                     
-                    _ = cipherDataDecrypt.withUnsafeMutableBytes {mutableBytes in
-                        ptr = UnsafeMutableRawPointer.init(mutableBytes)
+                    _ = cipherDataDecrypt.withUnsafeMutableBytes {(mutableBytes:UnsafeMutableRawBufferPointer
+                        ) in
+                        ptr = mutableBytes.baseAddress
                     }
                     
                     let final:CCCryptorStatus = CCCryptorFinal(ctx.ctx, //CCCryptorRef cryptorRef,
@@ -618,8 +618,8 @@ public class AEADCrypto {
             
             var ptr :UnsafeMutableRawPointer?
             
-            _ = cipherData.withUnsafeMutableBytes {mutableBytes in
-                ptr = UnsafeMutableRawPointer.init(mutableBytes)
+            _ = cipherData.withUnsafeMutableBytes { (mutableBytes:UnsafeMutableRawBufferPointer) in
+                ptr = mutableBytes.baseAddress
             }
             
             let  update:CCCryptorStatus = CCCryptorUpdate(ctx.ctx,
@@ -709,12 +709,12 @@ extension AEADCrypto{
         var data = Data.init(count: 16)
         var data11 = Data.init(count: 16)
         var p:UnsafeMutableRawPointer?
-        _ = data.withUnsafeMutableBytes { mutableBytes in
-            p = UnsafeMutableRawPointer.init(mutableBytes)
+        _ = data.withUnsafeMutableBytes { (mutableBytes:UnsafeMutableRawBufferPointer) in
+            p = mutableBytes.baseAddress
         }
         var tagout:UnsafeMutableRawPointer?
         _ = data11.withUnsafeMutableBytes {mutableBytes in
-            tagout = UnsafeMutableRawPointer.init(mutableBytes)
+            tagout = mutableBytes.baseAddress
         }
         loadSys.update(ctx: ctx, data: "1234567890qwerty".data(using: .utf8)!, dataOut: p!, tagOut: tagout!, tagLength: &taglen, en: true)
         
@@ -722,7 +722,7 @@ extension AEADCrypto{
         _ = Data.init(count: 16)
         var p2:UnsafeMutableRawPointer?
         _ = data2.withUnsafeMutableBytes { mutableBytes in
-            p2 = UnsafeMutableRawPointer.init(mutableBytes)
+            p2 = mutableBytes.baseAddress
         }
         
         self.recv_ctx = aead_ctx.init(key: ramdonKey!, iv: self.send_ctx.IV, encrypt: false,method:m)
@@ -740,9 +740,9 @@ extension AEADCrypto{
         //sha1
         var prk:Data = Data.init(count:Int(CC_SHA1_DIGEST_LENGTH) )
         
-        var dataptr:UnsafeMutablePointer<Any>?
-        _ = prk.withUnsafeMutableBytes { (ptr:UnsafeMutablePointer)  in
-            dataptr = ptr
+        var dataptr:UnsafeMutableRawPointer!
+        _ = prk.withUnsafeMutableBytes { (ptr:UnsafeMutableRawBufferPointer)  in
+            dataptr = ptr.baseAddress 
         }
         
         var saltptr:UnsafeRawPointer?
@@ -804,14 +804,13 @@ extension AEADCrypto{
             var null = 0x00
             var T:Data = Data.init(bytes: &null, count: Int(CC_SHA1_DIGEST_LENGTH))
             
-            var tptr:UnsafeMutablePointer<Any>?
-            _ = T.withUnsafeMutableBytes { (ptr:UnsafeMutablePointer)  in
-               tptr = ptr
+            
+            _ = T.withUnsafeMutableBytes { (ptr:UnsafeMutableRawBufferPointer)  in
+              
+                CCHmacFinal(ctx, ptr.baseAddress)
             }
             
-            CCHmacFinal(ctx, tptr)
-            //CCHmacFinal(<#T##ctx: UnsafeMutablePointer<CCHmacContext>!##UnsafeMutablePointer<CCHmacContext>!#>, <#T##macOut: UnsafeMutableRawPointer!##UnsafeMutableRawPointer!#>)
-            //results.append(T)
+            
             okm.append(T)
             mixin = T
             ctx.deallocate()
@@ -820,37 +819,3 @@ extension AEADCrypto{
     }
 
 }
-
-//#import <CommonCrypto/CommonCrypto.h>
-//// ...
-//
-//NSData * HKDF_SHA256(NSData *seed, NSData *info, NSData *salt, int outputSize) {
-//    char prk[CC_SHA256_DIGEST_LENGTH] = {0};
-//    CCHmac(kCCHmacAlgSHA256, [salt bytes], [salt length], [seed bytes], [seed length], prk);
-//    
-//    int             iterations = (int)ceil((double)outputSize/(double)CC_SHA256_DIGEST_LENGTH);
-//    NSData          *mixin = [NSData data];
-//    NSMutableData   *results = [NSMutableData data];
-//    
-//    for (int i=0; i<iterations; i++) {
-//        CCHmacContext ctx;
-//        CCHmacInit(&ctx, kCCHmacAlgSHA256, prk, CC_SHA256_DIGEST_LENGTH);
-//        CCHmacUpdate(&ctx, [mixin bytes], [mixin length]);
-//        if (info != nil) {
-//            CCHmacUpdate(&ctx, [info bytes], [info length]);
-//        }
-//        
-//        unsigned char c = i+1;
-//        CCHmacUpdate(&ctx, &c, 1);
-//        
-//        unsigned char T[CC_SHA256_DIGEST_LENGTH];
-//        memset(T, 0, CC_SHA256_DIGEST_LENGTH);
-//        CCHmacFinal(&ctx, T);
-//        NSData *stepResult = [NSData dataWithBytes:T length:sizeof(T)];
-//        [results appendData:stepResult];
-//        mixin = [stepResult copy];
-//    }
-//    
-//    return [NSData dataWithData:results];
-//}
-//line 5 should be char prk[CC_SHA256_DIGEST_LENGTH] and line 6 CCHmac(kCCHmacAlgSHA256... maybe a typo

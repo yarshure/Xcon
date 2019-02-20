@@ -66,8 +66,8 @@ struct FECDecoder {
         pkt.seqid = seqid.littleEndian
         let d1 = d.subdata(with: NSMakeRange(4, 2))
         var f:UInt16 = 0
-        d1.withUnsafeBytes { (ptr:UnsafePointer<UInt16>) -> Void in
-            f = ptr.pointee.littleEndian
+        d1.withUnsafeBytes { (ptr:UnsafeRawBufferPointer) -> Void in
+            f = ptr.load(fromByteOffset: 0, as: UInt16.self)
         }
         pkt.flag = f
         pkt.data = data.subdata(in: 6..<data.count)

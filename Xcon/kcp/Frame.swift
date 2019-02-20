@@ -79,7 +79,10 @@ func sysVersion() ->Int {
 }
 public extension rawHeader {
     func to<T>(type: T.Type) -> T {
-        return self.withUnsafeBytes { $0.pointee }
+        return self.withUnsafeBytes { ptr in
+            let x = ptr.load(as: type)
+            return x
+        }
     }
     func Version() ->UInt8 {
         return self.first!

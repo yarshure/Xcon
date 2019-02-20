@@ -560,24 +560,25 @@ public class SSEncrypt {
         var outptr:UnsafeMutablePointer<UInt8>?
         
         
-        _ = cd.withUnsafeMutableBytes( { (ptr:UnsafeMutablePointer<UInt8>) in
-            outptr = ptr
-        })
         
+        _ = cd.withUnsafeMutableBytes( { (ptr:UnsafeMutableRawBufferPointer) in
+            let buffer:UnsafeMutableBufferPointer<UInt8> = ptr.bindMemory(to: UInt8.self)
+            outptr = buffer.baseAddress
+        })
         var inptr:UnsafePointer<UInt8>?
         
-        _ = md.withUnsafeBytes({ (ptr:UnsafePointer<UInt8>)  in
-            inptr = ptr
+        _ = md.withUnsafeBytes({ (ptr:UnsafeRawBufferPointer)  in
+            inptr = ptr.bindMemory(to: UInt8.self).baseAddress
         })
         
         var kptr:UnsafePointer<UInt8>?
-        _ = kd.withUnsafeBytes({ (ptr:UnsafePointer<UInt8>)  in
-            kptr = ptr
+        _ = kd.withUnsafeBytes({ (ptr:UnsafeRawBufferPointer)  in
+            kptr = ptr.bindMemory(to: UInt8.self).baseAddress
         })
         
         var nptr:UnsafePointer<UInt8>?
-        _ = nd.withUnsafeBytes({ (ptr:UnsafePointer<UInt8>)  in
-            nptr = ptr
+        _ = nd.withUnsafeBytes({ (ptr:UnsafeRawBufferPointer)  in
+            nptr = ptr.bindMemory(to: UInt8.self).baseAddress
         })
         switch send_ctx.m{
         case .SALSA20:
@@ -687,7 +688,7 @@ public class SSEncrypt {
                 var ptr :UnsafeMutableRawPointer?
                 
                 _ = cipherDataDecrypt.withUnsafeMutableBytes {mutableBytes in
-                    ptr = UnsafeMutableRawPointer.init(mutableBytes)
+                    ptr = mutableBytes.baseAddress
                 }
                 
                 //Update Cryptor
@@ -799,7 +800,7 @@ public class SSEncrypt {
             var ptr :UnsafeMutableRawPointer?
             
             _ = cipherData.withUnsafeMutableBytes {mutableBytes in
-                ptr = UnsafeMutableRawPointer.init(mutableBytes)
+                ptr = mutableBytes.baseAddress
             }
             
             let  update:CCCryptorStatus = CCCryptorUpdate(ctx.ctx,

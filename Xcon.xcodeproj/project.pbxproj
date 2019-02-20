@@ -84,6 +84,8 @@
 		6974B607200C5D3B00925831 /* TLSCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6974B606200C5D3B00925831 /* TLSCallBack.swift */; };
 		6974B608200C5D3B00925831 /* TLSCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6974B606200C5D3B00925831 /* TLSCallBack.swift */; };
 		6974B60A200C932600925831 /* TLSNSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6974B609200C932600925831 /* TLSNSViewController.swift */; };
+		698776C2221D1DA100A9A7E5 /* InternetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698776C1221D1DA100A9A7E5 /* InternetAddress.swift */; };
+		698776C3221D1DA100A9A7E5 /* InternetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698776C1221D1DA100A9A7E5 /* InternetAddress.swift */; };
 		69A33BA12182F35D002FCA75 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B962182F35D002FCA75 /* CocoaAsyncSocket.framework */; };
 		69A33BA22182F35D002FCA75 /* AxLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B972182F35D002FCA75 /* AxLogger.framework */; };
 		69A33BA32182F35D002FCA75 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B982182F35D002FCA75 /* ObjectMapper.framework */; };
@@ -254,6 +256,7 @@
 		6974B603200C578700925831 /* SecurtXcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurtXcon.swift; sourceTree = "<group>"; };
 		6974B606200C5D3B00925831 /* TLSCallBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSCallBack.swift; sourceTree = "<group>"; };
 		6974B609200C932600925831 /* TLSNSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSNSViewController.swift; sourceTree = "<group>"; };
+		698776C1221D1DA100A9A7E5 /* InternetAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetAddress.swift; sourceTree = "<group>"; };
 		69A33B942182ED5C002FCA75 /* ios.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ios.xcconfig; sourceTree = "<group>"; };
 		69A33B962182F35D002FCA75 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
 		69A33B972182F35D002FCA75 /* AxLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AxLogger.framework; path = Carthage/Build/iOS/AxLogger.framework; sourceTree = "<group>"; };
@@ -378,6 +381,7 @@
 				691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */,
 				691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */,
 				69C17725200DC4AB004BDB3A /* util.swift */,
+				698776C1221D1DA100A9A7E5 /* InternetAddress.swift */,
 				691EBDDB1FC57AC8005FDCAF /* SFModel.swift */,
 				691EBDD51FC57810005FDCAF /* SFProxy.swift */,
 				691EBDD31FC57745005FDCAF /* Adapter.swift */,
@@ -767,6 +771,7 @@
 				6907E9DB2011B77600E7B1FE /* XTLSProtocol.swift in Sources */,
 				694650861FF62546000AFBE3 /* Session.swift in Sources */,
 				691EBDE21FC57B53005FDCAF /* Socks5Adapter.swift in Sources */,
+				698776C2221D1DA100A9A7E5 /* InternetAddress.swift in Sources */,
 				6946506D1FF62420000AFBE3 /* AEADCrypto.swift in Sources */,
 				691EBDD41FC57745005FDCAF /* Adapter.swift in Sources */,
 				691EBDE01FC57B47005FDCAF /* HTTPAdapter.swift in Sources */,
@@ -793,6 +798,7 @@
 				69C17727200DC4AB004BDB3A /* util.swift in Sources */,
 				694650851FF62546000AFBE3 /* Frame.swift in Sources */,
 				693A36511FC7CD9D007FDE26 /* SocketProtocol.swift in Sources */,
+				698776C3221D1DA100A9A7E5 /* InternetAddress.swift in Sources */,
 				6974B608200C5D3B00925831 /* TLSCallBack.swift in Sources */,
 				6946507B1FF62532000AFBE3 /* Channel.swift in Sources */,
 				691EBE3F1FC66E15005FDCAF /* SSAdapter.swift in Sources */,

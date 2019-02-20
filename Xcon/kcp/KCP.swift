@@ -27,10 +27,10 @@ open class KCP {
                 fatalError("key must not nil")
                 
             }
-            key.withUnsafeBytes { ptr  in
+            key.withUnsafeBytes { (ptr:UnsafeRawBufferPointer)  in
                 //let rawPtr = UnsafeRawPointer(u8Ptr)
                 
-                block = blockWith(ptr,config.crypt.rawValue)
+                block = blockWith(ptr.baseAddress,config.crypt.rawValue)
                 
                 // ... use `rawPtr` ...
             }
@@ -65,9 +65,9 @@ open class KCP {
         self.socketqueue.async {
             //sess
             let size = data.count
-            _ = data.withUnsafeBytes { ptr  in
-                //let rawPtr = UnsafeRawPointer(u8Ptr)
-                Write(self.sess, ptr, size)
+            _ = data.withUnsafeBytes { (ptr:UnsafeRawBufferPointer)  in
+                let saltptr:UnsafeBufferPointer<Int8> = ptr.bindMemory(to: Int8.self)
+                Write(self.sess, saltptr.baseAddress, size)
                 // ... use `rawPtr` ...
             }
             

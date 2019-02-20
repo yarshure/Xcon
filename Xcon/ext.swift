@@ -128,14 +128,16 @@ public func toIPv6Addr(ipString:String) -> Data?  {
 extension Data{
     
     public func withUnsafeRawPointer<ResultType>(_ body: (UnsafeRawPointer) throws -> ResultType) rethrows -> ResultType {
-        return try self.withUnsafeBytes { (ptr: UnsafePointer<Int8>) -> ResultType in
-            let rawPtr = UnsafeRawPointer(ptr)
-            return try body(rawPtr)
+        return try self.withUnsafeBytes { (ptr: UnsafeRawBufferPointer) -> ResultType in
+            return try body(ptr.baseAddress!)
         }
     }
     public func scanValue<T>(start: Int, length: Int) -> T {
         //start+length > Data.last is security?
-        return self.subdata(in: start..<start+length).withUnsafeBytes { $0.pointee }
+        return self.subdata(in: start..<start+length).withUnsafeBytes { ptr in
+            let x = ptr.load(fromByteOffset: 0, as: T.self)
+            return x
+        }
     }
 }
 extension Range{

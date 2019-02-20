@@ -20,16 +20,20 @@ public func query(_ domain:String) ->[String] {
             var hostname = [CChar](repeating: 0, count: Int(256))
             
             let p = theAddress as Data
-            let value = p.withUnsafeBytes { (ptr: UnsafePointer<sockaddr>)  in
-                return ptr
+
+            _ =  p.withUnsafeBytes { (ptr: UnsafeRawBufferPointer)   in
+              
+                var storage = ptr.load(as: sockaddr.self)
+
+                if getnameinfo(&storage, socklen_t(theAddress.count),
+                               &hostname, socklen_t(hostname.count), nil, 0, NI_NUMERICHOST) == 0 {
+                    let numAddress = String(cString:hostname)
+
+                    results.append(numAddress)
+
+                }
             }
-            if getnameinfo(value, socklen_t(theAddress.count),
-                           &hostname, socklen_t(hostname.count), nil, 0, NI_NUMERICHOST) == 0 {
-                let numAddress = String(cString:hostname)
-                
-                results.append(numAddress)
-                
-            }
+           
         }
     }
     return results

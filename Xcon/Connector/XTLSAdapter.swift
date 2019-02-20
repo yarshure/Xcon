@@ -93,7 +93,7 @@ class XTLSAdapter {
         }
         let len:Int = data.count
         _ = data.withUnsafeBytes { (ptr)  in
-            SSLWrite(ctx, ptr, len, result)
+            SSLWrite(ctx, ptr.baseAddress, len, result)
         }
 
         let r = result.pointee
@@ -107,7 +107,7 @@ class XTLSAdapter {
         }
         var buffer:Data = Data.init(capacity: max)
         _ = buffer.withUnsafeMutableBytes { ptr  in
-            SSLRead(ctx, ptr , max,   result)
+            SSLRead(ctx, ptr.baseAddress! , max,   result)
         }
         if result.pointee > 0 {
             buffer.count = result.pointee
@@ -163,7 +163,7 @@ class XTLSAdapter {
            
             var buffer:Data = Data.init(count: len.pointee)
             _ = buffer.withUnsafeMutableBytes { ptr  in
-                memcpy(ptr, data, len.pointee)
+                memcpy(ptr.baseAddress, data, len.pointee)
             }
             socketfd.write(buffer)
             //con!.test("write")
