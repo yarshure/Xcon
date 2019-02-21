@@ -86,23 +86,12 @@
 		6974B60A200C932600925831 /* TLSNSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6974B609200C932600925831 /* TLSNSViewController.swift */; };
 		698776C2221D1DA100A9A7E5 /* InternetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698776C1221D1DA100A9A7E5 /* InternetAddress.swift */; };
 		698776C3221D1DA100A9A7E5 /* InternetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698776C1221D1DA100A9A7E5 /* InternetAddress.swift */; };
-		69A33BA12182F35D002FCA75 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B962182F35D002FCA75 /* CocoaAsyncSocket.framework */; };
-		69A33BA22182F35D002FCA75 /* AxLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B972182F35D002FCA75 /* AxLogger.framework */; };
-		69A33BA32182F35D002FCA75 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B982182F35D002FCA75 /* ObjectMapper.framework */; };
-		69A33BA42182F35D002FCA75 /* XFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B992182F35D002FCA75 /* XFoundation.framework */; };
-		69A33BA52182F35D002FCA75 /* kcp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9A2182F35D002FCA75 /* kcp.framework */; };
-		69A33BA62182F35D002FCA75 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9B2182F35D002FCA75 /* SwiftyJSON.framework */; };
-		69A33BA72182F35D002FCA75 /* XSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9C2182F35D002FCA75 /* XSocket.framework */; };
-		69A33BA82182F35D002FCA75 /* DarwinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9D2182F35D002FCA75 /* DarwinCore.framework */; };
-		69A33BAB2182F35D002FCA75 /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33BA02182F35D002FCA75 /* Sodium.framework */; };
 		69A33BAD2182F73E002FCA75 /* Xcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDC61FC575D8005FDCAF /* Xcon.framework */; };
 		69A33BAE2182F73E002FCA75 /* Xcon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDC61FC575D8005FDCAF /* Xcon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69A33BB32182F82A002FCA75 /* AxLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B972182F35D002FCA75 /* AxLogger.framework */; };
 		69A33BB42182F82A002FCA75 /* AxLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B972182F35D002FCA75 /* AxLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69A33BB52182F82A002FCA75 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B962182F35D002FCA75 /* CocoaAsyncSocket.framework */; };
 		69A33BB62182F82A002FCA75 /* CocoaAsyncSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B962182F35D002FCA75 /* CocoaAsyncSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		69A33BB72182F82A002FCA75 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9E2182F35D002FCA75 /* CommonCrypto.framework */; };
-		69A33BB82182F82A002FCA75 /* CommonCrypto.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9E2182F35D002FCA75 /* CommonCrypto.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69A33BB92182F82A002FCA75 /* DarwinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9D2182F35D002FCA75 /* DarwinCore.framework */; };
 		69A33BBA2182F82A002FCA75 /* DarwinCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9D2182F35D002FCA75 /* DarwinCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69A33BBB2182F82A002FCA75 /* kcp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9A2182F35D002FCA75 /* kcp.framework */; };
@@ -163,7 +152,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				69A33BB82182F82A002FCA75 /* CommonCrypto.framework in Embed Frameworks */,
 				69A33BBA2182F82A002FCA75 /* DarwinCore.framework in Embed Frameworks */,
 				69A33BC82182F82A002FCA75 /* XSocket.framework in Embed Frameworks */,
 				69A33BB62182F82A002FCA75 /* CocoaAsyncSocket.framework in Embed Frameworks */,
@@ -261,7 +249,6 @@
 		69A33B9B2182F35D002FCA75 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		69A33B9C2182F35D002FCA75 /* XSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XSocket.framework; path = Carthage/Build/iOS/XSocket.framework; sourceTree = "<group>"; };
 		69A33B9D2182F35D002FCA75 /* DarwinCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DarwinCore.framework; path = Carthage/Build/iOS/DarwinCore.framework; sourceTree = "<group>"; };
-		69A33B9E2182F35D002FCA75 /* CommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommonCrypto.framework; path = Carthage/Build/iOS/CommonCrypto.framework; sourceTree = "<group>"; };
 		69A33BA02182F35D002FCA75 /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
 		69C17710200DBCFA004BDB3A /* KcpTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KcpTestVC.swift; sourceTree = "<group>"; };
 		69C17725200DC4AB004BDB3A /* util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = util.swift; sourceTree = "<group>"; };
@@ -288,15 +275,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69A33BA42182F35D002FCA75 /* XFoundation.framework in Frameworks */,
-				69A33BA32182F35D002FCA75 /* ObjectMapper.framework in Frameworks */,
-				69A33BA62182F35D002FCA75 /* SwiftyJSON.framework in Frameworks */,
-				69A33BA52182F35D002FCA75 /* kcp.framework in Frameworks */,
-				69A33BA12182F35D002FCA75 /* CocoaAsyncSocket.framework in Frameworks */,
-				69A33BA22182F35D002FCA75 /* AxLogger.framework in Frameworks */,
-				69A33BA82182F35D002FCA75 /* DarwinCore.framework in Frameworks */,
-				69A33BAB2182F35D002FCA75 /* Sodium.framework in Frameworks */,
-				69A33BA72182F35D002FCA75 /* XSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +297,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69A33BB72182F82A002FCA75 /* CommonCrypto.framework in Frameworks */,
 				69A33BB92182F82A002FCA75 /* DarwinCore.framework in Frameworks */,
 				69A33BC72182F82A002FCA75 /* XSocket.framework in Frameworks */,
 				69A33BB52182F82A002FCA75 /* CocoaAsyncSocket.framework in Frameworks */,
@@ -492,7 +469,6 @@
 			children = (
 				69A33B972182F35D002FCA75 /* AxLogger.framework */,
 				69A33B962182F35D002FCA75 /* CocoaAsyncSocket.framework */,
-				69A33B9E2182F35D002FCA75 /* CommonCrypto.framework */,
 				69A33B9D2182F35D002FCA75 /* DarwinCore.framework */,
 				69A33B9A2182F35D002FCA75 /* kcp.framework */,
 				69A33B982182F35D002FCA75 /* ObjectMapper.framework */,
