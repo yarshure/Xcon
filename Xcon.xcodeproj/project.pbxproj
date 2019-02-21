@@ -94,8 +94,6 @@
 		69A33BA62182F35D002FCA75 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9B2182F35D002FCA75 /* SwiftyJSON.framework */; };
 		69A33BA72182F35D002FCA75 /* XSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9C2182F35D002FCA75 /* XSocket.framework */; };
 		69A33BA82182F35D002FCA75 /* DarwinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9D2182F35D002FCA75 /* DarwinCore.framework */; };
-		69A33BA92182F35D002FCA75 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9E2182F35D002FCA75 /* CommonCrypto.framework */; };
-		69A33BAA2182F35D002FCA75 /* snappy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9F2182F35D002FCA75 /* snappy.framework */; };
 		69A33BAB2182F35D002FCA75 /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33BA02182F35D002FCA75 /* Sodium.framework */; };
 		69A33BAD2182F73E002FCA75 /* Xcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDC61FC575D8005FDCAF /* Xcon.framework */; };
 		69A33BAE2182F73E002FCA75 /* Xcon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDC61FC575D8005FDCAF /* Xcon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -111,8 +109,6 @@
 		69A33BBC2182F82A002FCA75 /* kcp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9A2182F35D002FCA75 /* kcp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69A33BBD2182F82A002FCA75 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B982182F35D002FCA75 /* ObjectMapper.framework */; };
 		69A33BBE2182F82A002FCA75 /* ObjectMapper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B982182F35D002FCA75 /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		69A33BBF2182F82A002FCA75 /* snappy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9F2182F35D002FCA75 /* snappy.framework */; };
-		69A33BC02182F82A002FCA75 /* snappy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9F2182F35D002FCA75 /* snappy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69A33BC12182F82A002FCA75 /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33BA02182F35D002FCA75 /* Sodium.framework */; };
 		69A33BC22182F82A002FCA75 /* Sodium.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33BA02182F35D002FCA75 /* Sodium.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69A33BC32182F82A002FCA75 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9B2182F35D002FCA75 /* SwiftyJSON.framework */; };
@@ -178,7 +174,6 @@
 				69A33BC62182F82A002FCA75 /* XFoundation.framework in Embed Frameworks */,
 				69A33BB42182F82A002FCA75 /* AxLogger.framework in Embed Frameworks */,
 				69A33BBE2182F82A002FCA75 /* ObjectMapper.framework in Embed Frameworks */,
-				69A33BC02182F82A002FCA75 /* snappy.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,7 +262,6 @@
 		69A33B9C2182F35D002FCA75 /* XSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XSocket.framework; path = Carthage/Build/iOS/XSocket.framework; sourceTree = "<group>"; };
 		69A33B9D2182F35D002FCA75 /* DarwinCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DarwinCore.framework; path = Carthage/Build/iOS/DarwinCore.framework; sourceTree = "<group>"; };
 		69A33B9E2182F35D002FCA75 /* CommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommonCrypto.framework; path = Carthage/Build/iOS/CommonCrypto.framework; sourceTree = "<group>"; };
-		69A33B9F2182F35D002FCA75 /* snappy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = snappy.framework; path = Carthage/Build/iOS/snappy.framework; sourceTree = "<group>"; };
 		69A33BA02182F35D002FCA75 /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
 		69C17710200DBCFA004BDB3A /* KcpTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KcpTestVC.swift; sourceTree = "<group>"; };
 		69C17725200DC4AB004BDB3A /* util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = util.swift; sourceTree = "<group>"; };
@@ -299,11 +293,9 @@
 				69A33BA62182F35D002FCA75 /* SwiftyJSON.framework in Frameworks */,
 				69A33BA52182F35D002FCA75 /* kcp.framework in Frameworks */,
 				69A33BA12182F35D002FCA75 /* CocoaAsyncSocket.framework in Frameworks */,
-				69A33BAA2182F35D002FCA75 /* snappy.framework in Frameworks */,
 				69A33BA22182F35D002FCA75 /* AxLogger.framework in Frameworks */,
 				69A33BA82182F35D002FCA75 /* DarwinCore.framework in Frameworks */,
 				69A33BAB2182F35D002FCA75 /* Sodium.framework in Frameworks */,
-				69A33BA92182F35D002FCA75 /* CommonCrypto.framework in Frameworks */,
 				69A33BA72182F35D002FCA75 /* XSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,7 +330,6 @@
 				69A33BC52182F82A002FCA75 /* XFoundation.framework in Frameworks */,
 				69A33BB32182F82A002FCA75 /* AxLogger.framework in Frameworks */,
 				69A33BBD2182F82A002FCA75 /* ObjectMapper.framework in Frameworks */,
-				69A33BBF2182F82A002FCA75 /* snappy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,7 +496,6 @@
 				69A33B9D2182F35D002FCA75 /* DarwinCore.framework */,
 				69A33B9A2182F35D002FCA75 /* kcp.framework */,
 				69A33B982182F35D002FCA75 /* ObjectMapper.framework */,
-				69A33B9F2182F35D002FCA75 /* snappy.framework */,
 				69A33BA02182F35D002FCA75 /* Sodium.framework */,
 				69A33B9B2182F35D002FCA75 /* SwiftyJSON.framework */,
 				69A33B992182F35D002FCA75 /* XFoundation.framework */,
@@ -1040,6 +1030,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.Xcon;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1071,6 +1062,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.Xcon;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

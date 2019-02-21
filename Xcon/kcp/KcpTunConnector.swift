@@ -4,14 +4,7 @@
 //
 //  Created by yarshure on 2018/1/12.
 //  Copyright © 2018年 yarshure. All rights reserved.
-//
-//
-//  KCPTunSocket.swift
-//  SFSocket
-//
-//  Created by 孔祥波 on 22/03/2017.
-//  Copyright © 2017 Kong XiangBo. All rights reserved.
-//
+
 // provide KCP for other layer use
 // iOS app can't fork process
 // so use socket
