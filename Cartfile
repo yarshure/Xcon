@@ -1,5 +1,5 @@
 github "SwiftyJSON/SwiftyJSON" ~> 4.0
-github "networkextension/snappy-ios" "72c2b14842943a1f21eb2a76c06d76689fd7aa57"
+github "networkextension/snappy-ios" "991288a56493fbc521dab20e9d11b0b247bbe119"
 github "yarshure/Sodium-framework" "v1.0.16.2"
 github "networkextension/libkcp" "swift_cpp"
 github "Hearst-DD/ObjectMapper" "3.3.0"

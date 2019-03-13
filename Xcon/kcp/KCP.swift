@@ -16,7 +16,7 @@ open class KCP {
     private let sess : CPPUDPSession
     private var queue:DispatchQueue
     private var socketqueue:DispatchQueue = DispatchQueue.init(label: "com.yarshure.kcp")
-//CPPUDPSession DialWithOptions(const char *ip, const char *port, size_t dataShards, size_t parityShards,size_t nodelay,size_t interval,size_t resend ,size_t nc,size_t sndwnd,size_t rcvwnd,size_t mtu,size_t iptos);
+
     public init(config:KcpConfig,ipaddr:String,port:String,queue: DispatchQueue) {
         self.queue = queue
         if config.crypt == .none {
@@ -40,18 +40,17 @@ open class KCP {
         start_connection(sess,self.socketqueue)
         
     }
-//    public init() {
-//        
-//    }
     public func start(_ didConnect:@escaping (_:KCP)->Void ,recv:@escaping (_:KCP,_:Data)->Void,disconnect:@escaping (_:KCP)->Void){
     
        
-        self.queue.async {
-             didConnect(self)
+        self.queue.async { [weak self] in
+            guard let self = self else {return }
+            didConnect(self)
         }
         
-        start_send_receive_loop(sess) { (buff, size) in
+        start_send_receive_loop(sess) { [weak self] (buff, size) in
             guard let buff = buff else {return}
+            guard let self = self else {return }
             let data = Data.init(bytes: buff, count: size)
             
             self.queue.async {
@@ -86,20 +85,8 @@ open class KCP {
     public func shutdownUDPSession(){
         
     }
-//    public init(name : String , age : Int , sex : Bool){
-//        kcp = person_init_name_age_sex(name, Int32(age), sex)
-//    }
-//
-//    open func introduceMySelf(){
-//        person_introduceMySelf(kcp)
-//    }
-//
-//    open func hello(other : KCP){
-//        person_hello(kcp, other.kcp)
-//    }
-//
-//    deinit {
-//        person_deinit(kcp)
-//    }
+    deinit {
+        
+    }
     
 }

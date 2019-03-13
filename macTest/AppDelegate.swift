@@ -7,14 +7,21 @@
 //
 
 import Cocoa
-
+import Xcon
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
 
+    func testParser(){
+        let p = Bundle.main.path(forResource: "SimpleGET1.txt", ofType: nil)
+        let data = try! Data.init(contentsOf: URL.init(fileURLWithPath: p!), options: Data.ReadingOptions.mappedIfSafe)
+        let _ = SFHTTPRequestHeader.init(data: data)
+    }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+        //self.testParser()
+        print("Done")
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

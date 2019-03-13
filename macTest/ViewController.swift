@@ -86,8 +86,10 @@ class ViewController: NSViewController ,XconDelegate{
             count.deallocate()
             
         }
-        st.withUnsafeBytes { (input: UnsafePointer<Int8>) -> Void in
-            if snappy_compress(input, st.count, out, count) == SNAPPY_OK {
+        
+        st.withUnsafeBytes { (input: UnsafeRawBufferPointer) -> Void in
+            let x = input.bindMemory(to: Int8.self)
+            if snappy_compress(x.baseAddress!, st.count, out, count) == SNAPPY_OK {
                 print("ok \(count.pointee)")
             }
         }
@@ -109,8 +111,9 @@ class ViewController: NSViewController ,XconDelegate{
             
         }
         
-        mid.withUnsafeBytes { (input: UnsafePointer<Int8>) -> Void in
-            if snappy_uncompress(input, mid.count, out, count) == SNAPPY_OK {
+        mid.withUnsafeBytes { (input: UnsafeRawBufferPointer) -> Void in
+             let x = input.bindMemory(to: Int8.self)
+            if snappy_uncompress(x.baseAddress!, mid.count, out, count) == SNAPPY_OK {
                 print("ok \(count.pointee)")
             }
         }
@@ -124,7 +127,7 @@ class ViewController: NSViewController ,XconDelegate{
         _ = AEADCrypto.init(password: "aes-256", key: "", method: "aes-256-gcm")
         //enc.testGCM()
         let x:[UInt8] = [0x61,0x62,0x63,0x64,0x65,0x66,0x67,0x68]
-        let _:rawHeader = Data.init(bytes: x)
+        let _:rawHeader = Data.init(x)
         //print(data.desc())
         //print(ProxyGroupSettings.share.proxys)
         guard let p = Mapper<SFProxy>().map(JSONString: "{\"type\":0}") else {

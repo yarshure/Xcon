@@ -46,6 +46,7 @@
 		691EBE3F1FC66E15005FDCAF /* SSAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE31FC57B61005FDCAF /* SSAdapter.swift */; };
 		691EBE401FC66E1A005FDCAF /* HTTPAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDDF1FC57B47005FDCAF /* HTTPAdapter.swift */; };
 		691EBE411FC66E1E005FDCAF /* SS3Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE51FC57B6C005FDCAF /* SS3Adapter.swift */; };
+		691F14172227820D009FED26 /* SimpleGET1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 691F14162227820D009FED26 /* SimpleGET1.txt */; };
 		693A364A1FC7CC4A007FDE26 /* Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A36491FC7CC4A007FDE26 /* Connector.swift */; };
 		693A364B1FC7CC4A007FDE26 /* Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A36491FC7CC4A007FDE26 /* Connector.swift */; };
 		693A364D1FC7CD71007FDE26 /* AdapterSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A364C1FC7CD71007FDE26 /* AdapterSocket.swift */; };
@@ -102,8 +103,6 @@
 		69A33BC22182F82A002FCA75 /* Sodium.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33BA02182F35D002FCA75 /* Sodium.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69A33BC32182F82A002FCA75 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9B2182F35D002FCA75 /* SwiftyJSON.framework */; };
 		69A33BC42182F82A002FCA75 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9B2182F35D002FCA75 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		69A33BC52182F82A002FCA75 /* XFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B992182F35D002FCA75 /* XFoundation.framework */; };
-		69A33BC62182F82A002FCA75 /* XFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B992182F35D002FCA75 /* XFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69A33BC72182F82A002FCA75 /* XSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9C2182F35D002FCA75 /* XSocket.framework */; };
 		69A33BC82182F82A002FCA75 /* XSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9C2182F35D002FCA75 /* XSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69C17711200DBCFA004BDB3A /* KcpTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C17710200DBCFA004BDB3A /* KcpTestVC.swift */; };
@@ -112,8 +111,6 @@
 		69C1772B200E2386004BDB3A /* Xcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBE281FC66DD3005FDCAF /* Xcon.framework */; };
 		69C1772C200E2386004BDB3A /* Xcon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBE281FC66DD3005FDCAF /* Xcon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69E96BAD200848600060659A /* UDPVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E96BAC200848600060659A /* UDPVC.swift */; };
-		69E96BB120086D170060659A /* todouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6913C3B31FDFBD4B006483C1 /* todouse.swift */; };
-		69E96BB220086D170060659A /* todouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6913C3B31FDFBD4B006483C1 /* todouse.swift */; };
 		69E96BB320086E1D0060659A /* SnappyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6946506A1FF622BE000AFBE3 /* SnappyHelper.swift */; };
 		69E96BB5200874770060659A /* KcpTunConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E96BB4200874770060659A /* KcpTunConnector.swift */; };
 		69E96BB6200874770060659A /* KcpTunConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E96BB4200874770060659A /* KcpTunConnector.swift */; };
@@ -159,7 +156,6 @@
 				69A33BC42182F82A002FCA75 /* SwiftyJSON.framework in Embed Frameworks */,
 				69A33BC22182F82A002FCA75 /* Sodium.framework in Embed Frameworks */,
 				69A33BAE2182F73E002FCA75 /* Xcon.framework in Embed Frameworks */,
-				69A33BC62182F82A002FCA75 /* XFoundation.framework in Embed Frameworks */,
 				69A33BB42182F82A002FCA75 /* AxLogger.framework in Embed Frameworks */,
 				69A33BBE2182F82A002FCA75 /* ObjectMapper.framework in Embed Frameworks */,
 			);
@@ -206,6 +202,7 @@
 		691EBE281FC66DD3005FDCAF /* Xcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Xcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		691EBE2A1FC66DD3005FDCAF /* XconMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XconMac.h; sourceTree = "<group>"; };
 		691EBE2B1FC66DD3005FDCAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		691F14162227820D009FED26 /* SimpleGET1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleGET1.txt; sourceTree = "<group>"; };
 		693A35431FC6726E007FDE26 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/Mac/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
 		693A35461FC6726E007FDE26 /* AxLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AxLogger.framework; path = Carthage/Build/Mac/AxLogger.framework; sourceTree = "<group>"; };
 		693A35471FC6726E007FDE26 /* kcp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = kcp.framework; path = Carthage/Build/Mac/kcp.framework; sourceTree = "<group>"; };
@@ -304,7 +301,6 @@
 				69A33BC32182F82A002FCA75 /* SwiftyJSON.framework in Frameworks */,
 				69A33BC12182F82A002FCA75 /* Sodium.framework in Frameworks */,
 				69A33BAD2182F73E002FCA75 /* Xcon.framework in Frameworks */,
-				69A33BC52182F82A002FCA75 /* XFoundation.framework in Frameworks */,
 				69A33BB32182F82A002FCA75 /* AxLogger.framework in Frameworks */,
 				69A33BBD2182F82A002FCA75 /* ObjectMapper.framework in Frameworks */,
 			);
@@ -430,6 +426,7 @@
 		6946502F1FF4C6C2000AFBE3 /* macTest */ = {
 			isa = PBXGroup;
 			children = (
+				691F14162227820D009FED26 /* SimpleGET1.txt */,
 				694650301FF4C6C2000AFBE3 /* AppDelegate.swift */,
 				69E96BAC200848600060659A /* UDPVC.swift */,
 				69E96BBA2008DC340060659A /* TCP.swift */,
@@ -622,7 +619,7 @@
 					};
 					6946502D1FF4C6C2000AFBE3 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					69F997F42182B4740093E75D = {
@@ -671,6 +668,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				691F14172227820D009FED26 /* SimpleGET1.txt in Resources */,
 				694650351FF4C6C2000AFBE3 /* Assets.xcassets in Resources */,
 				694650381FF4C6C2000AFBE3 /* Main.storyboard in Resources */,
 			);
@@ -724,7 +722,6 @@
 				694650841FF62546000AFBE3 /* Frame.swift in Sources */,
 				6946507A1FF62532000AFBE3 /* Channel.swift in Sources */,
 				691A541C22016C6500C3C086 /* KcpConfig.swift in Sources */,
-				69E96BB220086D170060659A /* todouse.swift in Sources */,
 				691EBDD21FC5771C005FDCAF /* Xcon.swift in Sources */,
 				691EBDDE1FC57B20005FDCAF /* ext.swift in Sources */,
 				69E96BB5200874770060659A /* KcpTunConnector.swift in Sources */,
@@ -757,7 +754,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69E96BB120086D170060659A /* todouse.swift in Sources */,
 				691EBE3E1FC66E10005FDCAF /* HTTPSocket.swift in Sources */,
 				694AA32D201330CD003B040E /* XTLSAdapter.swift in Sources */,
 				691EBE3D1FC66E0C005FDCAF /* ProxySocket.swift in Sources */,
@@ -1148,7 +1144,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.macTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1167,7 +1163,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.macTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
