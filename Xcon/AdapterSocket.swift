@@ -106,11 +106,11 @@ public class AdapterSocket:SocketProtocol,RawSocketDelegate {
     
     public var readPending: Bool = false
     
-    public var sourceIPAddress: IPv4Address?
+    public var sourceIPAddress: XSocket.IPv4Address?
     
     
     
-    public var destinationIPAddress: IPv4Address?
+    public var destinationIPAddress: XSocket.IPv4Address?
     
     
     public var useCell: Bool = false

@@ -128,11 +128,11 @@ public class Xcon:SocketDelegate{
     
     public var readPending: Bool = false
     
-    public var sourceIPAddress: IPv4Address?
+    public var sourceIPAddress: XSocket.IPv4Address?
     
     public var sourcePort: Port?
     
-    public var destinationIPAddress: IPv4Address?
+    public var destinationIPAddress: XSocket.IPv4Address?
     
     public var destinationPort: Port?
     

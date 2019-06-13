@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6907E9DB2011B77600E7B1FE /* XTLSProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6907E9DA2011B77500E7B1FE /* XTLSProtocol.swift */; };
-		691A541C22016C6500C3C086 /* KcpConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A541B22016C6500C3C086 /* KcpConfig.swift */; };
-		691A541D22016C6500C3C086 /* KcpConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A541B22016C6500C3C086 /* KcpConfig.swift */; };
-		691A541F22016C6C00C3C086 /* KCP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A541E22016C6C00C3C086 /* KCP.swift */; };
-		691A542022016C6C00C3C086 /* KCP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A541E22016C6C00C3C086 /* KCP.swift */; };
 		691EBDCB1FC575D8005FDCAF /* Xcon.h in Headers */ = {isa = PBXBuildFile; fileRef = 691EBDC91FC575D8005FDCAF /* Xcon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		691EBDD21FC5771C005FDCAF /* Xcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD11FC5771C005FDCAF /* Xcon.swift */; };
 		691EBDD41FC57745005FDCAF /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD31FC57745005FDCAF /* Adapter.swift */; };
@@ -46,7 +42,6 @@
 		691EBE3F1FC66E15005FDCAF /* SSAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE31FC57B61005FDCAF /* SSAdapter.swift */; };
 		691EBE401FC66E1A005FDCAF /* HTTPAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDDF1FC57B47005FDCAF /* HTTPAdapter.swift */; };
 		691EBE411FC66E1E005FDCAF /* SS3Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE51FC57B6C005FDCAF /* SS3Adapter.swift */; };
-		691F14172227820D009FED26 /* SimpleGET1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 691F14162227820D009FED26 /* SimpleGET1.txt */; };
 		693A364A1FC7CC4A007FDE26 /* Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A36491FC7CC4A007FDE26 /* Connector.swift */; };
 		693A364B1FC7CC4A007FDE26 /* Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A36491FC7CC4A007FDE26 /* Connector.swift */; };
 		693A364D1FC7CD71007FDE26 /* AdapterSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A364C1FC7CD71007FDE26 /* AdapterSocket.swift */; };
@@ -66,6 +61,8 @@
 		694650721FF624FA000AFBE3 /* Fec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694650701FF624F9000AFBE3 /* Fec.swift */; };
 		694650741FF62512000AFBE3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694650731FF62512000AFBE3 /* Config.swift */; };
 		694650751FF62512000AFBE3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694650731FF62512000AFBE3 /* Config.swift */; };
+		694650771FF6252D000AFBE3 /* BlockCrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694650761FF6252D000AFBE3 /* BlockCrypt.swift */; };
+		694650781FF6252D000AFBE3 /* BlockCrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694650761FF6252D000AFBE3 /* BlockCrypt.swift */; };
 		6946507A1FF62532000AFBE3 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694650791FF62532000AFBE3 /* Channel.swift */; };
 		6946507B1FF62532000AFBE3 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694650791FF62532000AFBE3 /* Channel.swift */; };
 		694650801FF62546000AFBE3 /* Mux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6946507C1FF62545000AFBE3 /* Mux.swift */; };
@@ -85,44 +82,20 @@
 		6974B607200C5D3B00925831 /* TLSCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6974B606200C5D3B00925831 /* TLSCallBack.swift */; };
 		6974B608200C5D3B00925831 /* TLSCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6974B606200C5D3B00925831 /* TLSCallBack.swift */; };
 		6974B60A200C932600925831 /* TLSNSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6974B609200C932600925831 /* TLSNSViewController.swift */; };
-		698776C2221D1DA100A9A7E5 /* InternetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698776C1221D1DA100A9A7E5 /* InternetAddress.swift */; };
-		698776C3221D1DA100A9A7E5 /* InternetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698776C1221D1DA100A9A7E5 /* InternetAddress.swift */; };
-		69A33BAD2182F73E002FCA75 /* Xcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDC61FC575D8005FDCAF /* Xcon.framework */; };
-		69A33BAE2182F73E002FCA75 /* Xcon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBDC61FC575D8005FDCAF /* Xcon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		69A33BB32182F82A002FCA75 /* AxLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B972182F35D002FCA75 /* AxLogger.framework */; };
-		69A33BB42182F82A002FCA75 /* AxLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B972182F35D002FCA75 /* AxLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		69A33BB52182F82A002FCA75 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B962182F35D002FCA75 /* CocoaAsyncSocket.framework */; };
-		69A33BB62182F82A002FCA75 /* CocoaAsyncSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B962182F35D002FCA75 /* CocoaAsyncSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		69A33BB92182F82A002FCA75 /* DarwinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9D2182F35D002FCA75 /* DarwinCore.framework */; };
-		69A33BBA2182F82A002FCA75 /* DarwinCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9D2182F35D002FCA75 /* DarwinCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		69A33BBB2182F82A002FCA75 /* kcp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9A2182F35D002FCA75 /* kcp.framework */; };
-		69A33BBC2182F82A002FCA75 /* kcp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9A2182F35D002FCA75 /* kcp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		69A33BBD2182F82A002FCA75 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B982182F35D002FCA75 /* ObjectMapper.framework */; };
-		69A33BBE2182F82A002FCA75 /* ObjectMapper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B982182F35D002FCA75 /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		69A33BC12182F82A002FCA75 /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33BA02182F35D002FCA75 /* Sodium.framework */; };
-		69A33BC22182F82A002FCA75 /* Sodium.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33BA02182F35D002FCA75 /* Sodium.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		69A33BC32182F82A002FCA75 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9B2182F35D002FCA75 /* SwiftyJSON.framework */; };
-		69A33BC42182F82A002FCA75 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9B2182F35D002FCA75 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		69A33BC72182F82A002FCA75 /* XSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9C2182F35D002FCA75 /* XSocket.framework */; };
-		69A33BC82182F82A002FCA75 /* XSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A33B9C2182F35D002FCA75 /* XSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69C17711200DBCFA004BDB3A /* KcpTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C17710200DBCFA004BDB3A /* KcpTestVC.swift */; };
 		69C17726200DC4AB004BDB3A /* util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C17725200DC4AB004BDB3A /* util.swift */; };
 		69C17727200DC4AB004BDB3A /* util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C17725200DC4AB004BDB3A /* util.swift */; };
 		69C1772B200E2386004BDB3A /* Xcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBE281FC66DD3005FDCAF /* Xcon.framework */; };
 		69C1772C200E2386004BDB3A /* Xcon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 691EBE281FC66DD3005FDCAF /* Xcon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69E96BAD200848600060659A /* UDPVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E96BAC200848600060659A /* UDPVC.swift */; };
+		69E96BB120086D170060659A /* todouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6913C3B31FDFBD4B006483C1 /* todouse.swift */; };
+		69E96BB220086D170060659A /* todouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6913C3B31FDFBD4B006483C1 /* todouse.swift */; };
 		69E96BB320086E1D0060659A /* SnappyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6946506A1FF622BE000AFBE3 /* SnappyHelper.swift */; };
 		69E96BB5200874770060659A /* KcpTunConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E96BB4200874770060659A /* KcpTunConnector.swift */; };
 		69E96BB6200874770060659A /* KcpTunConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E96BB4200874770060659A /* KcpTunConnector.swift */; };
 		69E96BB82008767B0060659A /* KcpStocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E96BB72008767B0060659A /* KcpStocket.swift */; };
 		69E96BB92008767B0060659A /* KcpStocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E96BB72008767B0060659A /* KcpStocket.swift */; };
 		69E96BBC2008DC340060659A /* TCP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E96BBA2008DC340060659A /* TCP.swift */; };
-		69F997F82182B4740093E75D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F997F72182B4740093E75D /* AppDelegate.swift */; };
-		69F997FA2182B4740093E75D /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F997F92182B4740093E75D /* FirstViewController.swift */; };
-		69F997FC2182B4740093E75D /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F997FB2182B4740093E75D /* SecondViewController.swift */; };
-		69F997FF2182B4740093E75D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69F997FD2182B4740093E75D /* Main.storyboard */; };
-		69F998012182B4750093E75D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69F998002182B4750093E75D /* Assets.xcassets */; };
-		69F998042182B4750093E75D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69F998022182B4750093E75D /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,35 +106,9 @@
 			remoteGlobalIDString = 691EBE271FC66DD3005FDCAF;
 			remoteInfo = XconMac;
 		};
-		69A33BAF2182F73E002FCA75 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 691EBDBD1FC575D8005FDCAF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 691EBDC51FC575D8005FDCAF;
-			remoteInfo = Xcon;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		69A33BB12182F73E002FCA75 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				69A33BBA2182F82A002FCA75 /* DarwinCore.framework in Embed Frameworks */,
-				69A33BC82182F82A002FCA75 /* XSocket.framework in Embed Frameworks */,
-				69A33BB62182F82A002FCA75 /* CocoaAsyncSocket.framework in Embed Frameworks */,
-				69A33BBC2182F82A002FCA75 /* kcp.framework in Embed Frameworks */,
-				69A33BC42182F82A002FCA75 /* SwiftyJSON.framework in Embed Frameworks */,
-				69A33BC22182F82A002FCA75 /* Sodium.framework in Embed Frameworks */,
-				69A33BAE2182F73E002FCA75 /* Xcon.framework in Embed Frameworks */,
-				69A33BB42182F82A002FCA75 /* AxLogger.framework in Embed Frameworks */,
-				69A33BBE2182F82A002FCA75 /* ObjectMapper.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		69C17724200DC032004BDB3A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -178,8 +125,6 @@
 /* Begin PBXFileReference section */
 		6907E9DA2011B77500E7B1FE /* XTLSProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTLSProtocol.swift; sourceTree = "<group>"; };
 		6913C3B31FDFBD4B006483C1 /* todouse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todouse.swift; sourceTree = "<group>"; };
-		691A541B22016C6500C3C086 /* KcpConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KcpConfig.swift; sourceTree = "<group>"; };
-		691A541E22016C6C00C3C086 /* KCP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCP.swift; sourceTree = "<group>"; };
 		691EBDC61FC575D8005FDCAF /* Xcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Xcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		691EBDC91FC575D8005FDCAF /* Xcon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Xcon.h; sourceTree = "<group>"; };
 		691EBDCA1FC575D8005FDCAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -202,7 +147,6 @@
 		691EBE281FC66DD3005FDCAF /* Xcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Xcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		691EBE2A1FC66DD3005FDCAF /* XconMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XconMac.h; sourceTree = "<group>"; };
 		691EBE2B1FC66DD3005FDCAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		691F14162227820D009FED26 /* SimpleGET1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleGET1.txt; sourceTree = "<group>"; };
 		693A35431FC6726E007FDE26 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/Mac/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
 		693A35461FC6726E007FDE26 /* AxLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AxLogger.framework; path = Carthage/Build/Mac/AxLogger.framework; sourceTree = "<group>"; };
 		693A35471FC6726E007FDE26 /* kcp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = kcp.framework; path = Carthage/Build/Mac/kcp.framework; sourceTree = "<group>"; };
@@ -226,6 +170,7 @@
 		6946506C1FF62420000AFBE3 /* AEADCrypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AEADCrypto.swift; sourceTree = "<group>"; };
 		694650701FF624F9000AFBE3 /* Fec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fec.swift; sourceTree = "<group>"; };
 		694650731FF62512000AFBE3 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		694650761FF6252D000AFBE3 /* BlockCrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockCrypt.swift; sourceTree = "<group>"; };
 		694650791FF62532000AFBE3 /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		6946507C1FF62545000AFBE3 /* Mux.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mux.swift; sourceTree = "<group>"; };
 		6946507D1FF62546000AFBE3 /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
@@ -236,17 +181,6 @@
 		6974B603200C578700925831 /* SecurtXcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurtXcon.swift; sourceTree = "<group>"; };
 		6974B606200C5D3B00925831 /* TLSCallBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSCallBack.swift; sourceTree = "<group>"; };
 		6974B609200C932600925831 /* TLSNSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSNSViewController.swift; sourceTree = "<group>"; };
-		698776C1221D1DA100A9A7E5 /* InternetAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetAddress.swift; sourceTree = "<group>"; };
-		69A33B942182ED5C002FCA75 /* ios.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ios.xcconfig; sourceTree = "<group>"; };
-		69A33B962182F35D002FCA75 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
-		69A33B972182F35D002FCA75 /* AxLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AxLogger.framework; path = Carthage/Build/iOS/AxLogger.framework; sourceTree = "<group>"; };
-		69A33B982182F35D002FCA75 /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = Carthage/Build/iOS/ObjectMapper.framework; sourceTree = "<group>"; };
-		69A33B992182F35D002FCA75 /* XFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XFoundation.framework; path = Carthage/Build/iOS/XFoundation.framework; sourceTree = "<group>"; };
-		69A33B9A2182F35D002FCA75 /* kcp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = kcp.framework; path = Carthage/Build/iOS/kcp.framework; sourceTree = "<group>"; };
-		69A33B9B2182F35D002FCA75 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
-		69A33B9C2182F35D002FCA75 /* XSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XSocket.framework; path = Carthage/Build/iOS/XSocket.framework; sourceTree = "<group>"; };
-		69A33B9D2182F35D002FCA75 /* DarwinCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DarwinCore.framework; path = Carthage/Build/iOS/DarwinCore.framework; sourceTree = "<group>"; };
-		69A33BA02182F35D002FCA75 /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
 		69C17710200DBCFA004BDB3A /* KcpTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KcpTestVC.swift; sourceTree = "<group>"; };
 		69C17725200DC4AB004BDB3A /* util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = util.swift; sourceTree = "<group>"; };
 		69C7DBEE1FE24E3600FB7FA2 /* ios.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ios.xcconfig; sourceTree = "<group>"; };
@@ -257,14 +191,6 @@
 		69E96BB72008767B0060659A /* KcpStocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KcpStocket.swift; sourceTree = "<group>"; };
 		69E96BBA2008DC340060659A /* TCP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCP.swift; sourceTree = "<group>"; };
 		69E96BE8200A58E30060659A /* issue.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = issue.txt; sourceTree = "<group>"; };
-		69F997F52182B4740093E75D /* testApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		69F997F72182B4740093E75D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		69F997F92182B4740093E75D /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		69F997FB2182B4740093E75D /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
-		69F997FE2182B4740093E75D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		69F998002182B4750093E75D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		69F998032182B4750093E75D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		69F998052182B4750093E75D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,22 +216,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		69F997F22182B4740093E75D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				69A33BB92182F82A002FCA75 /* DarwinCore.framework in Frameworks */,
-				69A33BC72182F82A002FCA75 /* XSocket.framework in Frameworks */,
-				69A33BB52182F82A002FCA75 /* CocoaAsyncSocket.framework in Frameworks */,
-				69A33BBB2182F82A002FCA75 /* kcp.framework in Frameworks */,
-				69A33BC32182F82A002FCA75 /* SwiftyJSON.framework in Frameworks */,
-				69A33BC12182F82A002FCA75 /* Sodium.framework in Frameworks */,
-				69A33BAD2182F73E002FCA75 /* Xcon.framework in Frameworks */,
-				69A33BB32182F82A002FCA75 /* AxLogger.framework in Frameworks */,
-				69A33BBD2182F82A002FCA75 /* ObjectMapper.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -316,7 +226,6 @@
 				691EBDC81FC575D8005FDCAF /* Xcon */,
 				691EBE291FC66DD3005FDCAF /* XconMac */,
 				6946502F1FF4C6C2000AFBE3 /* macTest */,
-				69F997F62182B4740093E75D /* testApp */,
 				691EBDC71FC575D8005FDCAF /* Products */,
 				691EBE0B1FC65614005FDCAF /* Frameworks */,
 			);
@@ -328,7 +237,6 @@
 				691EBDC61FC575D8005FDCAF /* Xcon.framework */,
 				691EBE281FC66DD3005FDCAF /* Xcon.framework */,
 				6946502E1FF4C6C2000AFBE3 /* macTest.app */,
-				69F997F52182B4740093E75D /* testApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -345,7 +253,6 @@
 				691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */,
 				691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */,
 				69C17725200DC4AB004BDB3A /* util.swift */,
-				698776C1221D1DA100A9A7E5 /* InternetAddress.swift */,
 				691EBDDB1FC57AC8005FDCAF /* SFModel.swift */,
 				691EBDD51FC57810005FDCAF /* SFProxy.swift */,
 				691EBDD31FC57745005FDCAF /* Adapter.swift */,
@@ -358,7 +265,6 @@
 		691EBE0B1FC65614005FDCAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				69A33B952182F32F002FCA75 /* ios */,
 				693A35781FC69381007FDE26 /* XSocket.framework */,
 				693A35461FC6726E007FDE26 /* AxLogger.framework */,
 				693A35431FC6726E007FDE26 /* CocoaAsyncSocket.framework */,
@@ -426,7 +332,6 @@
 		6946502F1FF4C6C2000AFBE3 /* macTest */ = {
 			isa = PBXGroup;
 			children = (
-				691F14162227820D009FED26 /* SimpleGET1.txt */,
 				694650301FF4C6C2000AFBE3 /* AppDelegate.swift */,
 				69E96BAC200848600060659A /* UDPVC.swift */,
 				69E96BBA2008DC340060659A /* TCP.swift */,
@@ -445,14 +350,13 @@
 		6946506F1FF624E5000AFBE3 /* kcp */ = {
 			isa = PBXGroup;
 			children = (
-				691A541E22016C6C00C3C086 /* KCP.swift */,
-				691A541B22016C6500C3C086 /* KcpConfig.swift */,
 				6913C3B31FDFBD4B006483C1 /* todouse.swift */,
 				6946507E1FF62546000AFBE3 /* Frame.swift */,
 				6946507C1FF62545000AFBE3 /* Mux.swift */,
 				6946507F1FF62546000AFBE3 /* Session.swift */,
 				6946507D1FF62546000AFBE3 /* Stream.swift */,
 				694650791FF62532000AFBE3 /* Channel.swift */,
+				694650761FF6252D000AFBE3 /* BlockCrypt.swift */,
 				694650731FF62512000AFBE3 /* Config.swift */,
 				694650701FF624F9000AFBE3 /* Fec.swift */,
 				69E96BB4200874770060659A /* KcpTunConnector.swift */,
@@ -461,43 +365,12 @@
 			path = kcp;
 			sourceTree = "<group>";
 		};
-		69A33B952182F32F002FCA75 /* ios */ = {
-			isa = PBXGroup;
-			children = (
-				69A33B972182F35D002FCA75 /* AxLogger.framework */,
-				69A33B962182F35D002FCA75 /* CocoaAsyncSocket.framework */,
-				69A33B9D2182F35D002FCA75 /* DarwinCore.framework */,
-				69A33B9A2182F35D002FCA75 /* kcp.framework */,
-				69A33B982182F35D002FCA75 /* ObjectMapper.framework */,
-				69A33BA02182F35D002FCA75 /* Sodium.framework */,
-				69A33B9B2182F35D002FCA75 /* SwiftyJSON.framework */,
-				69A33B992182F35D002FCA75 /* XFoundation.framework */,
-				69A33B9C2182F35D002FCA75 /* XSocket.framework */,
-			);
-			name = ios;
-			sourceTree = "<group>";
-		};
 		69E96BA82008476A0060659A /* uitl */ = {
 			isa = PBXGroup;
 			children = (
 				69E96BA9200847860060659A /* test.py */,
 			);
 			path = uitl;
-			sourceTree = "<group>";
-		};
-		69F997F62182B4740093E75D /* testApp */ = {
-			isa = PBXGroup;
-			children = (
-				69F997F72182B4740093E75D /* AppDelegate.swift */,
-				69A33B942182ED5C002FCA75 /* ios.xcconfig */,
-				69F997F92182B4740093E75D /* FirstViewController.swift */,
-				69F997FB2182B4740093E75D /* SecondViewController.swift */,
-				69F997FD2182B4740093E75D /* Main.storyboard */,
-				69F998002182B4750093E75D /* Assets.xcassets */,
-				69F998022182B4750093E75D /* LaunchScreen.storyboard */,
-				69F998052182B4750093E75D /* Info.plist */,
-			);
-			path = testApp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -578,52 +451,28 @@
 			productReference = 6946502E1FF4C6C2000AFBE3 /* macTest.app */;
 			productType = "com.apple.product-type.application";
 		};
-		69F997F42182B4740093E75D /* testApp */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 69F998062182B4750093E75D /* Build configuration list for PBXNativeTarget "testApp" */;
-			buildPhases = (
-				69F997F12182B4740093E75D /* Sources */,
-				69F997F22182B4740093E75D /* Frameworks */,
-				69F997F32182B4740093E75D /* Resources */,
-				69A33BB12182F73E002FCA75 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				69A33BB02182F73E002FCA75 /* PBXTargetDependency */,
-			);
-			name = testApp;
-			productName = testApp;
-			productReference = 69F997F52182B4740093E75D /* testApp.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		691EBDBD1FC575D8005FDCAF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1000;
-				LastUpgradeCheck = 1000;
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = yarshure;
 				TargetAttributes = {
 					691EBDC51FC575D8005FDCAF = {
 						CreatedOnToolsVersion = 9.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1100;
 						ProvisioningStyle = Manual;
 					};
 					691EBE271FC66DD3005FDCAF = {
 						CreatedOnToolsVersion = 9.1;
-						LastSwiftMigration = 1020;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Manual;
 					};
 					6946502D1FF4C6C2000AFBE3 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1020;
-						ProvisioningStyle = Automatic;
-					};
-					69F997F42182B4740093E75D = {
-						CreatedOnToolsVersion = 10.0;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -644,7 +493,6 @@
 				691EBDC51FC575D8005FDCAF /* Xcon */,
 				691EBE271FC66DD3005FDCAF /* XconMac */,
 				6946502D1FF4C6C2000AFBE3 /* macTest */,
-				69F997F42182B4740093E75D /* testApp */,
 			);
 		};
 /* End PBXProject section */
@@ -668,19 +516,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				691F14172227820D009FED26 /* SimpleGET1.txt in Resources */,
 				694650351FF4C6C2000AFBE3 /* Assets.xcassets in Resources */,
 				694650381FF4C6C2000AFBE3 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		69F997F32182B4740093E75D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				69F998042182B4750093E75D /* LaunchScreen.storyboard in Resources */,
-				69F998012182B4750093E75D /* Assets.xcassets in Resources */,
-				69F997FF2182B4740093E75D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,7 +546,6 @@
 			files = (
 				691EBDFC1FC650A7005FDCAF /* HTTPSocket.swift in Sources */,
 				691EBDD61FC57810005FDCAF /* SFProxy.swift in Sources */,
-				691A541F22016C6C00C3C086 /* KCP.swift in Sources */,
 				694650801FF62546000AFBE3 /* Mux.swift in Sources */,
 				69C17726200DC4AB004BDB3A /* util.swift in Sources */,
 				693A36501FC7CD9D007FDE26 /* SocketProtocol.swift in Sources */,
@@ -721,20 +557,20 @@
 				691EBDE41FC57B61005FDCAF /* SSAdapter.swift in Sources */,
 				694650841FF62546000AFBE3 /* Frame.swift in Sources */,
 				6946507A1FF62532000AFBE3 /* Channel.swift in Sources */,
-				691A541C22016C6500C3C086 /* KcpConfig.swift in Sources */,
+				69E96BB220086D170060659A /* todouse.swift in Sources */,
 				691EBDD21FC5771C005FDCAF /* Xcon.swift in Sources */,
 				691EBDDE1FC57B20005FDCAF /* ext.swift in Sources */,
 				69E96BB5200874770060659A /* KcpTunConnector.swift in Sources */,
 				691EBDDC1FC57AC8005FDCAF /* SFModel.swift in Sources */,
 				694650711FF624FA000AFBE3 /* Fec.swift in Sources */,
 				691EBE001FC650C8005FDCAF /* SSSocket.swift in Sources */,
+				694650771FF6252D000AFBE3 /* BlockCrypt.swift in Sources */,
 				694650741FF62512000AFBE3 /* Config.swift in Sources */,
 				694AA32C201330CD003B040E /* XTLSAdapter.swift in Sources */,
 				693A364A1FC7CC4A007FDE26 /* Connector.swift in Sources */,
 				6907E9DB2011B77600E7B1FE /* XTLSProtocol.swift in Sources */,
 				694650861FF62546000AFBE3 /* Session.swift in Sources */,
 				691EBDE21FC57B53005FDCAF /* Socks5Adapter.swift in Sources */,
-				698776C2221D1DA100A9A7E5 /* InternetAddress.swift in Sources */,
 				6946506D1FF62420000AFBE3 /* AEADCrypto.swift in Sources */,
 				691EBDD41FC57745005FDCAF /* Adapter.swift in Sources */,
 				691EBDE01FC57B47005FDCAF /* HTTPAdapter.swift in Sources */,
@@ -754,13 +590,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69E96BB120086D170060659A /* todouse.swift in Sources */,
 				691EBE3E1FC66E10005FDCAF /* HTTPSocket.swift in Sources */,
 				694AA32D201330CD003B040E /* XTLSAdapter.swift in Sources */,
 				691EBE3D1FC66E0C005FDCAF /* ProxySocket.swift in Sources */,
 				69C17727200DC4AB004BDB3A /* util.swift in Sources */,
 				694650851FF62546000AFBE3 /* Frame.swift in Sources */,
 				693A36511FC7CD9D007FDE26 /* SocketProtocol.swift in Sources */,
-				698776C3221D1DA100A9A7E5 /* InternetAddress.swift in Sources */,
 				6974B608200C5D3B00925831 /* TLSCallBack.swift in Sources */,
 				6946507B1FF62532000AFBE3 /* Channel.swift in Sources */,
 				691EBE3F1FC66E15005FDCAF /* SSAdapter.swift in Sources */,
@@ -769,7 +605,6 @@
 				694650751FF62512000AFBE3 /* Config.swift in Sources */,
 				6946506E1FF62420000AFBE3 /* AEADCrypto.swift in Sources */,
 				691EBE311FC66DDE005FDCAF /* SFEncrypt.swift in Sources */,
-				691A542022016C6C00C3C086 /* KCP.swift in Sources */,
 				691EBE3A1FC66E01005FDCAF /* Socks5Adapter.swift in Sources */,
 				691EBE3B1FC66E05005FDCAF /* DirectSocket.swift in Sources */,
 				69E96BB6200874770060659A /* KcpTunConnector.swift in Sources */,
@@ -789,7 +624,7 @@
 				6974B605200C578700925831 /* SecurtXcon.swift in Sources */,
 				691EBE341FC66DE9005FDCAF /* SFHTTPHeader.swift in Sources */,
 				691EBE371FC66DF5005FDCAF /* SFProxy.swift in Sources */,
-				691A541D22016C6500C3C086 /* KcpConfig.swift in Sources */,
+				694650781FF6252D000AFBE3 /* BlockCrypt.swift in Sources */,
 				691EBE401FC66E1A005FDCAF /* HTTPAdapter.swift in Sources */,
 				691EBE391FC66DFD005FDCAF /* ext.swift in Sources */,
 				694650831FF62546000AFBE3 /* Stream.swift in Sources */,
@@ -809,16 +644,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		69F997F12182B4740093E75D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				69F997FC2182B4740093E75D /* SecondViewController.swift in Sources */,
-				69F997F82182B4740093E75D /* AppDelegate.swift in Sources */,
-				69F997FA2182B4740093E75D /* FirstViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -826,11 +651,6 @@
 			isa = PBXTargetDependency;
 			target = 691EBE271FC66DD3005FDCAF /* XconMac */;
 			targetProxy = 694650401FF4C8CD000AFBE3 /* PBXContainerItemProxy */;
-		};
-		69A33BB02182F73E002FCA75 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 691EBDC51FC575D8005FDCAF /* Xcon */;
-			targetProxy = 69A33BAF2182F73E002FCA75 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -841,22 +661,6 @@
 				694650371FF4C6C2000AFBE3 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		69F997FD2182B4740093E75D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				69F997FE2182B4740093E75D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		69F998022182B4750093E75D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				69F998032182B4750093E75D /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -990,7 +794,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 745WQDK4L7;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1002,7 +806,6 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.Xcon;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1022,7 +825,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 745WQDK4L7;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1034,7 +837,6 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.Xcon;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1066,23 +868,12 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-weak_framework",
-					Sodium,
-					"-framework",
-					SwiftyJSON,
-					"-framework",
-					ObjectMapper,
-					"-framework",
-					XFoundation,
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.XconMac;
 				PRODUCT_NAME = Xcon;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1108,23 +899,12 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-weak_framework",
-					Sodium,
-					"-framework",
-					SwiftyJSON,
-					"-framework",
-					ObjectMapper,
-					"-framework",
-					XFoundation,
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.XconMac;
 				PRODUCT_NAME = Xcon;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -1138,13 +918,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 745WQDK4L7;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = macTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.macTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1157,61 +938,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 745WQDK4L7;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = macTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.macTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		69F998072182B4750093E75D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 69A33B942182ED5C002FCA75 /* ios.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 745WQDK4L7;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = testApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.testApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		69F998082182B4750093E75D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 745WQDK4L7;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = testApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.testApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1250,15 +984,6 @@
 			buildConfigurations = (
 				6946503B1FF4C6C2000AFBE3 /* Debug */,
 				6946503C1FF4C6C2000AFBE3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		69F998062182B4750093E75D /* Build configuration list for PBXNativeTarget "testApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				69F998072182B4750093E75D /* Debug */,
-				69F998082182B4750093E75D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
