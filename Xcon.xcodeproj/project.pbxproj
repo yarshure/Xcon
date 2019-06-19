@@ -53,6 +53,7 @@
 		693A36511FC7CD9D007FDE26 /* SocketProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A364F1FC7CD9D007FDE26 /* SocketProtocol.swift */; };
 		693A36531FC7D3EA007FDE26 /* Socks5Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A36521FC7D3E9007FDE26 /* Socks5Socket.swift */; };
 		693A36541FC7D3EA007FDE26 /* Socks5Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A36521FC7D3E9007FDE26 /* Socks5Socket.swift */; };
+		693A866E22BA0F74008E44F1 /* p.json in Resources */ = {isa = PBXBuildFile; fileRef = 693A866D22BA0F74008E44F1 /* p.json */; };
 		694650311FF4C6C2000AFBE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694650301FF4C6C2000AFBE3 /* AppDelegate.swift */; };
 		694650331FF4C6C2000AFBE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694650321FF4C6C2000AFBE3 /* ViewController.swift */; };
 		694650351FF4C6C2000AFBE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 694650341FF4C6C2000AFBE3 /* Assets.xcassets */; };
@@ -211,6 +212,7 @@
 		693A364C1FC7CD71007FDE26 /* AdapterSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdapterSocket.swift; sourceTree = "<group>"; };
 		693A364F1FC7CD9D007FDE26 /* SocketProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketProtocol.swift; sourceTree = "<group>"; };
 		693A36521FC7D3E9007FDE26 /* Socks5Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socks5Socket.swift; sourceTree = "<group>"; };
+		693A866D22BA0F74008E44F1 /* p.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = p.json; sourceTree = "<group>"; };
 		6946502E1FF4C6C2000AFBE3 /* macTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		694650301FF4C6C2000AFBE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		694650321FF4C6C2000AFBE3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 				69E96BBA2008DC340060659A /* TCP.swift */,
 				694650421FF4C951000AFBE3 /* Config.xcconfig */,
 				694650321FF4C6C2000AFBE3 /* ViewController.swift */,
+				693A866D22BA0F74008E44F1 /* p.json */,
 				694650341FF4C6C2000AFBE3 /* Assets.xcassets */,
 				694650361FF4C6C2000AFBE3 /* Main.storyboard */,
 				694650391FF4C6C2000AFBE3 /* Info.plist */,
@@ -666,6 +669,7 @@
 			files = (
 				691F14172227820D009FED26 /* SimpleGET1.txt in Resources */,
 				694650351FF4C6C2000AFBE3 /* Assets.xcassets in Resources */,
+				693A866E22BA0F74008E44F1 /* p.json in Resources */,
 				694650381FF4C6C2000AFBE3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

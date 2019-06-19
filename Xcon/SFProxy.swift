@@ -32,49 +32,7 @@ public enum SFProxyType :Int, CustomStringConvertible,Codable{
         }
     }
 }
-struct XProxyConfig: Codable {
-    let wwdcStyle: Bool
-    let selectIndex: Int
-    let historyEnable: Bool
-    let proxyChain: Bool
-    let disableWidget: Bool
-    let config: String
-    let editing: Bool
-    let lastupData: Date
-    let proxyChainIndex: Int
-//    struct ProxyMan: Codable {
-//        let chainProxys: [Any] //TODO: Specify the type to conforms Codable protocol
-//        let deleteproxys: [Any] //TODO: Specify the type to conforms Codable protocol
-//        struct Proxys: Codable {
-//            let pingValue: Int
-//            let pName: String
-//            let kcptun: Bool
-//            let type: Int
-//            let priority: Int
-//            let editEnable: Bool
-//            let serverIP: String
-//            let password: String
-//            let countryFlag: String
-//            let isoCode: String
-//            let chain: Bool
-//            let tcpValue: Int
-//            let tlsEnable: Bool
-//            let serverAddress: String
-//            
-//            let config: SFKCPTunConfig
-//            let method: String
-//            let udpRelay: Bool
-//            let serverPort: String
-//        }
-//        let proxys: [Proxys]
-//    }
-//    let proxyMan: ProxyMan
-    let saveDBIng: Bool
-    let dynamicSelected: Bool
-    let widgetFlow: Bool
-    let widgetProxyCount: Int
-    let showCountry: Bool
-}
+
 public struct SFKCPTunConfig:Codable {
 //    GLOBAL OPTIONS:
 //    --localaddr value, -l value      local listen address (default: ":12948")
@@ -180,9 +138,9 @@ public struct SFProxy:Codable {
     public var type:SFProxyType = .SS
     public var pingValue:Float = -1
     public var tcpValue:Double = 0
-    public var dnsValue:Double = 0
+    public var dnsValue:Double? = 0
     public var priority:Int = 0
-    public var enable:Bool = true
+    public var enable:Bool? = true
     public var serverIP:String = ""
     public var countryFlag:String = ""
     public var chain:Bool = false
@@ -195,6 +153,30 @@ public struct SFProxy:Codable {
     public var config:SFKCPTunConfig
     mutating func updateIPAddr(ip:String)  {
         self.serverIP = ip
+    }
+    private enum CodingKeys: String, CodingKey {
+        case proxyName = "pName"
+        case serverAddress
+        case serverPort
+        case password
+        case method
+        case tlsEnable
+        case type
+        case pingValue
+        case tcpValue
+        case dnsValue
+        case priority
+        case enable
+        case serverIP
+        case countryFlag
+        case chain
+        case isoCode
+        case udpRelay
+        
+        case editEnable
+        
+        case kcptun
+        case config
     }
     public func countryFlagFunc() ->String{
         if countryFlag.isEmpty {

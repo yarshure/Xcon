@@ -58,7 +58,16 @@ class ViewController: NSViewController ,XconDelegate{
 
     func start(){
         guard let p = self.p else {return}
-        
+        do  {
+            let d =  try JSONEncoder().encode(p)
+            let p = Bundle.main.path(forResource: "p.json", ofType: nil)
+            let dd =  try JSONDecoder().decode(SFProxy.self, from: Data.init(contentsOf: URL.init(fileURLWithPath: p!)))
+            print(dd)
+            print(d as NSData)
+        }catch let e {
+            print(e)
+            fatalError()
+        }
         self.p!.kcptun = true
         self.p!.config.crypt = "aes"
         if let x = Xcon.socketFromProxy(p, targetHost: "www.google.com", Port: 80, delegate: self, queue: q){
