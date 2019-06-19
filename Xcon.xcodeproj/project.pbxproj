@@ -1065,10 +1065,6 @@
 					"-weak_framework",
 					Sodium,
 					"-framework",
-					SwiftyJSON,
-					"-framework",
-					ObjectMapper,
-					"-framework",
 					XFoundation,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yarshure.XconMac;
@@ -1106,10 +1102,6 @@
 					"$(inherited)",
 					"-weak_framework",
 					Sodium,
-					"-framework",
-					SwiftyJSON,
-					"-framework",
-					ObjectMapper,
 					"-framework",
 					XFoundation,
 				);
