@@ -15,7 +15,7 @@
 
 import NetworkExtension
 import Foundation
-import KCP
+//import KCP
 class KcpTunConnector: ProxyConnector{
     static let shared:KcpTunConnector = {
         

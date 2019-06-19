@@ -8,7 +8,7 @@
 
 import Foundation
 import KCP
-import snappy
+//import snappy
 import NetworkExtension
 enum SmuxError:Error {
     
@@ -22,7 +22,7 @@ enum SmuxError:Error {
 class KcpStocket {
     var tun:KCP?
     static let SMuxTimeOut = 13.0 //没数据就timeout
-    var snappy:SnappyHelper?
+    //var snappy:SnappyHelper?
     var config:KcpConfig?
     var smuxConfig:Config = Config()
     var ready:Bool = false
@@ -86,9 +86,9 @@ class KcpStocket {
         }
         self.keepAlive(timeOut: 10);
         
-        if proxy.config.noComp {
-            snappy = SnappyHelper()
-        }
+//        if proxy.config.noComp {
+//            snappy = SnappyHelper()
+//        }
         
     }
     
@@ -98,16 +98,16 @@ class KcpStocket {
     func didRecevied(_ data: Data!) {
         self.lastActive = Date()
        
-        if let  s = snappy {
-            if let newData = s.decompress(data) {
-                self.readBuffer.append(newData)
-            }
-            
-        }else {
-            self.readBuffer.append(data)
-        }
-        
-        
+//        if let  s = snappy {
+//            if let newData = s.decompress(data) {
+//                self.readBuffer.append(newData)
+//            }
+//            
+//        }else {
+//            self.readBuffer.append(data)
+//        }
+//        
+        self.readBuffer.append(data)
         
        // Xcon.log("mux recv data: \(data.count) \(data as NSData)",level: .Debug)
         let _ = streams.compactMap{ k,v in

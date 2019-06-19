@@ -231,14 +231,14 @@ extension Xcon{
         if debugEnable {
             #if os(iOS)
                 if #available(iOSApplicationExtension 10.0, *) {
-                    os_log("Xcon: %@", log: .default, type: .debug, msg)
+                   // os_log("Xcon: %@", log: .default, type: .debug, msg)
                 } else {
                     print(msg)
                     // Fallback on earlier versions
                 }
             #elseif os(OSX)
-                if #available(OSXApplicationExtension 10.12, *) {
-                    os_log("Xcon: %@", log: .default, type: .debug, msg)
+                if #available(OSXApplicationExtension 10.12,iOS 10.0, *) {
+                    //os_log("Xcon: %@", log: .default, type: .debug, msg)
                 } else {
                     print(msg)
                     // Fallback on earlier versions

@@ -1,0 +1,79 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "AxLogger",
+        "repositoryURL": "https://github.com/networkextension/AxLogger",
+        "state": {
+          "branch": "SwiftPM",
+          "revision": "51ff1a3b3d18a8855e0bdbb50c9bea6638998c14",
+          "version": null
+        }
+      },
+      {
+        "package": "CocoaAsyncSocket",
+        "repositoryURL": "https://github.com/yarshure/CocoaAsyncSocket",
+        "state": {
+          "branch": "SwiftPM",
+          "revision": "1a78eef91bee75c0e73f49110d1ea7df27c8bceb",
+          "version": null
+        }
+      },
+      {
+        "package": "DarwinCore",
+        "repositoryURL": "http://github.com/networkextension/DarwinCore.git",
+        "state": {
+          "branch": "SwiftPM",
+          "revision": "cee2a7d0ee7b40e15e40d20973204e9d51eabc0f",
+          "version": null
+        }
+      },
+      {
+        "package": "KCP",
+        "repositoryURL": "https://github.com/networkextension/libkcp.git",
+        "state": {
+          "branch": "SwiftPM",
+          "revision": "f09bd84fb5c85f79fa531697b5609d5fb66d5247",
+          "version": null
+        }
+      },
+      {
+        "package": "ObjectMapper",
+        "repositoryURL": "https://github.com/tristanhimmelman/ObjectMapper",
+        "state": {
+          "branch": "master",
+          "revision": "76f5352f384961387d4056814dce5cf882b0ee6c",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftyJSON",
+        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
+        "state": {
+          "branch": null,
+          "revision": "2b6054efa051565954e1d2b9da831680026cd768",
+          "version": "5.0.0"
+        }
+      },
+      {
+        "package": "XFoundation",
+        "repositoryURL": "https://github.com/yarshure/XFoundation",
+        "state": {
+          "branch": "Package",
+          "revision": "fd16c199c17be00636aafe3d515986c6684feed2",
+          "version": null
+        }
+      },
+      {
+        "package": "XSocket",
+        "repositoryURL": "https://github.com/yarshure/XSocket",
+        "state": {
+          "branch": "SwiftPM",
+          "revision": "f3400b3bd1f94982edd7928ebac7aea16d476332",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
