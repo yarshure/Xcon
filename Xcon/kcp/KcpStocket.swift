@@ -65,7 +65,8 @@ class KcpStocket {
             
             if !ips.isEmpty {
                 if proxy.serverIP.isEmpty {
-                    proxy.serverIP = ips.first!
+                    self.proxy.updateIPAddr(ip: ips.first!)
+                   
                 }
                 self.tun = KCP.init(config: config, ipaddr: ips.first!, port:(proxy.serverPort), queue: self.dispatchQueue)
             }else {

@@ -10,7 +10,7 @@ import Cocoa
 import  Xcon
 import snappy
 import XSocket
-import ObjectMapper
+
 class ViewController: NSViewController ,XconDelegate{
     func didConnect(_ socket: Xcon, cert: SecTrust?) {
         
@@ -54,12 +54,13 @@ class ViewController: NSViewController ,XconDelegate{
 
     //let p = SFProxy.create(name: "11", type: .HTTP, address: "127.0.0.1", port: "8000", passwd: "", method: "", tls: false)
     
-    let p = SFProxy.create(name: "11", type: .HTTP, address: "host", port: "6001", passwd: "", method: "", tls: false)
+    var p = SFProxy.create(name: "11", type: .HTTP, address: "host", port: "6001", passwd: "", method: "", tls: false)
 
     func start(){
         guard let p = self.p else {return}
-        p.kcptun = true
-        p.config.crypt = "aes"
+        
+        self.p!.kcptun = true
+        self.p!.config.crypt = "aes"
         if let x = Xcon.socketFromProxy(p, targetHost: "www.google.com", Port: 80, delegate: self, queue: q){
 
             self.con = x
@@ -130,21 +131,18 @@ class ViewController: NSViewController ,XconDelegate{
         let _:rawHeader = Data.init(x)
         //print(data.desc())
         //print(ProxyGroupSettings.share.proxys)
-        guard let p = Mapper<SFProxy>().map(JSONString: "{\"type\":0}") else {
-            
-            return
-        }
-        print(p)
+       
+    
         //_ = ProxyGroupSettings.share.addProxy(p)
         //let line = " https,office.hshh.org,51001,vpn_yarshure,kong3191"
         let kcptun = "http,192.168.11.8,6000,,"
         if let p = SFProxy.createProxyWithLine(line: kcptun, pname: "CN2"){
             //_ = ProxyGroupSettings.share.addProxy(p)
-            p.kcptun = true
-            p.serverIP = "192.168.11.8"
-            //_  = ProxyGroupSettings.share.addProxy(p)
-            p.config.crypt = "none"
-            print(p.base64String())
+//            p.kcptun = true
+//            p.serverIP = "192.168.11.8"
+//            //_  = ProxyGroupSettings.share.addProxy(p)
+//            p.config.crypt = "none"
+//            print(p.base64String())
             //self.http = HTTPTester.init(p: p)
             //self.http?.start()
             

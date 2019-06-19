@@ -16,7 +16,6 @@
 		691EBDD21FC5771C005FDCAF /* Xcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD11FC5771C005FDCAF /* Xcon.swift */; };
 		691EBDD41FC57745005FDCAF /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD31FC57745005FDCAF /* Adapter.swift */; };
 		691EBDD61FC57810005FDCAF /* SFProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD51FC57810005FDCAF /* SFProxy.swift */; };
-		691EBDDC1FC57AC8005FDCAF /* SFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDDB1FC57AC8005FDCAF /* SFModel.swift */; };
 		691EBDDE1FC57B20005FDCAF /* ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDDD1FC57B20005FDCAF /* ext.swift */; };
 		691EBDE01FC57B47005FDCAF /* HTTPAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDDF1FC57B47005FDCAF /* HTTPAdapter.swift */; };
 		691EBDE21FC57B53005FDCAF /* Socks5Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDE11FC57B53005FDCAF /* Socks5Adapter.swift */; };
@@ -34,7 +33,6 @@
 		691EBE321FC66DE2005FDCAF /* EncryptExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF91FC582C1005FDCAF /* EncryptExtension.swift */; };
 		691EBE331FC66DE6005FDCAF /* Xcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD11FC5771C005FDCAF /* Xcon.swift */; };
 		691EBE341FC66DE9005FDCAF /* SFHTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */; };
-		691EBE361FC66DF1005FDCAF /* SFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDDB1FC57AC8005FDCAF /* SFModel.swift */; };
 		691EBE371FC66DF5005FDCAF /* SFProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD51FC57810005FDCAF /* SFProxy.swift */; };
 		691EBE381FC66DF9005FDCAF /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD31FC57745005FDCAF /* Adapter.swift */; };
 		691EBE391FC66DFD005FDCAF /* ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDDD1FC57B20005FDCAF /* ext.swift */; };
@@ -186,7 +184,6 @@
 		691EBDD11FC5771C005FDCAF /* Xcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xcon.swift; sourceTree = "<group>"; };
 		691EBDD31FC57745005FDCAF /* Adapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Adapter.swift; sourceTree = "<group>"; };
 		691EBDD51FC57810005FDCAF /* SFProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFProxy.swift; sourceTree = "<group>"; };
-		691EBDDB1FC57AC8005FDCAF /* SFModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFModel.swift; sourceTree = "<group>"; };
 		691EBDDD1FC57B20005FDCAF /* ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ext.swift; sourceTree = "<group>"; };
 		691EBDDF1FC57B47005FDCAF /* HTTPAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPAdapter.swift; sourceTree = "<group>"; };
 		691EBDE11FC57B53005FDCAF /* Socks5Adapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socks5Adapter.swift; sourceTree = "<group>"; };
@@ -346,7 +343,6 @@
 				691EBDF71FC580B6005FDCAF /* SFHTTPHeader.swift */,
 				69C17725200DC4AB004BDB3A /* util.swift */,
 				698776C1221D1DA100A9A7E5 /* InternetAddress.swift */,
-				691EBDDB1FC57AC8005FDCAF /* SFModel.swift */,
 				691EBDD51FC57810005FDCAF /* SFProxy.swift */,
 				691EBDD31FC57745005FDCAF /* Adapter.swift */,
 				691EBDDD1FC57B20005FDCAF /* ext.swift */,
@@ -698,7 +694,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "mkdir \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\"\nexport CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/codesign_allocate\nfpath=\"${SRCROOT}/Carthage/Build/Mac\"\ncd \"$fpath\"\n\ntar -c *.framework |tar -xvC \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\"\n\nfind . -name '*.framework' -type d | while read -r FRAMEWORK\ndo\necho \"codesign $FRAMEWORK\"\n/usr/bin/codesign --sign  $EXPANDED_CODE_SIGN_IDENTITY --force --preserve-metadata=identifier,entitlements,flags --timestamp=none \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/$FRAMEWORK/Versions/A\"\ndone\n";
+			shellScript = "mkdir \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\"\nexport CODESIGN_ALLOCATE=/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/codesign_allocate\nfpath=\"${SRCROOT}/Carthage/Build/Mac\"\ncd \"$fpath\"\n\n#tar -c *.framework |tar -xvC \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\"\n\nfind . -name '*.framework' -type d | while read -r FRAMEWORK\ndo\necho \"codesign $FRAMEWORK\"\n/usr/bin/codesign --sign  $EXPANDED_CODE_SIGN_IDENTITY --force --preserve-metadata=identifier,entitlements,flags --timestamp=none \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/$FRAMEWORK/Versions/A\"\ndone\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -725,7 +721,6 @@
 				691EBDD21FC5771C005FDCAF /* Xcon.swift in Sources */,
 				691EBDDE1FC57B20005FDCAF /* ext.swift in Sources */,
 				69E96BB5200874770060659A /* KcpTunConnector.swift in Sources */,
-				691EBDDC1FC57AC8005FDCAF /* SFModel.swift in Sources */,
 				694650711FF624FA000AFBE3 /* Fec.swift in Sources */,
 				691EBE001FC650C8005FDCAF /* SSSocket.swift in Sources */,
 				694650741FF62512000AFBE3 /* Config.swift in Sources */,
@@ -778,7 +773,6 @@
 				691EBE411FC66E1E005FDCAF /* SS3Adapter.swift in Sources */,
 				693A364B1FC7CC4A007FDE26 /* Connector.swift in Sources */,
 				691EBE321FC66DE2005FDCAF /* EncryptExtension.swift in Sources */,
-				691EBE361FC66DF1005FDCAF /* SFModel.swift in Sources */,
 				691EBE331FC66DE6005FDCAF /* Xcon.swift in Sources */,
 				694650811FF62546000AFBE3 /* Mux.swift in Sources */,
 				694650871FF62546000AFBE3 /* Session.swift in Sources */,

@@ -5,6 +5,6 @@
 //  Created by yarshure on 2017/12/14.
 //  Copyright © 2017年 yarshure. All rights reserved.
 //
-OTHER_LDFLAGS = $(inherited)  -weak_framework Sodium  -framework SwiftyJSON -framework ObjectMapper    -framework XFoundation
+OTHER_LDFLAGS = $(inherited)  -weak_framework Sodium    -framework XFoundation
 LIBRARY_SEARCH_PATHS = $(inherited) "$(PROJECT_DIR)/Carthage/Build/iOS/"
 //FRAMEWORK_SEARCH_PATHS = $(inherited) "$(PROJECT_DIR)/Carthage/Build/iOS/"

@@ -67,7 +67,7 @@ class KcpTestVC: NSViewController ,XconDelegate{
             fatalError()
         }
         start = Date()
-        p.kcptun = true
+       // p.kcptun = true
         con = Xcon.socketFromProxy(p, targetHost: "twitter.com", Port: 80, delegate: self, queue: queue,sessionID:0)
         // Do view setup here.
     }

@@ -10,7 +10,7 @@ import UIKit
 import  Xcon
 import snappy
 import XSocket
-import ObjectMapper
+
 class SecondViewController: UIViewController,XconDelegate {
 
    

@@ -7,10 +7,10 @@
 //
 
 import Foundation
-import SwiftyJSON
-import ObjectMapper
+
+
 import CommonCrypto
-public enum SFProxyType :Int, CustomStringConvertible{
+public enum SFProxyType :Int, CustomStringConvertible,Codable{
     case HTTP = 0
     case HTTPS = 1
     case SS = 2
@@ -32,8 +32,50 @@ public enum SFProxyType :Int, CustomStringConvertible{
         }
     }
 }
-
-public class SFKCPTunConfig:CommonModel {
+struct XProxyConfig: Codable {
+    let wwdcStyle: Bool
+    let selectIndex: Int
+    let historyEnable: Bool
+    let proxyChain: Bool
+    let disableWidget: Bool
+    let config: String
+    let editing: Bool
+    let lastupData: Date
+    let proxyChainIndex: Int
+//    struct ProxyMan: Codable {
+//        let chainProxys: [Any] //TODO: Specify the type to conforms Codable protocol
+//        let deleteproxys: [Any] //TODO: Specify the type to conforms Codable protocol
+//        struct Proxys: Codable {
+//            let pingValue: Int
+//            let pName: String
+//            let kcptun: Bool
+//            let type: Int
+//            let priority: Int
+//            let editEnable: Bool
+//            let serverIP: String
+//            let password: String
+//            let countryFlag: String
+//            let isoCode: String
+//            let chain: Bool
+//            let tcpValue: Int
+//            let tlsEnable: Bool
+//            let serverAddress: String
+//            
+//            let config: SFKCPTunConfig
+//            let method: String
+//            let udpRelay: Bool
+//            let serverPort: String
+//        }
+//        let proxys: [Proxys]
+//    }
+//    let proxyMan: ProxyMan
+    let saveDBIng: Bool
+    let dynamicSelected: Bool
+    let widgetFlow: Bool
+    let widgetProxyCount: Int
+    let showCountry: Bool
+}
+public struct SFKCPTunConfig:Codable {
 //    GLOBAL OPTIONS:
 //    --localaddr value, -l value      local listen address (default: ":12948")
 //    --remoteaddr value, -r value     kcp server address (default: "vps:29900")
@@ -70,27 +112,23 @@ public class SFKCPTunConfig:CommonModel {
     public var dscp:Int = 0
     public var noComp: Bool =  false //"nocomp"
     let SALT:String = "kcp-go"
-    public override func mapping(map: Map) {
-        
-        key  <- map["key"]
-        crypt <- map["crypt"]
-        mode <- map["mode"]
-        
-        autoexpire <- map["autoexpire"]
-        scavengettl <- map["scavengettl"] //http socks5 user
-        mtu   <- map["mtu"]
-        //type   <- (map["type"],EnumTransform<SFProxyType>())
-        sndwnd    <- map["sndwnd"]
-        rcvwnd         <- map["rcvwnd"]
-        datashard      <- map["datashard"]
-        parityshard       <- map["parityshard"]
-        dscp  <- map["dscp"]
-        noComp  <- map["NoComp"]
-        
-//         public var mode:String  = "fast2"
-//        public var key:String = "" //pkdf2 use
-//        public var cryptoType:String = "none"
+
+
+    private enum CodingKeys: String, CodingKey {
+        case mtu
+        case noComp = "NoComp"
+        case dscp
+        case scavengettl
+        case sndwnd
+        case datashard
+        case autoexpire
+        case crypt
+        case mode
+        case rcvwnd
+        case parityshard
+        case key
     }
+    
     public func pkbdf2Key(pass:String,salt:Data) ->Data?{
         //test ok
         //b23383c32eefa3753ab6db6e639a0ddc3b50ec6b6c623c9171a15ba0879945cd
@@ -132,7 +170,7 @@ public class SFKCPTunConfig:CommonModel {
     }
     
 }
-public class SFProxy:CommonModel {
+public struct SFProxy:Codable {
     public var proxyName:String = ""
     public var serverAddress:String = ""
     public var serverPort:String = ""
@@ -154,7 +192,10 @@ public class SFProxy:CommonModel {
     public var editEnable:Bool = true
    
     public var kcptun:Bool = false
-    public var config:SFKCPTunConfig = SFKCPTunConfig()
+    public var config:SFKCPTunConfig
+    mutating func updateIPAddr(ip:String)  {
+        self.serverIP = ip
+    }
     public func countryFlagFunc() ->String{
         if countryFlag.isEmpty {
             return showString()
@@ -166,35 +207,9 @@ public class SFProxy:CommonModel {
         let s = config.SALT.data(using: .utf8)!
         return config.pkbdf2Key(pass: config.key, salt: s)
     }
-    public override func mapping(map: Map) {
-        
-        proxyName  <- map["pName"]
-        serverAddress <- map["serverAddress"]
-        serverPort <- map["serverPort"]
-        
-        password <- map["password"]
-        method <- map["method"] //http socks5 user
-        tlsEnable   <- map["tlsEnable"]
-        type   <- (map["type"],EnumTransform<SFProxyType>())
-        countryFlag    <- map["countryFlag"]
-        priority         <- map["priority"]
-        isoCode      <- map["isoCode"]
-        serverIP       <- map["serverIP"]
-        chain  <- map["chain"]
-        udpRelay  <- map["udpRelay"]
-        kcptun  <- map["kcptun"]
-        config  <- map["config"]
-        
-        tcpValue <- map["tcpValue"]
-        priority <- map["priority"]
-        pingValue <- map["pingValue"]//
-        editEnable <- map["editEnable"]
-        //birthday    <- (map["birthday"], DateTransform())
-        
-        
-        
-    }
+
     public static func createProxyWithURL(_ configString:String) ->(proxy:SFProxy?,message:String) {
+        
         // http://base64str
         //"aes-256-cfb:fb4b532cb4180c9037c5b64bb3c09f7e@108.61.126.194:14860"
         //mayflower://xx:xx@108.61.126.194:14860
@@ -213,7 +228,7 @@ public class SFProxy:CommonModel {
                 return (nil,"\(configString) Invilad")
             }
             
-            guard let proxy:SFProxy = SFProxy.create(name: "server", type: .SS, address: "", port: "443", passwd: "", method: "aes-256-cfb", tls: false) else  {
+            guard var proxy:SFProxy = SFProxy.create(name: "server", type: .SS, address: "", port: "443", passwd: "", method: "aes-256-cfb", tls: false) else  {
                 return (nil, "create proxy error")
             }
             
@@ -332,7 +347,7 @@ public class SFProxy:CommonModel {
             let t = list.first?.uppercased().trimmingCharacters(in:
                 NSCharacterSet.whitespacesAndNewlines)
             //占位
-            guard let proxy:SFProxy = SFProxy.create(name: name, type: .SS, address: "", port: "443", passwd: "", method: "aes-256-cfb", tls: false) else  {
+            guard var  proxy:SFProxy = SFProxy.create(name: name, type: .SS, address: "", port: "443", passwd: "", method: "aes-256-cfb", tls: false) else  {
                 return (nil)
             }
             if t == "HTTP" {
@@ -384,10 +399,8 @@ public class SFProxy:CommonModel {
         //let user = Mapper<User>().map(JSONString: JSONString)
         // Create JSON String from Model
         //let JSONString = Mapper().toJSONString(user, prettyPrint: true)
-        guard let proxy = Mapper<SFProxy>().map(JSONString: "{\"type\":0}") else {
-            return nil
-        }
-        
+        var proxy = SFProxy.init(proxyName: name, serverAddress: address, serverPort: port, password: passwd, method: method, tlsEnable: tls, type: type, pingValue: 0.0, tcpValue: 0, dnsValue: 0, priority: 0, enable: true, serverIP: "", countryFlag: "", chain: false, isoCode: "", udpRelay: false, editEnable: true, kcptun: false, config: SFKCPTunConfig.init())
+
         proxy.proxyName = name
         proxy.serverAddress = address
         proxy.serverPort = port
@@ -398,24 +411,16 @@ public class SFProxy:CommonModel {
         }else {
             proxy.tlsEnable = tls
         }
-        
+
         if method == "aes" {
             proxy.type = .HTTPAES
         }else {
             proxy.type = type
         }
-        
+
         return proxy
     }
-    public required init?(map: Map) {
-        super.init(map: map)
-        //self.mapping(map: map)
-    }
-    //public required init?(map: Map) {
-    //super.init(map: map)
-    //super.init(map: map)
-    //fatalError("init(map:) has not been implemented")
-    //}
+
     
     
     public  func showString() ->String {
@@ -429,13 +434,6 @@ public class SFProxy:CommonModel {
         return serverAddress
     }
     
-    
-    //    public func resp() ->[String:Any]{
-    //        return ["name":proxyName as AnyObject,"host":serverAddress as AnyObject,"port":serverPort,"protocol":type.description,"method":method,"passwd":password,"tls":NSNumber.init(value: tlsEnable),"priority":NSNumber.init(value: priority),"enable":NSNumber.init(value: enable),"countryFlag":countryFlag,"isoCode":isoCode,"ipaddress":serverIP,"mode":mode,"kcptun":NSNumber.init(value:kcptun ),"chain":chain]
-    //    }
-    //open  static func map(_ name:String,value:JSON) ->SFProxy{
-  
-    
     public func typeDesc() ->String{
         var info:String = ""
         if tlsEnable && type == .HTTP {
@@ -448,9 +446,7 @@ public class SFProxy:CommonModel {
         }
         return info
     }
-    static public func loadFromDictioanry(_ dic:AnyObject?) ->SFProxy?{
-        return self.fromDictionary(dic)
-    }
+
     public func base64String() ->String {
         let tls = tlsEnable ? "1" : "0"
         let c = chain ? "1" : "0"
@@ -483,9 +479,7 @@ public class SFProxy:CommonModel {
         
     }
     
-    deinit{
-        
-    }
+    
 }
 public func ==(lhs:SFProxy, rhs:SFProxy) -> Bool { // Implement Equatable
     return lhs.serverAddress == rhs.serverAddress && lhs.serverPort == rhs.serverPort
