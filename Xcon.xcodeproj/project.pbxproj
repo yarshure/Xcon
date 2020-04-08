@@ -10,8 +10,6 @@
 		6907E9DB2011B77600E7B1FE /* XTLSProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6907E9DA2011B77500E7B1FE /* XTLSProtocol.swift */; };
 		691A541C22016C6500C3C086 /* KcpConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A541B22016C6500C3C086 /* KcpConfig.swift */; };
 		691A541D22016C6500C3C086 /* KcpConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A541B22016C6500C3C086 /* KcpConfig.swift */; };
-		691A541F22016C6C00C3C086 /* KCP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A541E22016C6C00C3C086 /* KCP.swift */; };
-		691A542022016C6C00C3C086 /* KCP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A541E22016C6C00C3C086 /* KCP.swift */; };
 		691EBDCB1FC575D8005FDCAF /* Xcon.h in Headers */ = {isa = PBXBuildFile; fileRef = 691EBDC91FC575D8005FDCAF /* Xcon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		691EBDD21FC5771C005FDCAF /* Xcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD11FC5771C005FDCAF /* Xcon.swift */; };
 		691EBDD41FC57745005FDCAF /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EBDD31FC57745005FDCAF /* Adapter.swift */; };
@@ -709,7 +707,6 @@
 			files = (
 				691EBDFC1FC650A7005FDCAF /* HTTPSocket.swift in Sources */,
 				691EBDD61FC57810005FDCAF /* SFProxy.swift in Sources */,
-				691A541F22016C6C00C3C086 /* KCP.swift in Sources */,
 				694650801FF62546000AFBE3 /* Mux.swift in Sources */,
 				69C17726200DC4AB004BDB3A /* util.swift in Sources */,
 				693A36501FC7CD9D007FDE26 /* SocketProtocol.swift in Sources */,
@@ -769,7 +766,6 @@
 				694650751FF62512000AFBE3 /* Config.swift in Sources */,
 				6946506E1FF62420000AFBE3 /* AEADCrypto.swift in Sources */,
 				691EBE311FC66DDE005FDCAF /* SFEncrypt.swift in Sources */,
-				691A542022016C6C00C3C086 /* KCP.swift in Sources */,
 				691EBE3A1FC66E01005FDCAF /* Socks5Adapter.swift in Sources */,
 				691EBE3B1FC66E05005FDCAF /* DirectSocket.swift in Sources */,
 				69E96BB6200874770060659A /* KcpTunConnector.swift in Sources */,

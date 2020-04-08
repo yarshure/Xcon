@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import KCP
+import kcp
 import snappy
 import NetworkExtension
 enum SmuxError:Error {
@@ -20,7 +20,7 @@ enum SmuxError:Error {
     
 }
 class KcpStocket {
-    var tun:KCP?
+    var tun:SFKcpTun?
     static let SMuxTimeOut = 13.0 //没数据就timeout
     var snappy:SnappyHelper?
     var config:KcpConfig?
@@ -51,14 +51,14 @@ class KcpStocket {
     }
 
     
-    init(proxy:SFProxy,config:KcpConfig,queue:DispatchQueue) {
+    init(proxy:SFProxy,config:TunConfig,queue:DispatchQueue) {
         self.proxy = proxy
         self.dispatchQueue = queue
      
         
         let type:SOCKS5HostType = proxy.serverAddress.validateIpAddr()
         if type != .DOMAIN {
-            self.tun = KCP.init(config: config, ipaddr: proxy.serverAddress, port: (proxy.serverPort), queue: self.dispatchQueue)
+            self.tun = SFKcpTun.init(config: config, ipaddr: proxy.serverAddress, port: (proxy.serverPort), queue: self.dispatchQueue)
         }else {
             let ips = query(proxy.serverAddress)
             //解析
@@ -67,10 +67,10 @@ class KcpStocket {
                 if proxy.serverIP.isEmpty {
                     proxy.serverIP = ips.first!
                 }
-                self.tun = KCP.init(config: config, ipaddr: ips.first!, port:(proxy.serverPort), queue: self.dispatchQueue)
+                self.tun = SFKcpTun.init(config: config, ipaddr: ips.first!, port:(proxy.serverPort), queue: self.dispatchQueue)
             }else {
                 Xcon.log("dns resolv failure:\(proxy.serverAddress)", level: .Info)
-                self.tun = KCP.init(config: config, ipaddr: proxy.serverAddress, port: (proxy.serverPort), queue: self.dispatchQueue)
+                self.tun = SFKcpTun.init(config: config, ipaddr: proxy.serverAddress, port: (proxy.serverPort), queue: self.dispatchQueue)
             }
         }
         
@@ -291,9 +291,9 @@ extension KcpStocket{
         if let tun = tun {
             if let s = snappy {
                 let newData = s.compress(data)
-                tun.input(data: newData)
+                tun.input(newData)
             }else {
-                tun.input(data: data)
+                tun.input(data)
             }
             
         }
@@ -305,11 +305,11 @@ extension KcpStocket{
         self.lastActive = Date()
         Xcon.log("KCP write \(data as NSData)",level: .Debug)
         if let tun = tun ,ready == true{
-            tun.input(data: data)
+            tun.input(data)
             
             if !sendbuffer.isEmpty {
                 let buffer = sendbuffer
-                tun.input(data: buffer)
+                tun.input(buffer)
                 //可能浪费内存
                 sendbuffer.removeAll(keepingCapacity: false)
             }
