@@ -54,12 +54,12 @@ class ViewController: NSViewController ,XconDelegate{
 
     //let p = SFProxy.create(name: "11", type: .HTTP, address: "127.0.0.1", port: "8000", passwd: "", method: "", tls: false)
     
-    let p = SFProxy.create(name: "11", type: .HTTP, address: "host", port: "6001", passwd: "", method: "", tls: false)
+    let p = SFProxy.create(name: "11", type: .HTTP, address: "144.34.203.132", port: "6000", passwd: "", method: "", tls: false)
 
     func start(){
         guard let p = self.p else {return}
         p.kcptun = true
-        p.config.crypt = "aes"
+        p.config.crypt = "none"
         if let x = Xcon.socketFromProxy(p, targetHost: "www.google.com", Port: 80, delegate: self, queue: q){
 
             self.con = x
